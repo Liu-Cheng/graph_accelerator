@@ -1,0 +1,3592 @@
+./ramulator configs/DDR3-config.cfg --mode=acc dram.trace
+burst 0 is sent to ramulator. 
+1 burst requests are received.
+burst 1 is sent to ramulator. 
+req: 0 is issued at 25 ns
+burst 2 is sent to ramulator. 
+2 burst requests are received.
+req: 1 is issued at 35 ns
+3 burst requests are received.
+burst 3 is sent to ramulator. 
+req: 2 is issued at 45 ns
+req: 3 is issued at 50 ns
+burst 4 is sent to ramulator. 
+4 burst requests are received.
+req: 4 is issued at 55 ns
+req: 5 is issued at 60 ns
+5 burst requests are received.
+burst 5 is sent to ramulator. 
+req: 6 is issued at 65 ns
+burst 6 is sent to ramulator. 
+6 burst requests are received.
+req: 7 is issued at 75 ns
+7 burst requests are received.
+burst 7 is sent to ramulator. 
+req: 8 is issued at 85 ns
+req: 9 is issued at 90 ns
+burst 8 is sent to ramulator. 
+8 burst requests are received.
+req: 10 is issued at 95 ns
+req: 11 is issued at 100 ns
+9 burst requests are received.
+burst 9 is sent to ramulator. 
+req: 12 is issued at 105 ns
+burst 10 is sent to ramulator. 
+10 burst requests are received.
+req: 13 is issued at 115 ns
+11 burst requests are received.
+burst 11 is sent to ramulator. 
+req: 14 is issued at 125 ns
+req: 15 is issued at 130 ns
+burst 12 is sent to ramulator. 
+12 burst requests are received.
+req: 16 is issued at 135 ns
+req: 17 is issued at 140 ns
+13 burst requests are received.
+burst 13 is sent to ramulator. 
+req: 18 is issued at 145 ns
+burst 14 is sent to ramulator. 
+14 burst requests are received.
+req: 19 is issued at 155 ns
+req: 0 is returnned at 160 ns
+req: 0 5 32
+15 burst requests are received.
+burst 15 is sent to ramulator. 
+req: 20 is issued at 165 ns
+req: 21 is issued at 170 ns
+burst 16 is sent to ramulator. 
+16 burst requests are received.
+req: 22 is issued at 175 ns
+req: 2 is returnned at 180 ns
+req: 2 9 36
+req: 23 is issued at 180 ns
+17 burst requests are received.
+burst 17 is sent to ramulator. 
+req: 24 is issued at 185 ns
+burst 18 is sent to ramulator. 
+18 burst requests are received.
+req: 25 is issued at 195 ns
+req: 1 is returnned at 200 ns
+req: 1 7 40
+19 burst requests are received.
+burst 19 is sent to ramulator. 
+req: 26 is issued at 205 ns
+req: 27 is issued at 210 ns
+burst 20 is sent to ramulator. 
+20 burst requests are received.
+req: 28 is issued at 215 ns
+req: 3 is returnned at 220 ns
+req: 3 10 44
+req: 29 is issued at 220 ns
+21 burst requests are received.
+burst 21 is sent to ramulator. 
+req: 30 is issued at 225 ns
+burst 22 is sent to ramulator. 
+22 burst requests are received.
+req: 31 is issued at 235 ns
+req: 4 is returnned at 240 ns
+req: 4 11 48
+23 burst requests are received.
+burst 23 is sent to ramulator. 
+req: 32 is issued at 245 ns
+req: 33 is issued at 250 ns
+burst 24 is sent to ramulator. 
+24 burst requests are received.
+req: 34 is issued at 255 ns
+req: 5 is returnned at 260 ns
+req: 5 12 52
+req: 35 is issued at 260 ns
+25 burst requests are received.
+burst 25 is sent to ramulator. 
+req: 36 is issued at 265 ns
+burst 26 is sent to ramulator. 
+26 burst requests are received.
+req: 37 is issued at 275 ns
+req: 6 is returnned at 280 ns
+req: 6 13 56
+27 burst requests are received.
+burst 27 is sent to ramulator. 
+req: 38 is issued at 285 ns
+req: 39 is issued at 290 ns
+burst 28 is sent to ramulator. 
+28 burst requests are received.
+req: 40 is issued at 295 ns
+req: 7 is returnned at 300 ns
+req: 7 15 60
+req: 41 is issued at 300 ns
+29 burst requests are received.
+burst 29 is sent to ramulator. 
+req: 42 is issued at 305 ns
+burst 30 is sent to ramulator. 
+30 burst requests are received.
+req: 43 is issued at 315 ns
+req: 8 is returnned at 320 ns
+req: 8 17 64
+31 burst requests are received.
+burst 31 is sent to ramulator. 
+req: 44 is issued at 325 ns
+burst 32 is sent to ramulator. 
+32 burst requests are received.
+req: 9 is returnned at 340 ns
+req: 9 18 68
+33 burst requests are received.
+burst 33 is sent to ramulator. 
+req: 45 is issued at 345 ns
+burst 34 is sent to ramulator. 
+34 burst requests are received.
+req: 10 is returnned at 360 ns
+req: 10 19 72
+35 burst requests are received.
+burst 35 is sent to ramulator. 
+req: 46 is issued at 365 ns
+burst 36 is sent to ramulator. 
+36 burst requests are received.
+req: 11 is returnned at 380 ns
+req: 11 20 76
+37 burst requests are received.
+burst 37 is sent to ramulator. 
+req: 47 is issued at 385 ns
+burst 38 is sent to ramulator. 
+38 burst requests are received.
+req: 12 is returnned at 400 ns
+req: 12 21 80
+39 burst requests are received.
+burst 39 is sent to ramulator. 
+req: 48 is issued at 405 ns
+burst 40 is sent to ramulator. 
+40 burst requests are received.
+req: 13 is returnned at 420 ns
+req: 13 23 84
+41 burst requests are received.
+burst 41 is sent to ramulator. 
+req: 49 is issued at 425 ns
+burst 42 is sent to ramulator. 
+42 burst requests are received.
+req: 14 is returnned at 440 ns
+req: 14 25 88
+43 burst requests are received.
+burst 43 is sent to ramulator. 
+req: 50 is issued at 445 ns
+burst 44 is sent to ramulator. 
+44 burst requests are received.
+req: 15 is returnned at 460 ns
+req: 15 26 92
+45 burst requests are received.
+burst 45 is sent to ramulator. 
+req: 51 is issued at 465 ns
+burst 46 is sent to ramulator. 
+46 burst requests are received.
+req: 16 is returnned at 480 ns
+req: 16 27 96
+47 burst requests are received.
+burst 47 is sent to ramulator. 
+req: 52 is issued at 485 ns
+burst 48 is sent to ramulator. 
+48 burst requests are received.
+req: 17 is returnned at 500 ns
+req: 17 28 100
+49 burst requests are received.
+burst 49 is sent to ramulator. 
+req: 53 is issued at 505 ns
+burst 50 is sent to ramulator. 
+50 burst requests are received.
+req: 18 is returnned at 520 ns
+req: 18 29 104
+51 burst requests are received.
+burst 51 is sent to ramulator. 
+req: 54 is issued at 525 ns
+burst 52 is sent to ramulator. 
+52 burst requests are received.
+req: 19 is returnned at 540 ns
+req: 19 31 108
+53 burst requests are received.
+burst 53 is sent to ramulator. 
+req: 55 is issued at 545 ns
+burst 54 is sent to ramulator. 
+54 burst requests are received.
+req: 20 is returnned at 560 ns
+req: 20 33 112
+55 burst requests are received.
+burst 55 is sent to ramulator. 
+req: 56 is issued at 565 ns
+burst 56 is sent to ramulator. 
+56 burst requests are received.
+req: 21 is returnned at 580 ns
+req: 21 34 116
+57 burst requests are received.
+burst 57 is sent to ramulator. 
+req: 57 is issued at 585 ns
+burst 58 is sent to ramulator. 
+58 burst requests are received.
+req: 22 is returnned at 600 ns
+req: 22 35 120
+59 burst requests are received.
+burst 59 is sent to ramulator. 
+req: 58 is issued at 605 ns
+burst 60 is sent to ramulator. 
+60 burst requests are received.
+req: 23 is returnned at 620 ns
+req: 23 36 124
+61 burst requests are received.
+burst 61 is sent to ramulator. 
+req: 59 is issued at 625 ns
+burst 62 is sent to ramulator. 
+62 burst requests are received.
+req: 24 is returnned at 640 ns
+req: 24 37 128
+63 burst requests are received.
+burst 63 is sent to ramulator. 
+req: 60 is issued at 645 ns
+burst 64 is sent to ramulator. 
+64 burst requests are received.
+req: 25 is returnned at 660 ns
+req: 25 39 132
+65 burst requests are received.
+burst 65 is sent to ramulator. 
+req: 61 is issued at 665 ns
+burst 66 is sent to ramulator. 
+66 burst requests are received.
+req: 26 is returnned at 680 ns
+req: 26 41 136
+67 burst requests are received.
+burst 67 is sent to ramulator. 
+req: 62 is issued at 685 ns
+burst 68 is sent to ramulator. 
+68 burst requests are received.
+req: 27 is returnned at 700 ns
+req: 27 42 140
+69 burst requests are received.
+burst 69 is sent to ramulator. 
+req: 63 is issued at 705 ns
+burst 70 is sent to ramulator. 
+70 burst requests are received.
+req: 28 is returnned at 720 ns
+req: 28 43 144
+71 burst requests are received.
+burst 71 is sent to ramulator. 
+req: 64 is issued at 725 ns
+burst 72 is sent to ramulator. 
+72 burst requests are received.
+req: 29 is returnned at 740 ns
+req: 29 44 148
+73 burst requests are received.
+burst 73 is sent to ramulator. 
+req: 65 is issued at 745 ns
+burst 74 is sent to ramulator. 
+74 burst requests are received.
+req: 30 is returnned at 760 ns
+req: 30 45 152
+75 burst requests are received.
+burst 75 is sent to ramulator. 
+req: 66 is issued at 765 ns
+burst 76 is sent to ramulator. 
+76 burst requests are received.
+req: 31 is returnned at 780 ns
+req: 31 47 156
+77 burst requests are received.
+burst 77 is sent to ramulator. 
+req: 67 is issued at 785 ns
+burst 78 is sent to ramulator. 
+78 burst requests are received.
+req: 32 is returnned at 800 ns
+req: 32 49 160
+79 burst requests are received.
+burst 79 is sent to ramulator. 
+req: 68 is issued at 805 ns
+burst 80 is sent to ramulator. 
+80 burst requests are received.
+req: 33 is returnned at 820 ns
+req: 33 50 164
+81 burst requests are received.
+burst 81 is sent to ramulator. 
+req: 69 is issued at 825 ns
+burst 82 is sent to ramulator. 
+82 burst requests are received.
+req: 34 is returnned at 840 ns
+req: 34 51 168
+83 burst requests are received.
+burst 83 is sent to ramulator. 
+req: 70 is issued at 845 ns
+burst 84 is sent to ramulator. 
+84 burst requests are received.
+req: 35 is returnned at 860 ns
+req: 35 52 172
+85 burst requests are received.
+burst 85 is sent to ramulator. 
+req: 71 is issued at 865 ns
+burst 86 is sent to ramulator. 
+86 burst requests are received.
+req: 36 is returnned at 880 ns
+req: 36 53 176
+87 burst requests are received.
+burst 87 is sent to ramulator. 
+req: 72 is issued at 885 ns
+burst 88 is sent to ramulator. 
+88 burst requests are received.
+req: 37 is returnned at 900 ns
+req: 37 55 180
+89 burst requests are received.
+burst 89 is sent to ramulator. 
+req: 73 is issued at 905 ns
+burst 90 is sent to ramulator. 
+90 burst requests are received.
+req: 38 is returnned at 920 ns
+req: 38 57 184
+91 burst requests are received.
+burst 91 is sent to ramulator. 
+req: 74 is issued at 925 ns
+burst 92 is sent to ramulator. 
+92 burst requests are received.
+req: 39 is returnned at 940 ns
+req: 39 58 188
+93 burst requests are received.
+burst 93 is sent to ramulator. 
+req: 75 is issued at 945 ns
+burst 94 is sent to ramulator. 
+94 burst requests are received.
+req: 40 is returnned at 960 ns
+req: 40 59 192
+95 burst requests are received.
+burst 95 is sent to ramulator. 
+req: 76 is issued at 965 ns
+burst 96 is sent to ramulator. 
+96 burst requests are received.
+req: 41 is returnned at 980 ns
+req: 41 60 196
+97 burst requests are received.
+burst 97 is sent to ramulator. 
+req: 77 is issued at 985 ns
+burst 98 is sent to ramulator. 
+98 burst requests are received.
+req: 42 is returnned at 1 us
+req: 42 61 200
+99 burst requests are received.
+burst 99 is sent to ramulator. 
+req: 78 is issued at 1005 ns
+burst 100 is sent to ramulator. 
+100 burst requests are received.
+req: 43 is returnned at 1020 ns
+req: 43 63 204
+101 burst requests are received.
+burst 101 is sent to ramulator. 
+req: 79 is issued at 1025 ns
+burst 102 is sent to ramulator. 
+102 burst requests are received.
+req: 44 is returnned at 1040 ns
+req: 44 65 208
+103 burst requests are received.
+burst 103 is sent to ramulator. 
+req: 80 is issued at 1045 ns
+burst 104 is sent to ramulator. 
+104 burst requests are received.
+req: 45 is returnned at 1060 ns
+req: 45 69 212
+105 burst requests are received.
+burst 105 is sent to ramulator. 
+req: 81 is issued at 1065 ns
+burst 106 is sent to ramulator. 
+106 burst requests are received.
+req: 46 is returnned at 1080 ns
+req: 46 73 216
+107 burst requests are received.
+burst 107 is sent to ramulator. 
+req: 82 is issued at 1085 ns
+burst 108 is sent to ramulator. 
+108 burst requests are received.
+req: 47 is returnned at 1100 ns
+req: 47 77 220
+109 burst requests are received.
+burst 109 is sent to ramulator. 
+req: 83 is issued at 1105 ns
+burst 110 is sent to ramulator. 
+110 burst requests are received.
+req: 48 is returnned at 1120 ns
+req: 48 81 224
+111 burst requests are received.
+burst 111 is sent to ramulator. 
+req: 84 is issued at 1125 ns
+burst 112 is sent to ramulator. 
+112 burst requests are received.
+req: 49 is returnned at 1140 ns
+req: 49 85 228
+113 burst requests are received.
+burst 113 is sent to ramulator. 
+req: 85 is issued at 1145 ns
+burst 114 is sent to ramulator. 
+114 burst requests are received.
+req: 50 is returnned at 1160 ns
+req: 50 89 232
+115 burst requests are received.
+burst 115 is sent to ramulator. 
+req: 86 is issued at 1165 ns
+burst 116 is sent to ramulator. 
+116 burst requests are received.
+req: 51 is returnned at 1180 ns
+req: 51 93 236
+117 burst requests are received.
+burst 117 is sent to ramulator. 
+req: 87 is issued at 1185 ns
+burst 118 is sent to ramulator. 
+118 burst requests are received.
+req: 52 is returnned at 1200 ns
+req: 52 97 240
+119 burst requests are received.
+burst 119 is sent to ramulator. 
+req: 88 is issued at 1205 ns
+burst 120 is sent to ramulator. 
+120 burst requests are received.
+req: 53 is returnned at 1220 ns
+req: 53 101 244
+121 burst requests are received.
+burst 121 is sent to ramulator. 
+req: 89 is issued at 1225 ns
+burst 122 is sent to ramulator. 
+122 burst requests are received.
+req: 54 is returnned at 1240 ns
+req: 54 105 248
+123 burst requests are received.
+burst 123 is sent to ramulator. 
+req: 90 is issued at 1245 ns
+burst 124 is sent to ramulator. 
+124 burst requests are received.
+req: 55 is returnned at 1260 ns
+req: 55 109 252
+125 burst requests are received.
+burst 125 is sent to ramulator. 
+req: 91 is issued at 1265 ns
+burst 126 is sent to ramulator. 
+126 burst requests are received.
+req: 56 is returnned at 1280 ns
+req: 56 113 256
+127 burst requests are received.
+burst 127 is sent to ramulator. 
+req: 92 is issued at 1285 ns
+burst 128 is sent to ramulator. 
+128 burst requests are received.
+req: 57 is returnned at 1300 ns
+req: 57 117 260
+129 burst requests are received.
+burst 129 is sent to ramulator. 
+req: 93 is issued at 1305 ns
+burst 130 is sent to ramulator. 
+130 burst requests are received.
+req: 58 is returnned at 1320 ns
+req: 58 121 264
+131 burst requests are received.
+burst 131 is sent to ramulator. 
+req: 94 is issued at 1325 ns
+burst 132 is sent to ramulator. 
+132 burst requests are received.
+req: 59 is returnned at 1340 ns
+req: 59 125 268
+133 burst requests are received.
+burst 133 is sent to ramulator. 
+req: 95 is issued at 1345 ns
+burst 134 is sent to ramulator. 
+134 burst requests are received.
+req: 60 is returnned at 1360 ns
+req: 60 129 272
+135 burst requests are received.
+burst 135 is sent to ramulator. 
+req: 96 is issued at 1365 ns
+burst 136 is sent to ramulator. 
+136 burst requests are received.
+req: 61 is returnned at 1380 ns
+req: 61 133 276
+137 burst requests are received.
+burst 137 is sent to ramulator. 
+req: 97 is issued at 1385 ns
+burst 138 is sent to ramulator. 
+138 burst requests are received.
+req: 62 is returnned at 1400 ns
+req: 62 137 280
+139 burst requests are received.
+burst 139 is sent to ramulator. 
+req: 98 is issued at 1405 ns
+burst 140 is sent to ramulator. 
+140 burst requests are received.
+req: 63 is returnned at 1420 ns
+req: 63 141 284
+141 burst requests are received.
+burst 141 is sent to ramulator. 
+req: 99 is issued at 1425 ns
+burst 142 is sent to ramulator. 
+142 burst requests are received.
+req: 64 is returnned at 1440 ns
+req: 64 145 288
+143 burst requests are received.
+burst 143 is sent to ramulator. 
+req: 100 is issued at 1445 ns
+burst 144 is sent to ramulator. 
+144 burst requests are received.
+req: 65 is returnned at 1460 ns
+req: 65 149 292
+145 burst requests are received.
+burst 145 is sent to ramulator. 
+req: 101 is issued at 1465 ns
+burst 146 is sent to ramulator. 
+146 burst requests are received.
+req: 66 is returnned at 1480 ns
+req: 66 153 296
+147 burst requests are received.
+burst 147 is sent to ramulator. 
+req: 102 is issued at 1485 ns
+burst 148 is sent to ramulator. 
+148 burst requests are received.
+req: 67 is returnned at 1500 ns
+req: 67 157 300
+149 burst requests are received.
+burst 149 is sent to ramulator. 
+req: 103 is issued at 1505 ns
+burst 150 is sent to ramulator. 
+150 burst requests are received.
+req: 68 is returnned at 1520 ns
+req: 68 161 304
+151 burst requests are received.
+burst 151 is sent to ramulator. 
+req: 104 is issued at 1525 ns
+burst 152 is sent to ramulator. 
+152 burst requests are received.
+req: 69 is returnned at 1540 ns
+req: 69 165 308
+153 burst requests are received.
+burst 153 is sent to ramulator. 
+req: 105 is issued at 1545 ns
+burst 154 is sent to ramulator. 
+154 burst requests are received.
+req: 70 is returnned at 1560 ns
+req: 70 169 312
+155 burst requests are received.
+burst 155 is sent to ramulator. 
+req: 106 is issued at 1565 ns
+burst 156 is sent to ramulator. 
+156 burst requests are received.
+req: 71 is returnned at 1580 ns
+req: 71 173 316
+157 burst requests are received.
+burst 157 is sent to ramulator. 
+req: 107 is issued at 1585 ns
+burst 158 is sent to ramulator. 
+158 burst requests are received.
+req: 72 is returnned at 1600 ns
+req: 72 177 320
+159 burst requests are received.
+burst 159 is sent to ramulator. 
+req: 108 is issued at 1605 ns
+burst 160 is sent to ramulator. 
+160 burst requests are received.
+req: 73 is returnned at 1620 ns
+req: 73 181 324
+161 burst requests are received.
+burst 161 is sent to ramulator. 
+req: 109 is issued at 1625 ns
+burst 162 is sent to ramulator. 
+162 burst requests are received.
+req: 74 is returnned at 1640 ns
+req: 74 185 328
+163 burst requests are received.
+burst 163 is sent to ramulator. 
+req: 110 is issued at 1645 ns
+burst 164 is sent to ramulator. 
+164 burst requests are received.
+req: 75 is returnned at 1660 ns
+req: 75 189 332
+165 burst requests are received.
+burst 165 is sent to ramulator. 
+req: 111 is issued at 1665 ns
+burst 166 is sent to ramulator. 
+166 burst requests are received.
+req: 76 is returnned at 1680 ns
+req: 76 193 336
+167 burst requests are received.
+burst 167 is sent to ramulator. 
+req: 112 is issued at 1685 ns
+burst 168 is sent to ramulator. 
+168 burst requests are received.
+req: 77 is returnned at 1700 ns
+req: 77 197 340
+169 burst requests are received.
+burst 169 is sent to ramulator. 
+req: 113 is issued at 1705 ns
+burst 170 is sent to ramulator. 
+170 burst requests are received.
+req: 78 is returnned at 1720 ns
+req: 78 201 344
+171 burst requests are received.
+burst 171 is sent to ramulator. 
+req: 114 is issued at 1725 ns
+burst 172 is sent to ramulator. 
+172 burst requests are received.
+req: 79 is returnned at 1740 ns
+req: 79 205 348
+173 burst requests are received.
+burst 173 is sent to ramulator. 
+req: 115 is issued at 1745 ns
+burst 174 is sent to ramulator. 
+174 burst requests are received.
+req: 80 is returnned at 1760 ns
+req: 80 209 352
+175 burst requests are received.
+burst 175 is sent to ramulator. 
+req: 116 is issued at 1765 ns
+burst 176 is sent to ramulator. 
+176 burst requests are received.
+req: 81 is returnned at 1780 ns
+req: 81 213 356
+177 burst requests are received.
+burst 177 is sent to ramulator. 
+req: 117 is issued at 1785 ns
+burst 178 is sent to ramulator. 
+178 burst requests are received.
+req: 82 is returnned at 1800 ns
+req: 82 217 360
+179 burst requests are received.
+burst 179 is sent to ramulator. 
+req: 118 is issued at 1805 ns
+burst 180 is sent to ramulator. 
+180 burst requests are received.
+req: 83 is returnned at 1820 ns
+req: 83 221 364
+181 burst requests are received.
+burst 181 is sent to ramulator. 
+req: 119 is issued at 1825 ns
+burst 182 is sent to ramulator. 
+182 burst requests are received.
+req: 84 is returnned at 1840 ns
+req: 84 225 368
+183 burst requests are received.
+burst 183 is sent to ramulator. 
+req: 120 is issued at 1845 ns
+burst 184 is sent to ramulator. 
+184 burst requests are received.
+req: 85 is returnned at 1860 ns
+req: 85 229 372
+185 burst requests are received.
+burst 185 is sent to ramulator. 
+req: 121 is issued at 1865 ns
+burst 186 is sent to ramulator. 
+186 burst requests are received.
+req: 86 is returnned at 1880 ns
+req: 86 233 376
+187 burst requests are received.
+burst 187 is sent to ramulator. 
+req: 122 is issued at 1885 ns
+burst 188 is sent to ramulator. 
+188 burst requests are received.
+req: 87 is returnned at 1900 ns
+req: 87 237 380
+189 burst requests are received.
+burst 189 is sent to ramulator. 
+req: 123 is issued at 1905 ns
+burst 190 is sent to ramulator. 
+190 burst requests are received.
+req: 88 is returnned at 1920 ns
+req: 88 241 384
+191 burst requests are received.
+burst 191 is sent to ramulator. 
+req: 124 is issued at 1925 ns
+burst 192 is sent to ramulator. 
+192 burst requests are received.
+req: 89 is returnned at 1940 ns
+req: 89 245 388
+193 burst requests are received.
+burst 193 is sent to ramulator. 
+req: 125 is issued at 1945 ns
+burst 194 is sent to ramulator. 
+194 burst requests are received.
+req: 90 is returnned at 1960 ns
+req: 90 249 392
+195 burst requests are received.
+burst 195 is sent to ramulator. 
+req: 126 is issued at 1965 ns
+burst 196 is sent to ramulator. 
+196 burst requests are received.
+req: 91 is returnned at 1980 ns
+req: 91 253 396
+197 burst requests are received.
+burst 197 is sent to ramulator. 
+req: 127 is issued at 1985 ns
+burst 198 is sent to ramulator. 
+198 burst requests are received.
+req: 92 is returnned at 2 us
+req: 92 257 400
+199 burst requests are received.
+burst 199 is sent to ramulator. 
+req: 128 is issued at 2005 ns
+burst 200 is sent to ramulator. 
+200 burst requests are received.
+req: 93 is returnned at 2020 ns
+req: 93 261 404
+201 burst requests are received.
+burst 201 is sent to ramulator. 
+req: 129 is issued at 2025 ns
+burst 202 is sent to ramulator. 
+202 burst requests are received.
+req: 94 is returnned at 2040 ns
+req: 94 265 408
+203 burst requests are received.
+burst 203 is sent to ramulator. 
+req: 130 is issued at 2045 ns
+burst 204 is sent to ramulator. 
+204 burst requests are received.
+req: 95 is returnned at 2060 ns
+req: 95 269 412
+205 burst requests are received.
+burst 205 is sent to ramulator. 
+req: 131 is issued at 2065 ns
+burst 206 is sent to ramulator. 
+206 burst requests are received.
+req: 96 is returnned at 2080 ns
+req: 96 273 416
+207 burst requests are received.
+burst 207 is sent to ramulator. 
+req: 132 is issued at 2085 ns
+burst 208 is sent to ramulator. 
+208 burst requests are received.
+req: 97 is returnned at 2100 ns
+req: 97 277 420
+209 burst requests are received.
+burst 209 is sent to ramulator. 
+req: 133 is issued at 2105 ns
+burst 210 is sent to ramulator. 
+210 burst requests are received.
+req: 98 is returnned at 2120 ns
+req: 98 281 424
+211 burst requests are received.
+burst 211 is sent to ramulator. 
+req: 134 is issued at 2125 ns
+burst 212 is sent to ramulator. 
+212 burst requests are received.
+req: 99 is returnned at 2140 ns
+req: 99 285 428
+213 burst requests are received.
+burst 213 is sent to ramulator. 
+req: 135 is issued at 2145 ns
+burst 214 is sent to ramulator. 
+214 burst requests are received.
+req: 100 is returnned at 2160 ns
+req: 100 289 432
+215 burst requests are received.
+burst 215 is sent to ramulator. 
+req: 136 is issued at 2165 ns
+burst 216 is sent to ramulator. 
+216 burst requests are received.
+req: 101 is returnned at 2180 ns
+req: 101 293 436
+217 burst requests are received.
+burst 217 is sent to ramulator. 
+req: 137 is issued at 2185 ns
+burst 218 is sent to ramulator. 
+218 burst requests are received.
+req: 102 is returnned at 2200 ns
+req: 102 297 440
+219 burst requests are received.
+burst 219 is sent to ramulator. 
+req: 138 is issued at 2205 ns
+burst 220 is sent to ramulator. 
+220 burst requests are received.
+req: 103 is returnned at 2220 ns
+req: 103 301 444
+221 burst requests are received.
+burst 221 is sent to ramulator. 
+req: 139 is issued at 2225 ns
+burst 222 is sent to ramulator. 
+222 burst requests are received.
+req: 104 is returnned at 2240 ns
+req: 104 305 448
+223 burst requests are received.
+burst 223 is sent to ramulator. 
+req: 140 is issued at 2245 ns
+burst 224 is sent to ramulator. 
+224 burst requests are received.
+req: 105 is returnned at 2260 ns
+req: 105 309 452
+225 burst requests are received.
+burst 225 is sent to ramulator. 
+req: 141 is issued at 2265 ns
+burst 226 is sent to ramulator. 
+226 burst requests are received.
+req: 106 is returnned at 2280 ns
+req: 106 313 456
+227 burst requests are received.
+burst 227 is sent to ramulator. 
+req: 142 is issued at 2285 ns
+burst 228 is sent to ramulator. 
+228 burst requests are received.
+req: 107 is returnned at 2300 ns
+req: 107 317 460
+229 burst requests are received.
+burst 229 is sent to ramulator. 
+req: 143 is issued at 2305 ns
+burst 230 is sent to ramulator. 
+230 burst requests are received.
+req: 108 is returnned at 2320 ns
+req: 108 321 464
+231 burst requests are received.
+burst 231 is sent to ramulator. 
+req: 144 is issued at 2325 ns
+burst 232 is sent to ramulator. 
+232 burst requests are received.
+req: 109 is returnned at 2340 ns
+req: 109 325 468
+233 burst requests are received.
+burst 233 is sent to ramulator. 
+req: 145 is issued at 2345 ns
+burst 234 is sent to ramulator. 
+234 burst requests are received.
+req: 110 is returnned at 2360 ns
+req: 110 329 472
+235 burst requests are received.
+burst 235 is sent to ramulator. 
+req: 146 is issued at 2365 ns
+burst 236 is sent to ramulator. 
+236 burst requests are received.
+req: 111 is returnned at 2380 ns
+req: 111 333 476
+237 burst requests are received.
+burst 237 is sent to ramulator. 
+req: 147 is issued at 2385 ns
+burst 238 is sent to ramulator. 
+238 burst requests are received.
+req: 112 is returnned at 2400 ns
+req: 112 337 480
+239 burst requests are received.
+burst 239 is sent to ramulator. 
+req: 148 is issued at 2405 ns
+burst 240 is sent to ramulator. 
+240 burst requests are received.
+req: 113 is returnned at 2420 ns
+req: 113 341 484
+241 burst requests are received.
+burst 241 is sent to ramulator. 
+req: 149 is issued at 2425 ns
+burst 242 is sent to ramulator. 
+242 burst requests are received.
+req: 114 is returnned at 2440 ns
+req: 114 345 488
+243 burst requests are received.
+burst 243 is sent to ramulator. 
+req: 150 is issued at 2445 ns
+burst 244 is sent to ramulator. 
+244 burst requests are received.
+req: 115 is returnned at 2460 ns
+req: 115 349 492
+245 burst requests are received.
+burst 245 is sent to ramulator. 
+req: 151 is issued at 2465 ns
+burst 246 is sent to ramulator. 
+246 burst requests are received.
+req: 116 is returnned at 2480 ns
+req: 116 353 496
+247 burst requests are received.
+burst 247 is sent to ramulator. 
+req: 152 is issued at 2485 ns
+burst 248 is sent to ramulator. 
+248 burst requests are received.
+req: 117 is returnned at 2500 ns
+req: 117 357 500
+249 burst requests are received.
+burst 249 is sent to ramulator. 
+req: 153 is issued at 2505 ns
+burst 250 is sent to ramulator. 
+250 burst requests are received.
+req: 118 is returnned at 2520 ns
+req: 118 361 504
+251 burst requests are received.
+burst 251 is sent to ramulator. 
+req: 154 is issued at 2525 ns
+burst 252 is sent to ramulator. 
+252 burst requests are received.
+req: 119 is returnned at 2540 ns
+req: 119 365 508
+253 burst requests are received.
+burst 253 is sent to ramulator. 
+req: 155 is issued at 2545 ns
+burst 254 is sent to ramulator. 
+254 burst requests are received.
+req: 120 is returnned at 2560 ns
+req: 120 369 512
+255 burst requests are received.
+burst 255 is sent to ramulator. 
+File: src/pe.cpp Line: 231
+All the read burst memory operations have been generated at 2560 ns
+req: 156 is issued at 2565 ns
+burst 256 is sent to ramulator. 
+256 burst requests are received.
+req: 121 is returnned at 2580 ns
+req: 121 373 516
+257 burst requests are received.
+burst 257 is sent to ramulator. 
+req: 157 is issued at 2585 ns
+burst 258 is sent to ramulator. 
+258 burst requests are received.
+req: 122 is returnned at 2600 ns
+req: 122 377 520
+259 burst requests are received.
+burst 259 is sent to ramulator. 
+req: 158 is issued at 2605 ns
+burst 260 is sent to ramulator. 
+260 burst requests are received.
+req: 123 is returnned at 2620 ns
+req: 123 381 524
+261 burst requests are received.
+burst 261 is sent to ramulator. 
+req: 159 is issued at 2625 ns
+burst 262 is sent to ramulator. 
+262 burst requests are received.
+req: 124 is returnned at 2640 ns
+req: 124 385 528
+263 burst requests are received.
+burst 263 is sent to ramulator. 
+req: 160 is issued at 2645 ns
+burst 264 is sent to ramulator. 
+264 burst requests are received.
+req: 125 is returnned at 2660 ns
+req: 125 389 532
+265 burst requests are received.
+burst 265 is sent to ramulator. 
+req: 161 is issued at 2665 ns
+burst 266 is sent to ramulator. 
+266 burst requests are received.
+req: 126 is returnned at 2680 ns
+req: 126 393 536
+267 burst requests are received.
+burst 267 is sent to ramulator. 
+req: 162 is issued at 2685 ns
+burst 268 is sent to ramulator. 
+268 burst requests are received.
+req: 127 is returnned at 2700 ns
+req: 127 397 540
+269 burst requests are received.
+burst 269 is sent to ramulator. 
+req: 163 is issued at 2705 ns
+burst 270 is sent to ramulator. 
+270 burst requests are received.
+req: 128 is returnned at 2720 ns
+req: 128 401 544
+271 burst requests are received.
+burst 271 is sent to ramulator. 
+req: 164 is issued at 2725 ns
+burst 272 is sent to ramulator. 
+272 burst requests are received.
+req: 129 is returnned at 2740 ns
+req: 129 405 548
+273 burst requests are received.
+burst 273 is sent to ramulator. 
+req: 165 is issued at 2745 ns
+burst 274 is sent to ramulator. 
+274 burst requests are received.
+req: 130 is returnned at 2760 ns
+req: 130 409 552
+275 burst requests are received.
+burst 275 is sent to ramulator. 
+req: 166 is issued at 2765 ns
+burst 276 is sent to ramulator. 
+276 burst requests are received.
+req: 131 is returnned at 2780 ns
+req: 131 413 556
+277 burst requests are received.
+burst 277 is sent to ramulator. 
+req: 167 is issued at 2785 ns
+burst 278 is sent to ramulator. 
+278 burst requests are received.
+req: 132 is returnned at 2800 ns
+req: 132 417 560
+279 burst requests are received.
+burst 279 is sent to ramulator. 
+req: 168 is issued at 2805 ns
+burst 280 is sent to ramulator. 
+280 burst requests are received.
+req: 133 is returnned at 2820 ns
+req: 133 421 564
+281 burst requests are received.
+burst 281 is sent to ramulator. 
+req: 169 is issued at 2825 ns
+burst 282 is sent to ramulator. 
+282 burst requests are received.
+req: 134 is returnned at 2840 ns
+req: 134 425 568
+283 burst requests are received.
+burst 283 is sent to ramulator. 
+req: 170 is issued at 2845 ns
+burst 284 is sent to ramulator. 
+284 burst requests are received.
+req: 135 is returnned at 2860 ns
+req: 135 429 572
+285 burst requests are received.
+burst 285 is sent to ramulator. 
+req: 171 is issued at 2865 ns
+burst 286 is sent to ramulator. 
+286 burst requests are received.
+req: 136 is returnned at 2880 ns
+req: 136 433 576
+287 burst requests are received.
+burst 287 is sent to ramulator. 
+req: 172 is issued at 2885 ns
+burst 288 is sent to ramulator. 
+288 burst requests are received.
+req: 137 is returnned at 2900 ns
+req: 137 437 580
+289 burst requests are received.
+burst 289 is sent to ramulator. 
+req: 173 is issued at 2905 ns
+burst 290 is sent to ramulator. 
+290 burst requests are received.
+req: 138 is returnned at 2920 ns
+req: 138 441 584
+291 burst requests are received.
+burst 291 is sent to ramulator. 
+req: 174 is issued at 2925 ns
+burst 292 is sent to ramulator. 
+292 burst requests are received.
+req: 139 is returnned at 2940 ns
+req: 139 445 588
+293 burst requests are received.
+burst 293 is sent to ramulator. 
+req: 175 is issued at 2945 ns
+burst 294 is sent to ramulator. 
+294 burst requests are received.
+req: 140 is returnned at 2960 ns
+req: 140 449 592
+295 burst requests are received.
+burst 295 is sent to ramulator. 
+req: 176 is issued at 2965 ns
+burst 296 is sent to ramulator. 
+296 burst requests are received.
+req: 141 is returnned at 2980 ns
+req: 141 453 596
+297 burst requests are received.
+burst 297 is sent to ramulator. 
+req: 177 is issued at 2985 ns
+burst 298 is sent to ramulator. 
+298 burst requests are received.
+req: 142 is returnned at 3 us
+req: 142 457 600
+299 burst requests are received.
+burst 299 is sent to ramulator. 
+req: 178 is issued at 3005 ns
+burst 300 is sent to ramulator. 
+300 burst requests are received.
+req: 143 is returnned at 3020 ns
+req: 143 461 604
+301 burst requests are received.
+burst 301 is sent to ramulator. 
+req: 179 is issued at 3025 ns
+burst 302 is sent to ramulator. 
+302 burst requests are received.
+req: 144 is returnned at 3040 ns
+req: 144 465 608
+303 burst requests are received.
+burst 303 is sent to ramulator. 
+req: 180 is issued at 3045 ns
+burst 304 is sent to ramulator. 
+304 burst requests are received.
+req: 145 is returnned at 3060 ns
+req: 145 469 612
+305 burst requests are received.
+burst 305 is sent to ramulator. 
+req: 181 is issued at 3065 ns
+burst 306 is sent to ramulator. 
+306 burst requests are received.
+req: 146 is returnned at 3080 ns
+req: 146 473 616
+307 burst requests are received.
+burst 307 is sent to ramulator. 
+req: 182 is issued at 3085 ns
+burst 308 is sent to ramulator. 
+308 burst requests are received.
+req: 147 is returnned at 3100 ns
+req: 147 477 620
+309 burst requests are received.
+burst 309 is sent to ramulator. 
+req: 183 is issued at 3105 ns
+burst 310 is sent to ramulator. 
+310 burst requests are received.
+req: 148 is returnned at 3120 ns
+req: 148 481 624
+311 burst requests are received.
+burst 311 is sent to ramulator. 
+req: 184 is issued at 3125 ns
+burst 312 is sent to ramulator. 
+312 burst requests are received.
+req: 149 is returnned at 3140 ns
+req: 149 485 628
+313 burst requests are received.
+burst 313 is sent to ramulator. 
+req: 185 is issued at 3145 ns
+burst 314 is sent to ramulator. 
+314 burst requests are received.
+req: 150 is returnned at 3160 ns
+req: 150 489 632
+315 burst requests are received.
+burst 315 is sent to ramulator. 
+req: 186 is issued at 3165 ns
+burst 316 is sent to ramulator. 
+316 burst requests are received.
+req: 151 is returnned at 3180 ns
+req: 151 493 636
+317 burst requests are received.
+burst 317 is sent to ramulator. 
+req: 187 is issued at 3185 ns
+burst 318 is sent to ramulator. 
+318 burst requests are received.
+req: 152 is returnned at 3200 ns
+req: 152 497 640
+319 burst requests are received.
+burst 319 is sent to ramulator. 
+req: 188 is issued at 3205 ns
+burst 320 is sent to ramulator. 
+320 burst requests are received.
+req: 153 is returnned at 3220 ns
+req: 153 501 644
+321 burst requests are received.
+burst 321 is sent to ramulator. 
+req: 189 is issued at 3225 ns
+burst 322 is sent to ramulator. 
+322 burst requests are received.
+req: 154 is returnned at 3240 ns
+req: 154 505 648
+323 burst requests are received.
+burst 323 is sent to ramulator. 
+req: 190 is issued at 3245 ns
+burst 324 is sent to ramulator. 
+324 burst requests are received.
+req: 155 is returnned at 3260 ns
+req: 155 509 652
+325 burst requests are received.
+burst 325 is sent to ramulator. 
+req: 191 is issued at 3265 ns
+burst 326 is sent to ramulator. 
+326 burst requests are received.
+req: 156 is returnned at 3280 ns
+req: 156 513 656
+327 burst requests are received.
+burst 327 is sent to ramulator. 
+req: 192 is issued at 3285 ns
+burst 328 is sent to ramulator. 
+328 burst requests are received.
+req: 157 is returnned at 3300 ns
+req: 157 517 660
+329 burst requests are received.
+burst 329 is sent to ramulator. 
+req: 193 is issued at 3305 ns
+burst 330 is sent to ramulator. 
+330 burst requests are received.
+req: 158 is returnned at 3320 ns
+req: 158 521 664
+331 burst requests are received.
+burst 331 is sent to ramulator. 
+req: 194 is issued at 3325 ns
+burst 332 is sent to ramulator. 
+332 burst requests are received.
+req: 159 is returnned at 3340 ns
+req: 159 525 668
+333 burst requests are received.
+burst 333 is sent to ramulator. 
+req: 195 is issued at 3345 ns
+burst 334 is sent to ramulator. 
+334 burst requests are received.
+req: 160 is returnned at 3360 ns
+req: 160 529 672
+335 burst requests are received.
+burst 335 is sent to ramulator. 
+req: 196 is issued at 3365 ns
+burst 336 is sent to ramulator. 
+336 burst requests are received.
+req: 161 is returnned at 3380 ns
+req: 161 533 676
+337 burst requests are received.
+burst 337 is sent to ramulator. 
+req: 197 is issued at 3385 ns
+burst 338 is sent to ramulator. 
+338 burst requests are received.
+req: 162 is returnned at 3400 ns
+req: 162 537 680
+339 burst requests are received.
+burst 339 is sent to ramulator. 
+req: 198 is issued at 3405 ns
+burst 340 is sent to ramulator. 
+340 burst requests are received.
+req: 163 is returnned at 3420 ns
+req: 163 541 684
+341 burst requests are received.
+burst 341 is sent to ramulator. 
+req: 199 is issued at 3425 ns
+burst 342 is sent to ramulator. 
+342 burst requests are received.
+req: 164 is returnned at 3440 ns
+req: 164 545 688
+343 burst requests are received.
+burst 343 is sent to ramulator. 
+req: 200 is issued at 3445 ns
+burst 344 is sent to ramulator. 
+344 burst requests are received.
+req: 165 is returnned at 3460 ns
+req: 165 549 692
+345 burst requests are received.
+burst 345 is sent to ramulator. 
+req: 201 is issued at 3465 ns
+burst 346 is sent to ramulator. 
+346 burst requests are received.
+req: 166 is returnned at 3480 ns
+req: 166 553 696
+347 burst requests are received.
+burst 347 is sent to ramulator. 
+req: 202 is issued at 3485 ns
+burst 348 is sent to ramulator. 
+348 burst requests are received.
+req: 167 is returnned at 3500 ns
+req: 167 557 700
+349 burst requests are received.
+burst 349 is sent to ramulator. 
+req: 203 is issued at 3505 ns
+burst 350 is sent to ramulator. 
+350 burst requests are received.
+req: 168 is returnned at 3520 ns
+req: 168 561 704
+351 burst requests are received.
+burst 351 is sent to ramulator. 
+req: 204 is issued at 3525 ns
+burst 352 is sent to ramulator. 
+352 burst requests are received.
+req: 169 is returnned at 3540 ns
+req: 169 565 708
+353 burst requests are received.
+burst 353 is sent to ramulator. 
+req: 205 is issued at 3545 ns
+burst 354 is sent to ramulator. 
+354 burst requests are received.
+req: 170 is returnned at 3560 ns
+req: 170 569 712
+355 burst requests are received.
+burst 355 is sent to ramulator. 
+req: 206 is issued at 3565 ns
+burst 356 is sent to ramulator. 
+356 burst requests are received.
+req: 171 is returnned at 3580 ns
+req: 171 573 716
+357 burst requests are received.
+burst 357 is sent to ramulator. 
+req: 207 is issued at 3585 ns
+burst 358 is sent to ramulator. 
+358 burst requests are received.
+req: 172 is returnned at 3600 ns
+req: 172 577 720
+359 burst requests are received.
+burst 359 is sent to ramulator. 
+req: 208 is issued at 3605 ns
+burst 360 is sent to ramulator. 
+360 burst requests are received.
+req: 173 is returnned at 3620 ns
+req: 173 581 724
+361 burst requests are received.
+burst 361 is sent to ramulator. 
+req: 209 is issued at 3625 ns
+burst 362 is sent to ramulator. 
+362 burst requests are received.
+req: 174 is returnned at 3640 ns
+req: 174 585 728
+363 burst requests are received.
+burst 363 is sent to ramulator. 
+req: 210 is issued at 3645 ns
+burst 364 is sent to ramulator. 
+364 burst requests are received.
+req: 175 is returnned at 3660 ns
+req: 175 589 732
+365 burst requests are received.
+burst 365 is sent to ramulator. 
+req: 211 is issued at 3665 ns
+burst 366 is sent to ramulator. 
+366 burst requests are received.
+req: 176 is returnned at 3680 ns
+req: 176 593 736
+367 burst requests are received.
+burst 367 is sent to ramulator. 
+req: 212 is issued at 3685 ns
+burst 368 is sent to ramulator. 
+368 burst requests are received.
+req: 177 is returnned at 3700 ns
+req: 177 597 740
+369 burst requests are received.
+burst 369 is sent to ramulator. 
+req: 213 is issued at 3705 ns
+burst 370 is sent to ramulator. 
+370 burst requests are received.
+req: 178 is returnned at 3720 ns
+req: 178 601 744
+371 burst requests are received.
+burst 371 is sent to ramulator. 
+req: 214 is issued at 3725 ns
+burst 372 is sent to ramulator. 
+372 burst requests are received.
+req: 179 is returnned at 3740 ns
+req: 179 605 748
+373 burst requests are received.
+burst 373 is sent to ramulator. 
+req: 215 is issued at 3745 ns
+burst 374 is sent to ramulator. 
+374 burst requests are received.
+req: 180 is returnned at 3760 ns
+req: 180 609 752
+375 burst requests are received.
+burst 375 is sent to ramulator. 
+req: 216 is issued at 3765 ns
+burst 376 is sent to ramulator. 
+376 burst requests are received.
+req: 181 is returnned at 3780 ns
+req: 181 613 756
+377 burst requests are received.
+burst 377 is sent to ramulator. 
+req: 217 is issued at 3785 ns
+burst 378 is sent to ramulator. 
+378 burst requests are received.
+req: 182 is returnned at 3800 ns
+req: 182 617 760
+379 burst requests are received.
+burst 379 is sent to ramulator. 
+req: 218 is issued at 3805 ns
+burst 380 is sent to ramulator. 
+380 burst requests are received.
+req: 183 is returnned at 3820 ns
+req: 183 621 764
+381 burst requests are received.
+burst 381 is sent to ramulator. 
+req: 219 is issued at 3825 ns
+burst 382 is sent to ramulator. 
+382 burst requests are received.
+req: 184 is returnned at 3840 ns
+req: 184 625 768
+383 burst requests are received.
+burst 383 is sent to ramulator. 
+req: 220 is issued at 3845 ns
+burst 384 is sent to ramulator. 
+384 burst requests are received.
+req: 185 is returnned at 3860 ns
+req: 185 629 772
+385 burst requests are received.
+burst 385 is sent to ramulator. 
+req: 221 is issued at 3865 ns
+burst 386 is sent to ramulator. 
+386 burst requests are received.
+req: 186 is returnned at 3880 ns
+req: 186 633 776
+387 burst requests are received.
+burst 387 is sent to ramulator. 
+req: 222 is issued at 3885 ns
+burst 388 is sent to ramulator. 
+388 burst requests are received.
+req: 187 is returnned at 3900 ns
+req: 187 637 780
+389 burst requests are received.
+burst 389 is sent to ramulator. 
+req: 223 is issued at 3905 ns
+burst 390 is sent to ramulator. 
+390 burst requests are received.
+req: 188 is returnned at 3920 ns
+req: 188 641 784
+391 burst requests are received.
+burst 391 is sent to ramulator. 
+req: 224 is issued at 3925 ns
+burst 392 is sent to ramulator. 
+392 burst requests are received.
+req: 189 is returnned at 3940 ns
+req: 189 645 788
+393 burst requests are received.
+burst 393 is sent to ramulator. 
+req: 225 is issued at 3945 ns
+burst 394 is sent to ramulator. 
+394 burst requests are received.
+req: 190 is returnned at 3960 ns
+req: 190 649 792
+395 burst requests are received.
+burst 395 is sent to ramulator. 
+req: 226 is issued at 3965 ns
+burst 396 is sent to ramulator. 
+396 burst requests are received.
+req: 191 is returnned at 3980 ns
+req: 191 653 796
+397 burst requests are received.
+burst 397 is sent to ramulator. 
+req: 227 is issued at 3985 ns
+burst 398 is sent to ramulator. 
+398 burst requests are received.
+req: 192 is returnned at 4 us
+req: 192 657 800
+399 burst requests are received.
+burst 399 is sent to ramulator. 
+req: 228 is issued at 4005 ns
+burst 400 is sent to ramulator. 
+400 burst requests are received.
+req: 193 is returnned at 4020 ns
+req: 193 661 804
+401 burst requests are received.
+burst 401 is sent to ramulator. 
+req: 229 is issued at 4025 ns
+burst 402 is sent to ramulator. 
+402 burst requests are received.
+req: 194 is returnned at 4040 ns
+req: 194 665 808
+403 burst requests are received.
+burst 403 is sent to ramulator. 
+req: 230 is issued at 4045 ns
+burst 404 is sent to ramulator. 
+404 burst requests are received.
+req: 195 is returnned at 4060 ns
+req: 195 669 812
+405 burst requests are received.
+burst 405 is sent to ramulator. 
+req: 231 is issued at 4065 ns
+burst 406 is sent to ramulator. 
+406 burst requests are received.
+req: 196 is returnned at 4080 ns
+req: 196 673 816
+407 burst requests are received.
+burst 407 is sent to ramulator. 
+req: 232 is issued at 4085 ns
+burst 408 is sent to ramulator. 
+408 burst requests are received.
+req: 197 is returnned at 4100 ns
+req: 197 677 820
+409 burst requests are received.
+burst 409 is sent to ramulator. 
+req: 233 is issued at 4105 ns
+burst 410 is sent to ramulator. 
+410 burst requests are received.
+req: 198 is returnned at 4120 ns
+req: 198 681 824
+411 burst requests are received.
+burst 411 is sent to ramulator. 
+req: 234 is issued at 4125 ns
+burst 412 is sent to ramulator. 
+412 burst requests are received.
+req: 199 is returnned at 4140 ns
+req: 199 685 828
+413 burst requests are received.
+burst 413 is sent to ramulator. 
+req: 235 is issued at 4145 ns
+burst 414 is sent to ramulator. 
+414 burst requests are received.
+req: 200 is returnned at 4160 ns
+req: 200 689 832
+415 burst requests are received.
+burst 415 is sent to ramulator. 
+req: 236 is issued at 4165 ns
+burst 416 is sent to ramulator. 
+416 burst requests are received.
+req: 201 is returnned at 4180 ns
+req: 201 693 836
+417 burst requests are received.
+burst 417 is sent to ramulator. 
+req: 237 is issued at 4185 ns
+burst 418 is sent to ramulator. 
+418 burst requests are received.
+req: 202 is returnned at 4200 ns
+req: 202 697 840
+419 burst requests are received.
+burst 419 is sent to ramulator. 
+req: 238 is issued at 4205 ns
+burst 420 is sent to ramulator. 
+420 burst requests are received.
+req: 203 is returnned at 4220 ns
+req: 203 701 844
+421 burst requests are received.
+burst 421 is sent to ramulator. 
+req: 239 is issued at 4225 ns
+burst 422 is sent to ramulator. 
+422 burst requests are received.
+req: 204 is returnned at 4240 ns
+req: 204 705 848
+423 burst requests are received.
+burst 423 is sent to ramulator. 
+req: 240 is issued at 4245 ns
+burst 424 is sent to ramulator. 
+424 burst requests are received.
+req: 205 is returnned at 4260 ns
+req: 205 709 852
+425 burst requests are received.
+burst 425 is sent to ramulator. 
+req: 241 is issued at 4265 ns
+burst 426 is sent to ramulator. 
+426 burst requests are received.
+req: 206 is returnned at 4280 ns
+req: 206 713 856
+427 burst requests are received.
+burst 427 is sent to ramulator. 
+req: 242 is issued at 4285 ns
+burst 428 is sent to ramulator. 
+428 burst requests are received.
+req: 207 is returnned at 4300 ns
+req: 207 717 860
+429 burst requests are received.
+burst 429 is sent to ramulator. 
+req: 243 is issued at 4305 ns
+burst 430 is sent to ramulator. 
+430 burst requests are received.
+req: 208 is returnned at 4320 ns
+req: 208 721 864
+431 burst requests are received.
+burst 431 is sent to ramulator. 
+req: 244 is issued at 4325 ns
+burst 432 is sent to ramulator. 
+432 burst requests are received.
+req: 209 is returnned at 4340 ns
+req: 209 725 868
+433 burst requests are received.
+burst 433 is sent to ramulator. 
+req: 245 is issued at 4345 ns
+burst 434 is sent to ramulator. 
+434 burst requests are received.
+req: 210 is returnned at 4360 ns
+req: 210 729 872
+435 burst requests are received.
+burst 435 is sent to ramulator. 
+req: 246 is issued at 4365 ns
+burst 436 is sent to ramulator. 
+436 burst requests are received.
+req: 211 is returnned at 4380 ns
+req: 211 733 876
+437 burst requests are received.
+burst 437 is sent to ramulator. 
+req: 247 is issued at 4385 ns
+burst 438 is sent to ramulator. 
+438 burst requests are received.
+req: 212 is returnned at 4400 ns
+req: 212 737 880
+439 burst requests are received.
+burst 439 is sent to ramulator. 
+req: 248 is issued at 4405 ns
+burst 440 is sent to ramulator. 
+440 burst requests are received.
+req: 213 is returnned at 4420 ns
+req: 213 741 884
+441 burst requests are received.
+burst 441 is sent to ramulator. 
+req: 249 is issued at 4425 ns
+burst 442 is sent to ramulator. 
+442 burst requests are received.
+req: 214 is returnned at 4440 ns
+req: 214 745 888
+443 burst requests are received.
+burst 443 is sent to ramulator. 
+req: 250 is issued at 4445 ns
+burst 444 is sent to ramulator. 
+444 burst requests are received.
+req: 215 is returnned at 4460 ns
+req: 215 749 892
+445 burst requests are received.
+burst 445 is sent to ramulator. 
+req: 251 is issued at 4465 ns
+burst 446 is sent to ramulator. 
+446 burst requests are received.
+req: 216 is returnned at 4480 ns
+req: 216 753 896
+447 burst requests are received.
+burst 447 is sent to ramulator. 
+req: 252 is issued at 4485 ns
+burst 448 is sent to ramulator. 
+448 burst requests are received.
+req: 217 is returnned at 4500 ns
+req: 217 757 900
+449 burst requests are received.
+burst 449 is sent to ramulator. 
+req: 253 is issued at 4505 ns
+burst 450 is sent to ramulator. 
+450 burst requests are received.
+req: 218 is returnned at 4520 ns
+req: 218 761 904
+451 burst requests are received.
+burst 451 is sent to ramulator. 
+req: 254 is issued at 4525 ns
+burst 452 is sent to ramulator. 
+452 burst requests are received.
+req: 219 is returnned at 4540 ns
+req: 219 765 908
+453 burst requests are received.
+burst 453 is sent to ramulator. 
+req: 255 is issued at 4545 ns
+burst 454 is sent to ramulator. 
+454 burst requests are received.
+req: 220 is returnned at 4560 ns
+req: 220 769 912
+455 burst requests are received.
+burst 455 is sent to ramulator. 
+req: 256 is issued at 4565 ns
+burst 456 is sent to ramulator. 
+456 burst requests are received.
+req: 221 is returnned at 4580 ns
+req: 221 773 916
+457 burst requests are received.
+burst 457 is sent to ramulator. 
+req: 257 is issued at 4585 ns
+burst 458 is sent to ramulator. 
+458 burst requests are received.
+req: 222 is returnned at 4600 ns
+req: 222 777 920
+459 burst requests are received.
+burst 459 is sent to ramulator. 
+req: 258 is issued at 4605 ns
+burst 460 is sent to ramulator. 
+460 burst requests are received.
+req: 223 is returnned at 4620 ns
+req: 223 781 924
+461 burst requests are received.
+burst 461 is sent to ramulator. 
+req: 259 is issued at 4625 ns
+burst 462 is sent to ramulator. 
+462 burst requests are received.
+req: 224 is returnned at 4640 ns
+req: 224 785 928
+463 burst requests are received.
+burst 463 is sent to ramulator. 
+req: 260 is issued at 4645 ns
+burst 464 is sent to ramulator. 
+464 burst requests are received.
+req: 225 is returnned at 4660 ns
+req: 225 789 932
+465 burst requests are received.
+burst 465 is sent to ramulator. 
+req: 261 is issued at 4665 ns
+burst 466 is sent to ramulator. 
+466 burst requests are received.
+req: 226 is returnned at 4680 ns
+req: 226 793 936
+467 burst requests are received.
+burst 467 is sent to ramulator. 
+req: 262 is issued at 4685 ns
+burst 468 is sent to ramulator. 
+468 burst requests are received.
+req: 227 is returnned at 4700 ns
+req: 227 797 940
+469 burst requests are received.
+burst 469 is sent to ramulator. 
+req: 263 is issued at 4705 ns
+burst 470 is sent to ramulator. 
+470 burst requests are received.
+req: 228 is returnned at 4720 ns
+req: 228 801 944
+471 burst requests are received.
+burst 471 is sent to ramulator. 
+req: 264 is issued at 4725 ns
+burst 472 is sent to ramulator. 
+472 burst requests are received.
+req: 229 is returnned at 4740 ns
+req: 229 805 948
+473 burst requests are received.
+burst 473 is sent to ramulator. 
+req: 265 is issued at 4745 ns
+burst 474 is sent to ramulator. 
+474 burst requests are received.
+req: 230 is returnned at 4760 ns
+req: 230 809 952
+475 burst requests are received.
+burst 475 is sent to ramulator. 
+req: 266 is issued at 4765 ns
+burst 476 is sent to ramulator. 
+476 burst requests are received.
+req: 231 is returnned at 4780 ns
+req: 231 813 956
+477 burst requests are received.
+burst 477 is sent to ramulator. 
+req: 267 is issued at 4785 ns
+burst 478 is sent to ramulator. 
+478 burst requests are received.
+req: 232 is returnned at 4800 ns
+req: 232 817 960
+479 burst requests are received.
+burst 479 is sent to ramulator. 
+req: 268 is issued at 4805 ns
+burst 480 is sent to ramulator. 
+480 burst requests are received.
+req: 233 is returnned at 4820 ns
+req: 233 821 964
+481 burst requests are received.
+burst 481 is sent to ramulator. 
+req: 269 is issued at 4825 ns
+burst 482 is sent to ramulator. 
+482 burst requests are received.
+req: 234 is returnned at 4840 ns
+req: 234 825 968
+483 burst requests are received.
+burst 483 is sent to ramulator. 
+req: 270 is issued at 4845 ns
+burst 484 is sent to ramulator. 
+484 burst requests are received.
+req: 235 is returnned at 4860 ns
+req: 235 829 972
+485 burst requests are received.
+burst 485 is sent to ramulator. 
+req: 271 is issued at 4865 ns
+burst 486 is sent to ramulator. 
+486 burst requests are received.
+req: 236 is returnned at 4880 ns
+req: 236 833 976
+487 burst requests are received.
+burst 487 is sent to ramulator. 
+req: 272 is issued at 4885 ns
+burst 488 is sent to ramulator. 
+488 burst requests are received.
+req: 237 is returnned at 4900 ns
+req: 237 837 980
+489 burst requests are received.
+burst 489 is sent to ramulator. 
+req: 273 is issued at 4905 ns
+burst 490 is sent to ramulator. 
+490 burst requests are received.
+req: 238 is returnned at 4920 ns
+req: 238 841 984
+491 burst requests are received.
+burst 491 is sent to ramulator. 
+req: 274 is issued at 4925 ns
+burst 492 is sent to ramulator. 
+492 burst requests are received.
+req: 239 is returnned at 4940 ns
+req: 239 845 988
+493 burst requests are received.
+burst 493 is sent to ramulator. 
+req: 275 is issued at 4945 ns
+burst 494 is sent to ramulator. 
+494 burst requests are received.
+req: 240 is returnned at 4960 ns
+req: 240 849 992
+495 burst requests are received.
+burst 495 is sent to ramulator. 
+req: 276 is issued at 4965 ns
+burst 496 is sent to ramulator. 
+496 burst requests are received.
+req: 241 is returnned at 4980 ns
+req: 241 853 996
+497 burst requests are received.
+burst 497 is sent to ramulator. 
+req: 277 is issued at 4985 ns
+burst 498 is sent to ramulator. 
+498 burst requests are received.
+req: 242 is returnned at 5 us
+req: 242 857 1000
+499 burst requests are received.
+burst 499 is sent to ramulator. 
+req: 278 is issued at 5005 ns
+burst 500 is sent to ramulator. 
+500 burst requests are received.
+req: 243 is returnned at 5020 ns
+req: 243 861 1004
+501 burst requests are received.
+burst 501 is sent to ramulator. 
+req: 279 is issued at 5025 ns
+burst 502 is sent to ramulator. 
+502 burst requests are received.
+req: 244 is returnned at 5040 ns
+req: 244 865 1008
+503 burst requests are received.
+burst 503 is sent to ramulator. 
+req: 280 is issued at 5045 ns
+burst 504 is sent to ramulator. 
+504 burst requests are received.
+req: 245 is returnned at 5060 ns
+req: 245 869 1012
+505 burst requests are received.
+burst 505 is sent to ramulator. 
+req: 281 is issued at 5065 ns
+burst 506 is sent to ramulator. 
+506 burst requests are received.
+req: 246 is returnned at 5080 ns
+req: 246 873 1016
+507 burst requests are received.
+burst 507 is sent to ramulator. 
+req: 282 is issued at 5085 ns
+burst 508 is sent to ramulator. 
+508 burst requests are received.
+req: 247 is returnned at 5100 ns
+req: 247 877 1020
+509 burst requests are received.
+burst 509 is sent to ramulator. 
+req: 283 is issued at 5105 ns
+burst 510 is sent to ramulator. 
+510 burst requests are received.
+req: 248 is returnned at 5120 ns
+req: 248 881 1024
+511 burst requests are received.
+burst 511 is sent to ramulator. 
+req: 284 is issued at 5125 ns
+512 burst requests are received.
+req: 249 is returnned at 5140 ns
+req: 249 885 1028
+req: 285 is issued at 5145 ns
+req: 250 is returnned at 5160 ns
+req: 250 889 1032
+req: 286 is issued at 5165 ns
+req: 251 is returnned at 5180 ns
+req: 251 893 1036
+req: 287 is issued at 5185 ns
+req: 252 is returnned at 5200 ns
+req: 252 897 1040
+req: 288 is issued at 5205 ns
+req: 253 is returnned at 5220 ns
+req: 253 901 1044
+req: 289 is issued at 5225 ns
+req: 254 is returnned at 5240 ns
+req: 254 905 1048
+req: 290 is issued at 5245 ns
+req: 255 is returnned at 5260 ns
+req: 255 909 1052
+req: 291 is issued at 5265 ns
+req: 256 is returnned at 5280 ns
+req: 256 913 1056
+req: 292 is issued at 5285 ns
+req: 257 is returnned at 5300 ns
+req: 257 917 1060
+req: 293 is issued at 5305 ns
+req: 258 is returnned at 5320 ns
+req: 258 921 1064
+req: 294 is issued at 5325 ns
+req: 259 is returnned at 5340 ns
+req: 259 925 1068
+req: 295 is issued at 5345 ns
+req: 260 is returnned at 5360 ns
+req: 260 929 1072
+req: 296 is issued at 5365 ns
+req: 261 is returnned at 5380 ns
+req: 261 933 1076
+req: 297 is issued at 5385 ns
+req: 262 is returnned at 5400 ns
+req: 262 937 1080
+req: 298 is issued at 5405 ns
+req: 263 is returnned at 5420 ns
+req: 263 941 1084
+req: 299 is issued at 5425 ns
+req: 264 is returnned at 5440 ns
+req: 264 945 1088
+req: 300 is issued at 5445 ns
+req: 265 is returnned at 5460 ns
+req: 265 949 1092
+req: 301 is issued at 5465 ns
+req: 266 is returnned at 5480 ns
+req: 266 953 1096
+req: 302 is issued at 5485 ns
+req: 267 is returnned at 5500 ns
+req: 267 957 1100
+req: 303 is issued at 5505 ns
+req: 268 is returnned at 5520 ns
+req: 268 961 1104
+req: 304 is issued at 5525 ns
+req: 269 is returnned at 5540 ns
+req: 269 965 1108
+req: 305 is issued at 5545 ns
+req: 270 is returnned at 5560 ns
+req: 270 969 1112
+req: 306 is issued at 5565 ns
+req: 271 is returnned at 5580 ns
+req: 271 973 1116
+req: 307 is issued at 5585 ns
+req: 272 is returnned at 5600 ns
+req: 272 977 1120
+req: 308 is issued at 5605 ns
+req: 273 is returnned at 5620 ns
+req: 273 981 1124
+req: 309 is issued at 5625 ns
+req: 274 is returnned at 5640 ns
+req: 274 985 1128
+req: 310 is issued at 5645 ns
+req: 275 is returnned at 5660 ns
+req: 275 989 1132
+req: 311 is issued at 5665 ns
+req: 276 is returnned at 5680 ns
+req: 276 993 1136
+req: 312 is issued at 5685 ns
+req: 277 is returnned at 5700 ns
+req: 277 997 1140
+req: 313 is issued at 5705 ns
+req: 278 is returnned at 5720 ns
+req: 278 1001 1144
+req: 314 is issued at 5725 ns
+req: 279 is returnned at 5740 ns
+req: 279 1005 1148
+req: 315 is issued at 5745 ns
+req: 280 is returnned at 5760 ns
+req: 280 1009 1152
+req: 316 is issued at 5765 ns
+req: 281 is returnned at 5780 ns
+req: 281 1013 1156
+req: 317 is issued at 5785 ns
+req: 282 is returnned at 5800 ns
+req: 282 1017 1160
+req: 318 is issued at 5805 ns
+req: 283 is returnned at 5820 ns
+req: 283 1021 1164
+req: 319 is issued at 5825 ns
+req: 284 is returnned at 5840 ns
+req: 284 1025 1168
+req: 320 is issued at 5845 ns
+req: 285 is returnned at 5860 ns
+req: 285 1029 1172
+req: 321 is issued at 5865 ns
+req: 286 is returnned at 5880 ns
+req: 286 1033 1176
+req: 322 is issued at 5885 ns
+req: 287 is returnned at 5900 ns
+req: 287 1037 1180
+req: 323 is issued at 5905 ns
+req: 288 is returnned at 5920 ns
+req: 288 1041 1184
+req: 324 is issued at 5925 ns
+req: 289 is returnned at 5940 ns
+req: 289 1045 1188
+req: 325 is issued at 5945 ns
+req: 290 is returnned at 5960 ns
+req: 290 1049 1192
+req: 326 is issued at 5965 ns
+req: 291 is returnned at 5980 ns
+req: 291 1053 1196
+req: 327 is issued at 5985 ns
+req: 292 is returnned at 6 us
+req: 292 1057 1200
+req: 328 is issued at 6005 ns
+req: 293 is returnned at 6020 ns
+req: 293 1061 1204
+req: 329 is issued at 6025 ns
+req: 294 is returnned at 6040 ns
+req: 294 1065 1208
+req: 330 is issued at 6045 ns
+req: 295 is returnned at 6060 ns
+req: 295 1069 1212
+req: 331 is issued at 6065 ns
+req: 296 is returnned at 6080 ns
+req: 296 1073 1216
+req: 332 is issued at 6085 ns
+req: 297 is returnned at 6100 ns
+req: 297 1077 1220
+req: 333 is issued at 6105 ns
+req: 298 is returnned at 6120 ns
+req: 298 1081 1224
+req: 334 is issued at 6125 ns
+req: 299 is returnned at 6140 ns
+req: 299 1085 1228
+req: 335 is issued at 6145 ns
+req: 300 is returnned at 6160 ns
+req: 300 1089 1232
+req: 336 is issued at 6165 ns
+req: 301 is returnned at 6180 ns
+req: 301 1093 1236
+req: 337 is issued at 6185 ns
+req: 302 is returnned at 6200 ns
+req: 302 1097 1240
+req: 338 is issued at 6205 ns
+req: 303 is returnned at 6220 ns
+req: 303 1101 1244
+req: 339 is issued at 6225 ns
+req: 304 is returnned at 6240 ns
+req: 304 1105 1248
+req: 340 is issued at 6245 ns
+req: 305 is returnned at 6260 ns
+req: 305 1109 1252
+req: 341 is issued at 6265 ns
+req: 306 is returnned at 6280 ns
+req: 306 1113 1256
+req: 342 is issued at 6285 ns
+req: 307 is returnned at 6300 ns
+req: 307 1117 1260
+req: 343 is issued at 6305 ns
+req: 308 is returnned at 6320 ns
+req: 308 1121 1264
+req: 344 is issued at 6325 ns
+req: 309 is returnned at 6340 ns
+req: 309 1125 1268
+req: 345 is issued at 6345 ns
+req: 310 is returnned at 6360 ns
+req: 310 1129 1272
+req: 346 is issued at 6365 ns
+req: 311 is returnned at 6380 ns
+req: 311 1133 1276
+req: 347 is issued at 6385 ns
+req: 312 is returnned at 6400 ns
+req: 312 1137 1280
+req: 348 is issued at 6405 ns
+req: 313 is returnned at 6420 ns
+req: 313 1141 1284
+req: 349 is issued at 6425 ns
+req: 314 is returnned at 6440 ns
+req: 314 1145 1288
+req: 350 is issued at 6445 ns
+req: 315 is returnned at 6460 ns
+req: 315 1149 1292
+req: 351 is issued at 6465 ns
+req: 316 is returnned at 6480 ns
+req: 316 1153 1296
+req: 352 is issued at 6485 ns
+req: 317 is returnned at 6500 ns
+req: 317 1157 1300
+req: 353 is issued at 6505 ns
+req: 318 is returnned at 6520 ns
+req: 318 1161 1304
+req: 354 is issued at 6525 ns
+req: 319 is returnned at 6540 ns
+req: 319 1165 1308
+req: 355 is issued at 6545 ns
+req: 320 is returnned at 6560 ns
+req: 320 1169 1312
+req: 356 is issued at 6565 ns
+req: 321 is returnned at 6580 ns
+req: 321 1173 1316
+req: 357 is issued at 6585 ns
+req: 322 is returnned at 6600 ns
+req: 322 1177 1320
+req: 358 is issued at 6605 ns
+req: 323 is returnned at 6620 ns
+req: 323 1181 1324
+req: 359 is issued at 6625 ns
+req: 324 is returnned at 6640 ns
+req: 324 1185 1328
+req: 360 is issued at 6645 ns
+req: 325 is returnned at 6660 ns
+req: 325 1189 1332
+req: 361 is issued at 6665 ns
+req: 326 is returnned at 6680 ns
+req: 326 1193 1336
+req: 362 is issued at 6685 ns
+req: 327 is returnned at 6700 ns
+req: 327 1197 1340
+req: 363 is issued at 6705 ns
+req: 328 is returnned at 6720 ns
+req: 328 1201 1344
+req: 364 is issued at 6725 ns
+req: 329 is returnned at 6740 ns
+req: 329 1205 1348
+req: 365 is issued at 6745 ns
+req: 330 is returnned at 6760 ns
+req: 330 1209 1352
+req: 366 is issued at 6765 ns
+req: 331 is returnned at 6780 ns
+req: 331 1213 1356
+req: 367 is issued at 6785 ns
+req: 332 is returnned at 6800 ns
+req: 332 1217 1360
+req: 368 is issued at 6805 ns
+req: 333 is returnned at 6820 ns
+req: 333 1221 1364
+req: 369 is issued at 6825 ns
+req: 334 is returnned at 6840 ns
+req: 334 1225 1368
+req: 370 is issued at 6845 ns
+req: 335 is returnned at 6860 ns
+req: 335 1229 1372
+req: 371 is issued at 6865 ns
+req: 336 is returnned at 6880 ns
+req: 336 1233 1376
+req: 372 is issued at 6885 ns
+req: 337 is returnned at 6900 ns
+req: 337 1237 1380
+req: 373 is issued at 6905 ns
+req: 338 is returnned at 6920 ns
+req: 338 1241 1384
+req: 374 is issued at 6925 ns
+req: 339 is returnned at 6940 ns
+req: 339 1245 1388
+req: 375 is issued at 6945 ns
+req: 340 is returnned at 6960 ns
+req: 340 1249 1392
+req: 376 is issued at 6965 ns
+req: 341 is returnned at 6980 ns
+req: 341 1253 1396
+req: 377 is issued at 6985 ns
+req: 342 is returnned at 7 us
+req: 342 1257 1400
+req: 378 is issued at 7005 ns
+req: 343 is returnned at 7020 ns
+req: 343 1261 1404
+req: 379 is issued at 7025 ns
+req: 344 is returnned at 7040 ns
+req: 344 1265 1408
+req: 380 is issued at 7045 ns
+req: 345 is returnned at 7060 ns
+req: 345 1269 1412
+req: 381 is issued at 7065 ns
+req: 346 is returnned at 7080 ns
+req: 346 1273 1416
+req: 382 is issued at 7085 ns
+req: 347 is returnned at 7100 ns
+req: 347 1277 1420
+req: 383 is issued at 7105 ns
+req: 348 is returnned at 7120 ns
+req: 348 1281 1424
+req: 384 is issued at 7125 ns
+req: 349 is returnned at 7140 ns
+req: 349 1285 1428
+req: 385 is issued at 7145 ns
+req: 350 is returnned at 7160 ns
+req: 350 1289 1432
+req: 386 is issued at 7165 ns
+req: 351 is returnned at 7180 ns
+req: 351 1293 1436
+req: 387 is issued at 7185 ns
+req: 352 is returnned at 7200 ns
+req: 352 1297 1440
+req: 388 is issued at 7205 ns
+req: 353 is returnned at 7220 ns
+req: 353 1301 1444
+req: 389 is issued at 7225 ns
+req: 354 is returnned at 7240 ns
+req: 354 1305 1448
+req: 390 is issued at 7245 ns
+req: 355 is returnned at 7260 ns
+req: 355 1309 1452
+req: 391 is issued at 7265 ns
+req: 356 is returnned at 7280 ns
+req: 356 1313 1456
+req: 392 is issued at 7285 ns
+req: 357 is returnned at 7300 ns
+req: 357 1317 1460
+req: 393 is issued at 7305 ns
+req: 358 is returnned at 7320 ns
+req: 358 1321 1464
+req: 394 is issued at 7325 ns
+req: 359 is returnned at 7340 ns
+req: 359 1325 1468
+req: 395 is issued at 7345 ns
+req: 360 is returnned at 7360 ns
+req: 360 1329 1472
+req: 396 is issued at 7365 ns
+req: 361 is returnned at 7380 ns
+req: 361 1333 1476
+req: 397 is issued at 7385 ns
+req: 362 is returnned at 7400 ns
+req: 362 1337 1480
+req: 398 is issued at 7405 ns
+req: 363 is returnned at 7420 ns
+req: 363 1341 1484
+req: 399 is issued at 7425 ns
+req: 364 is returnned at 7440 ns
+req: 364 1345 1488
+req: 400 is issued at 7445 ns
+req: 365 is returnned at 7460 ns
+req: 365 1349 1492
+req: 401 is issued at 7465 ns
+req: 366 is returnned at 7480 ns
+req: 366 1353 1496
+req: 402 is issued at 7485 ns
+req: 367 is returnned at 7500 ns
+req: 367 1357 1500
+req: 403 is issued at 7505 ns
+req: 368 is returnned at 7520 ns
+req: 368 1361 1504
+req: 404 is issued at 7525 ns
+req: 369 is returnned at 7540 ns
+req: 369 1365 1508
+req: 405 is issued at 7545 ns
+req: 370 is returnned at 7560 ns
+req: 370 1369 1512
+req: 406 is issued at 7565 ns
+req: 371 is returnned at 7580 ns
+req: 371 1373 1516
+req: 407 is issued at 7585 ns
+req: 372 is returnned at 7600 ns
+req: 372 1377 1520
+req: 408 is issued at 7605 ns
+req: 373 is returnned at 7620 ns
+req: 373 1381 1524
+req: 409 is issued at 7625 ns
+req: 374 is returnned at 7640 ns
+req: 374 1385 1528
+req: 410 is issued at 7645 ns
+req: 375 is returnned at 7660 ns
+req: 375 1389 1532
+req: 411 is issued at 7665 ns
+req: 376 is returnned at 7680 ns
+req: 376 1393 1536
+req: 412 is issued at 7685 ns
+req: 377 is returnned at 7700 ns
+req: 377 1397 1540
+req: 413 is issued at 7705 ns
+req: 378 is returnned at 7720 ns
+req: 378 1401 1544
+req: 414 is issued at 7725 ns
+req: 379 is returnned at 7740 ns
+req: 379 1405 1548
+req: 415 is issued at 7745 ns
+req: 380 is returnned at 7760 ns
+req: 380 1409 1552
+req: 416 is issued at 7765 ns
+req: 381 is returnned at 7780 ns
+req: 381 1413 1556
+req: 417 is issued at 7785 ns
+req: 382 is returnned at 7800 ns
+req: 382 1417 1560
+req: 418 is issued at 7805 ns
+req: 383 is returnned at 7820 ns
+req: 383 1421 1564
+req: 419 is issued at 7825 ns
+req: 384 is returnned at 7840 ns
+req: 384 1425 1568
+req: 420 is issued at 7845 ns
+req: 385 is returnned at 7860 ns
+req: 385 1429 1572
+req: 421 is issued at 7865 ns
+req: 386 is returnned at 7880 ns
+req: 386 1433 1576
+req: 422 is issued at 7885 ns
+req: 387 is returnned at 7900 ns
+req: 387 1437 1580
+req: 423 is issued at 7905 ns
+req: 388 is returnned at 7920 ns
+req: 388 1441 1584
+req: 424 is issued at 7925 ns
+req: 389 is returnned at 7940 ns
+req: 389 1445 1588
+req: 425 is issued at 7945 ns
+req: 390 is returnned at 7960 ns
+req: 390 1449 1592
+req: 426 is issued at 7965 ns
+req: 391 is returnned at 7980 ns
+req: 391 1453 1596
+req: 427 is issued at 7985 ns
+req: 392 is returnned at 8 us
+req: 392 1457 1600
+req: 428 is issued at 8005 ns
+req: 393 is returnned at 8020 ns
+req: 393 1461 1604
+req: 429 is issued at 8025 ns
+req: 394 is returnned at 8040 ns
+req: 394 1465 1608
+req: 430 is issued at 8045 ns
+req: 395 is returnned at 8060 ns
+req: 395 1469 1612
+req: 431 is issued at 8065 ns
+req: 396 is returnned at 8080 ns
+req: 396 1473 1616
+req: 432 is issued at 8085 ns
+req: 397 is returnned at 8100 ns
+req: 397 1477 1620
+req: 433 is issued at 8105 ns
+req: 398 is returnned at 8120 ns
+req: 398 1481 1624
+req: 434 is issued at 8125 ns
+req: 399 is returnned at 8140 ns
+req: 399 1485 1628
+req: 435 is issued at 8145 ns
+req: 400 is returnned at 8160 ns
+req: 400 1489 1632
+req: 436 is issued at 8165 ns
+req: 401 is returnned at 8180 ns
+req: 401 1493 1636
+req: 437 is issued at 8185 ns
+req: 402 is returnned at 8200 ns
+req: 402 1497 1640
+req: 438 is issued at 8205 ns
+req: 403 is returnned at 8220 ns
+req: 403 1501 1644
+req: 439 is issued at 8225 ns
+req: 404 is returnned at 8240 ns
+req: 404 1505 1648
+req: 440 is issued at 8245 ns
+req: 405 is returnned at 8260 ns
+req: 405 1509 1652
+req: 441 is issued at 8265 ns
+req: 406 is returnned at 8280 ns
+req: 406 1513 1656
+req: 442 is issued at 8285 ns
+req: 407 is returnned at 8300 ns
+req: 407 1517 1660
+req: 443 is issued at 8305 ns
+req: 408 is returnned at 8320 ns
+req: 408 1521 1664
+req: 444 is issued at 8325 ns
+req: 409 is returnned at 8340 ns
+req: 409 1525 1668
+req: 445 is issued at 8345 ns
+req: 410 is returnned at 8360 ns
+req: 410 1529 1672
+req: 446 is issued at 8365 ns
+req: 411 is returnned at 8380 ns
+req: 411 1533 1676
+req: 447 is issued at 8385 ns
+req: 412 is returnned at 8400 ns
+req: 412 1537 1680
+req: 448 is issued at 8405 ns
+req: 413 is returnned at 8420 ns
+req: 413 1541 1684
+req: 449 is issued at 8425 ns
+req: 414 is returnned at 8440 ns
+req: 414 1545 1688
+req: 450 is issued at 8445 ns
+req: 415 is returnned at 8460 ns
+req: 415 1549 1692
+req: 451 is issued at 8465 ns
+req: 416 is returnned at 8480 ns
+req: 416 1553 1696
+req: 452 is issued at 8485 ns
+req: 417 is returnned at 8500 ns
+req: 417 1557 1700
+req: 453 is issued at 8505 ns
+req: 418 is returnned at 8520 ns
+req: 418 1561 1704
+req: 454 is issued at 8525 ns
+req: 419 is returnned at 8540 ns
+req: 419 1565 1708
+req: 455 is issued at 8545 ns
+req: 420 is returnned at 8560 ns
+req: 420 1569 1712
+req: 456 is issued at 8565 ns
+req: 421 is returnned at 8580 ns
+req: 421 1573 1716
+req: 457 is issued at 8585 ns
+req: 422 is returnned at 8600 ns
+req: 422 1577 1720
+req: 458 is issued at 8605 ns
+req: 423 is returnned at 8620 ns
+req: 423 1581 1724
+req: 459 is issued at 8625 ns
+req: 424 is returnned at 8640 ns
+req: 424 1585 1728
+req: 460 is issued at 8645 ns
+req: 425 is returnned at 8660 ns
+req: 425 1589 1732
+req: 461 is issued at 8665 ns
+req: 426 is returnned at 8680 ns
+req: 426 1593 1736
+req: 462 is issued at 8685 ns
+req: 427 is returnned at 8700 ns
+req: 427 1597 1740
+req: 463 is issued at 8705 ns
+req: 428 is returnned at 8720 ns
+req: 428 1601 1744
+req: 464 is issued at 8725 ns
+req: 429 is returnned at 8740 ns
+req: 429 1605 1748
+req: 465 is issued at 8745 ns
+req: 430 is returnned at 8760 ns
+req: 430 1609 1752
+req: 466 is issued at 8765 ns
+req: 431 is returnned at 8780 ns
+req: 431 1613 1756
+req: 467 is issued at 8785 ns
+req: 432 is returnned at 8800 ns
+req: 432 1617 1760
+req: 468 is issued at 8805 ns
+req: 433 is returnned at 8820 ns
+req: 433 1621 1764
+req: 469 is issued at 8825 ns
+req: 434 is returnned at 8840 ns
+req: 434 1625 1768
+req: 470 is issued at 8845 ns
+req: 435 is returnned at 8860 ns
+req: 435 1629 1772
+req: 471 is issued at 8865 ns
+req: 436 is returnned at 8880 ns
+req: 436 1633 1776
+req: 472 is issued at 8885 ns
+req: 437 is returnned at 8900 ns
+req: 437 1637 1780
+req: 473 is issued at 8905 ns
+req: 438 is returnned at 8920 ns
+req: 438 1641 1784
+req: 474 is issued at 8925 ns
+req: 439 is returnned at 8940 ns
+req: 439 1645 1788
+req: 475 is issued at 8945 ns
+req: 440 is returnned at 8960 ns
+req: 440 1649 1792
+req: 476 is issued at 8965 ns
+req: 441 is returnned at 8980 ns
+req: 441 1653 1796
+req: 477 is issued at 8985 ns
+req: 442 is returnned at 9 us
+req: 442 1657 1800
+req: 478 is issued at 9005 ns
+req: 443 is returnned at 9020 ns
+req: 443 1661 1804
+req: 479 is issued at 9025 ns
+req: 444 is returnned at 9040 ns
+req: 444 1665 1808
+req: 480 is issued at 9045 ns
+req: 445 is returnned at 9060 ns
+req: 445 1669 1812
+req: 481 is issued at 9065 ns
+req: 446 is returnned at 9080 ns
+req: 446 1673 1816
+req: 482 is issued at 9085 ns
+req: 447 is returnned at 9100 ns
+req: 447 1677 1820
+req: 483 is issued at 9105 ns
+req: 448 is returnned at 9120 ns
+req: 448 1681 1824
+req: 484 is issued at 9125 ns
+req: 449 is returnned at 9140 ns
+req: 449 1685 1828
+req: 485 is issued at 9145 ns
+req: 450 is returnned at 9160 ns
+req: 450 1689 1832
+req: 486 is issued at 9165 ns
+req: 451 is returnned at 9180 ns
+req: 451 1693 1836
+req: 487 is issued at 9185 ns
+req: 452 is returnned at 9200 ns
+req: 452 1697 1840
+req: 488 is issued at 9205 ns
+req: 453 is returnned at 9220 ns
+req: 453 1701 1844
+req: 489 is issued at 9225 ns
+req: 454 is returnned at 9240 ns
+req: 454 1705 1848
+req: 490 is issued at 9245 ns
+req: 455 is returnned at 9260 ns
+req: 455 1709 1852
+req: 491 is issued at 9265 ns
+req: 456 is returnned at 9280 ns
+req: 456 1713 1856
+req: 492 is issued at 9285 ns
+req: 457 is returnned at 9300 ns
+req: 457 1717 1860
+req: 493 is issued at 9305 ns
+req: 458 is returnned at 9320 ns
+req: 458 1721 1864
+req: 494 is issued at 9325 ns
+req: 459 is returnned at 9340 ns
+req: 459 1725 1868
+req: 495 is issued at 9345 ns
+req: 460 is returnned at 9360 ns
+req: 460 1729 1872
+req: 496 is issued at 9365 ns
+req: 461 is returnned at 9380 ns
+req: 461 1733 1876
+req: 497 is issued at 9385 ns
+req: 462 is returnned at 9400 ns
+req: 462 1737 1880
+req: 498 is issued at 9405 ns
+req: 463 is returnned at 9420 ns
+req: 463 1741 1884
+req: 499 is issued at 9425 ns
+req: 464 is returnned at 9440 ns
+req: 464 1745 1888
+req: 500 is issued at 9445 ns
+req: 465 is returnned at 9460 ns
+req: 465 1749 1892
+req: 501 is issued at 9465 ns
+req: 466 is returnned at 9480 ns
+req: 466 1753 1896
+req: 502 is issued at 9485 ns
+req: 467 is returnned at 9500 ns
+req: 467 1757 1900
+req: 503 is issued at 9505 ns
+req: 468 is returnned at 9520 ns
+req: 468 1761 1904
+req: 504 is issued at 9525 ns
+req: 469 is returnned at 9540 ns
+req: 469 1765 1908
+req: 505 is issued at 9545 ns
+req: 470 is returnned at 9560 ns
+req: 470 1769 1912
+req: 506 is issued at 9565 ns
+req: 471 is returnned at 9580 ns
+req: 471 1773 1916
+req: 507 is issued at 9585 ns
+req: 472 is returnned at 9600 ns
+req: 472 1777 1920
+req: 508 is issued at 9605 ns
+req: 473 is returnned at 9620 ns
+req: 473 1781 1924
+req: 509 is issued at 9625 ns
+req: 474 is returnned at 9640 ns
+req: 474 1785 1928
+req: 510 is issued at 9645 ns
+req: 475 is returnned at 9660 ns
+req: 475 1789 1932
+req: 511 is issued at 9665 ns
+req: 476 is returnned at 9680 ns
+req: 476 1793 1936
+req: 512 is issued at 9685 ns
+req: 477 is returnned at 9700 ns
+req: 477 1797 1940
+req: 513 is issued at 9705 ns
+req: 478 is returnned at 9720 ns
+req: 478 1801 1944
+req: 514 is issued at 9725 ns
+req: 479 is returnned at 9740 ns
+req: 479 1805 1948
+req: 515 is issued at 9745 ns
+req: 480 is returnned at 9760 ns
+req: 480 1809 1952
+req: 516 is issued at 9765 ns
+req: 481 is returnned at 9780 ns
+req: 481 1813 1956
+req: 517 is issued at 9785 ns
+req: 482 is returnned at 9800 ns
+req: 482 1817 1960
+req: 518 is issued at 9805 ns
+req: 483 is returnned at 9820 ns
+req: 483 1821 1964
+req: 519 is issued at 9825 ns
+req: 484 is returnned at 9840 ns
+req: 484 1825 1968
+req: 520 is issued at 9845 ns
+req: 485 is returnned at 9860 ns
+req: 485 1829 1972
+req: 521 is issued at 9865 ns
+req: 486 is returnned at 9880 ns
+req: 486 1833 1976
+req: 522 is issued at 9885 ns
+req: 487 is returnned at 9900 ns
+req: 487 1837 1980
+req: 523 is issued at 9905 ns
+req: 488 is returnned at 9920 ns
+req: 488 1841 1984
+req: 524 is issued at 9925 ns
+req: 489 is returnned at 9940 ns
+req: 489 1845 1988
+req: 525 is issued at 9945 ns
+req: 490 is returnned at 9960 ns
+req: 490 1849 1992
+req: 526 is issued at 9965 ns
+req: 491 is returnned at 9980 ns
+req: 491 1853 1996
+req: 527 is issued at 9985 ns
+req: 492 is returnned at 10 us
+req: 492 1857 2000
+req: 528 is issued at 10005 ns
+req: 493 is returnned at 10020 ns
+req: 493 1861 2004
+req: 529 is issued at 10025 ns
+req: 494 is returnned at 10040 ns
+req: 494 1865 2008
+req: 530 is issued at 10045 ns
+req: 495 is returnned at 10060 ns
+req: 495 1869 2012
+req: 531 is issued at 10065 ns
+req: 496 is returnned at 10080 ns
+req: 496 1873 2016
+req: 532 is issued at 10085 ns
+req: 497 is returnned at 10100 ns
+req: 497 1877 2020
+req: 533 is issued at 10105 ns
+req: 498 is returnned at 10120 ns
+req: 498 1881 2024
+req: 534 is issued at 10125 ns
+req: 499 is returnned at 10140 ns
+req: 499 1885 2028
+req: 535 is issued at 10145 ns
+req: 500 is returnned at 10160 ns
+req: 500 1889 2032
+req: 536 is issued at 10165 ns
+req: 501 is returnned at 10180 ns
+req: 501 1893 2036
+req: 537 is issued at 10185 ns
+req: 502 is returnned at 10200 ns
+req: 502 1897 2040
+req: 538 is issued at 10205 ns
+req: 503 is returnned at 10220 ns
+req: 503 1901 2044
+req: 539 is issued at 10225 ns
+req: 504 is returnned at 10240 ns
+req: 504 1905 2048
+req: 540 is issued at 10245 ns
+req: 505 is returnned at 10260 ns
+req: 505 1909 2052
+req: 541 is issued at 10265 ns
+req: 506 is returnned at 10280 ns
+req: 506 1913 2056
+req: 542 is issued at 10285 ns
+req: 507 is returnned at 10300 ns
+req: 507 1917 2060
+req: 543 is issued at 10305 ns
+req: 508 is returnned at 10320 ns
+req: 508 1921 2064
+req: 544 is issued at 10325 ns
+req: 509 is returnned at 10340 ns
+req: 509 1925 2068
+req: 545 is issued at 10345 ns
+req: 510 is returnned at 10360 ns
+req: 510 1929 2072
+req: 546 is issued at 10365 ns
+req: 511 is returnned at 10380 ns
+req: 511 1933 2076
+req: 547 is issued at 10385 ns
+req: 512 is returnned at 10400 ns
+req: 512 1937 2080
+req: 548 is issued at 10405 ns
+req: 513 is returnned at 10420 ns
+req: 513 1941 2084
+req: 549 is issued at 10425 ns
+req: 514 is returnned at 10440 ns
+req: 514 1945 2088
+req: 550 is issued at 10445 ns
+req: 515 is returnned at 10460 ns
+req: 515 1949 2092
+req: 551 is issued at 10465 ns
+req: 516 is returnned at 10480 ns
+req: 516 1953 2096
+req: 552 is issued at 10485 ns
+req: 517 is returnned at 10500 ns
+req: 517 1957 2100
+req: 553 is issued at 10505 ns
+req: 518 is returnned at 10520 ns
+req: 518 1961 2104
+req: 554 is issued at 10525 ns
+req: 519 is returnned at 10540 ns
+req: 519 1965 2108
+req: 555 is issued at 10545 ns
+req: 520 is returnned at 10560 ns
+req: 520 1969 2112
+req: 556 is issued at 10565 ns
+req: 521 is returnned at 10580 ns
+req: 521 1973 2116
+req: 557 is issued at 10585 ns
+req: 522 is returnned at 10600 ns
+req: 522 1977 2120
+req: 558 is issued at 10605 ns
+req: 523 is returnned at 10620 ns
+req: 523 1981 2124
+req: 559 is issued at 10625 ns
+req: 524 is returnned at 10640 ns
+req: 524 1985 2128
+req: 560 is issued at 10645 ns
+req: 525 is returnned at 10660 ns
+req: 525 1989 2132
+req: 561 is issued at 10665 ns
+req: 526 is returnned at 10680 ns
+req: 526 1993 2136
+req: 562 is issued at 10685 ns
+req: 527 is returnned at 10700 ns
+req: 527 1997 2140
+req: 563 is issued at 10705 ns
+req: 528 is returnned at 10720 ns
+req: 528 2001 2144
+req: 564 is issued at 10725 ns
+req: 529 is returnned at 10740 ns
+req: 529 2005 2148
+req: 565 is issued at 10745 ns
+req: 530 is returnned at 10760 ns
+req: 530 2009 2152
+req: 566 is issued at 10765 ns
+req: 531 is returnned at 10780 ns
+req: 531 2013 2156
+req: 567 is issued at 10785 ns
+req: 532 is returnned at 10800 ns
+req: 532 2017 2160
+req: 568 is issued at 10805 ns
+req: 533 is returnned at 10820 ns
+req: 533 2021 2164
+req: 569 is issued at 10825 ns
+req: 534 is returnned at 10840 ns
+req: 534 2025 2168
+req: 570 is issued at 10845 ns
+req: 535 is returnned at 10860 ns
+req: 535 2029 2172
+req: 571 is issued at 10865 ns
+req: 536 is returnned at 10880 ns
+req: 536 2033 2176
+req: 572 is issued at 10885 ns
+req: 537 is returnned at 10900 ns
+req: 537 2037 2180
+req: 573 is issued at 10905 ns
+req: 538 is returnned at 10920 ns
+req: 538 2041 2184
+req: 574 is issued at 10925 ns
+req: 539 is returnned at 10940 ns
+req: 539 2045 2188
+req: 575 is issued at 10945 ns
+req: 540 is returnned at 10960 ns
+req: 540 2049 2192
+req: 576 is issued at 10965 ns
+req: 541 is returnned at 10980 ns
+req: 541 2053 2196
+req: 577 is issued at 10985 ns
+req: 542 is returnned at 11 us
+req: 542 2057 2200
+req: 578 is issued at 11005 ns
+req: 543 is returnned at 11020 ns
+req: 543 2061 2204
+req: 579 is issued at 11025 ns
+req: 544 is returnned at 11040 ns
+req: 544 2065 2208
+req: 580 is issued at 11045 ns
+req: 545 is returnned at 11060 ns
+req: 545 2069 2212
+req: 581 is issued at 11065 ns
+req: 546 is returnned at 11080 ns
+req: 546 2073 2216
+req: 582 is issued at 11085 ns
+req: 547 is returnned at 11100 ns
+req: 547 2077 2220
+req: 583 is issued at 11105 ns
+req: 548 is returnned at 11120 ns
+req: 548 2081 2224
+req: 584 is issued at 11125 ns
+req: 549 is returnned at 11140 ns
+req: 549 2085 2228
+req: 585 is issued at 11145 ns
+req: 550 is returnned at 11160 ns
+req: 550 2089 2232
+req: 586 is issued at 11165 ns
+req: 551 is returnned at 11180 ns
+req: 551 2093 2236
+req: 587 is issued at 11185 ns
+req: 552 is returnned at 11200 ns
+req: 552 2097 2240
+req: 588 is issued at 11205 ns
+req: 553 is returnned at 11220 ns
+req: 553 2101 2244
+req: 589 is issued at 11225 ns
+req: 554 is returnned at 11240 ns
+req: 554 2105 2248
+req: 590 is issued at 11245 ns
+req: 555 is returnned at 11260 ns
+req: 555 2109 2252
+req: 591 is issued at 11265 ns
+req: 556 is returnned at 11280 ns
+req: 556 2113 2256
+req: 592 is issued at 11285 ns
+req: 557 is returnned at 11300 ns
+req: 557 2117 2260
+req: 593 is issued at 11305 ns
+req: 558 is returnned at 11320 ns
+req: 558 2121 2264
+req: 594 is issued at 11325 ns
+req: 559 is returnned at 11340 ns
+req: 559 2125 2268
+req: 595 is issued at 11345 ns
+req: 560 is returnned at 11360 ns
+req: 560 2129 2272
+req: 596 is issued at 11365 ns
+req: 561 is returnned at 11380 ns
+req: 561 2133 2276
+req: 597 is issued at 11385 ns
+req: 562 is returnned at 11400 ns
+req: 562 2137 2280
+req: 598 is issued at 11405 ns
+req: 563 is returnned at 11420 ns
+req: 563 2141 2284
+req: 599 is issued at 11425 ns
+req: 564 is returnned at 11440 ns
+req: 564 2145 2288
+req: 600 is issued at 11445 ns
+req: 565 is returnned at 11460 ns
+req: 565 2149 2292
+req: 601 is issued at 11465 ns
+req: 566 is returnned at 11480 ns
+req: 566 2153 2296
+req: 602 is issued at 11485 ns
+req: 567 is returnned at 11500 ns
+req: 567 2157 2300
+req: 603 is issued at 11505 ns
+req: 568 is returnned at 11520 ns
+req: 568 2161 2304
+req: 604 is issued at 11525 ns
+req: 569 is returnned at 11540 ns
+req: 569 2165 2308
+req: 605 is issued at 11545 ns
+req: 570 is returnned at 11560 ns
+req: 570 2169 2312
+req: 606 is issued at 11565 ns
+req: 571 is returnned at 11580 ns
+req: 571 2173 2316
+req: 607 is issued at 11585 ns
+req: 572 is returnned at 11600 ns
+req: 572 2177 2320
+req: 608 is issued at 11605 ns
+req: 573 is returnned at 11620 ns
+req: 573 2181 2324
+req: 609 is issued at 11625 ns
+req: 574 is returnned at 11640 ns
+req: 574 2185 2328
+req: 610 is issued at 11645 ns
+req: 575 is returnned at 11660 ns
+req: 575 2189 2332
+req: 611 is issued at 11665 ns
+req: 576 is returnned at 11680 ns
+req: 576 2193 2336
+req: 612 is issued at 11685 ns
+req: 577 is returnned at 11700 ns
+req: 577 2197 2340
+req: 613 is issued at 11705 ns
+req: 578 is returnned at 11720 ns
+req: 578 2201 2344
+req: 614 is issued at 11725 ns
+req: 579 is returnned at 11740 ns
+req: 579 2205 2348
+req: 615 is issued at 11745 ns
+req: 580 is returnned at 11760 ns
+req: 580 2209 2352
+req: 616 is issued at 11765 ns
+req: 581 is returnned at 11780 ns
+req: 581 2213 2356
+req: 617 is issued at 11785 ns
+req: 582 is returnned at 11800 ns
+req: 582 2217 2360
+req: 618 is issued at 11805 ns
+req: 583 is returnned at 11820 ns
+req: 583 2221 2364
+req: 619 is issued at 11825 ns
+req: 584 is returnned at 11840 ns
+req: 584 2225 2368
+req: 620 is issued at 11845 ns
+req: 585 is returnned at 11860 ns
+req: 585 2229 2372
+req: 621 is issued at 11865 ns
+req: 586 is returnned at 11880 ns
+req: 586 2233 2376
+req: 622 is issued at 11885 ns
+req: 587 is returnned at 11900 ns
+req: 587 2237 2380
+req: 623 is issued at 11905 ns
+req: 588 is returnned at 11920 ns
+req: 588 2241 2384
+req: 624 is issued at 11925 ns
+req: 589 is returnned at 11940 ns
+req: 589 2245 2388
+req: 625 is issued at 11945 ns
+req: 590 is returnned at 11960 ns
+req: 590 2249 2392
+req: 626 is issued at 11965 ns
+req: 591 is returnned at 11980 ns
+req: 591 2253 2396
+req: 627 is issued at 11985 ns
+req: 592 is returnned at 12 us
+req: 592 2257 2400
+req: 628 is issued at 12005 ns
+req: 593 is returnned at 12020 ns
+req: 593 2261 2404
+req: 629 is issued at 12025 ns
+req: 594 is returnned at 12040 ns
+req: 594 2265 2408
+req: 630 is issued at 12045 ns
+req: 595 is returnned at 12060 ns
+req: 595 2269 2412
+req: 631 is issued at 12065 ns
+req: 596 is returnned at 12080 ns
+req: 596 2273 2416
+req: 632 is issued at 12085 ns
+req: 597 is returnned at 12100 ns
+req: 597 2277 2420
+req: 633 is issued at 12105 ns
+req: 598 is returnned at 12120 ns
+req: 598 2281 2424
+req: 634 is issued at 12125 ns
+req: 599 is returnned at 12140 ns
+req: 599 2285 2428
+req: 635 is issued at 12145 ns
+req: 600 is returnned at 12160 ns
+req: 600 2289 2432
+req: 636 is issued at 12165 ns
+req: 601 is returnned at 12180 ns
+req: 601 2293 2436
+req: 637 is issued at 12185 ns
+req: 602 is returnned at 12200 ns
+req: 602 2297 2440
+req: 638 is issued at 12205 ns
+req: 603 is returnned at 12220 ns
+req: 603 2301 2444
+req: 639 is issued at 12225 ns
+req: 604 is returnned at 12240 ns
+req: 604 2305 2448
+req: 640 is issued at 12245 ns
+req: 605 is returnned at 12260 ns
+req: 605 2309 2452
+req: 641 is issued at 12265 ns
+req: 606 is returnned at 12280 ns
+req: 606 2313 2456
+req: 642 is issued at 12285 ns
+req: 607 is returnned at 12300 ns
+req: 607 2317 2460
+req: 643 is issued at 12305 ns
+req: 608 is returnned at 12320 ns
+req: 608 2321 2464
+req: 644 is issued at 12325 ns
+req: 609 is returnned at 12340 ns
+req: 609 2325 2468
+req: 645 is issued at 12345 ns
+req: 610 is returnned at 12360 ns
+req: 610 2329 2472
+req: 646 is issued at 12365 ns
+req: 611 is returnned at 12380 ns
+req: 611 2333 2476
+req: 647 is issued at 12385 ns
+req: 612 is returnned at 12400 ns
+req: 612 2337 2480
+req: 648 is issued at 12405 ns
+req: 613 is returnned at 12420 ns
+req: 613 2341 2484
+req: 649 is issued at 12425 ns
+req: 614 is returnned at 12440 ns
+req: 614 2345 2488
+req: 650 is issued at 12445 ns
+req: 615 is returnned at 12460 ns
+req: 615 2349 2492
+req: 651 is issued at 12465 ns
+req: 616 is returnned at 12480 ns
+req: 616 2353 2496
+req: 652 is issued at 12485 ns
+req: 617 is returnned at 12500 ns
+req: 617 2357 2500
+req: 653 is issued at 12505 ns
+req: 618 is returnned at 12520 ns
+req: 618 2361 2504
+req: 654 is issued at 12525 ns
+req: 619 is returnned at 12540 ns
+req: 619 2365 2508
+req: 655 is issued at 12545 ns
+req: 620 is returnned at 12560 ns
+req: 620 2369 2512
+req: 656 is issued at 12565 ns
+req: 621 is returnned at 12580 ns
+req: 621 2373 2516
+req: 657 is issued at 12585 ns
+req: 622 is returnned at 12600 ns
+req: 622 2377 2520
+req: 658 is issued at 12605 ns
+req: 623 is returnned at 12620 ns
+req: 623 2381 2524
+req: 659 is issued at 12625 ns
+req: 624 is returnned at 12640 ns
+req: 624 2385 2528
+req: 660 is issued at 12645 ns
+req: 625 is returnned at 12660 ns
+req: 625 2389 2532
+req: 661 is issued at 12665 ns
+req: 626 is returnned at 12680 ns
+req: 626 2393 2536
+req: 662 is issued at 12685 ns
+req: 627 is returnned at 12700 ns
+req: 627 2397 2540
+req: 663 is issued at 12705 ns
+req: 628 is returnned at 12720 ns
+req: 628 2401 2544
+req: 664 is issued at 12725 ns
+req: 629 is returnned at 12740 ns
+req: 629 2405 2548
+req: 665 is issued at 12745 ns
+req: 630 is returnned at 12760 ns
+req: 630 2409 2552
+req: 666 is issued at 12765 ns
+req: 631 is returnned at 12780 ns
+req: 631 2413 2556
+req: 667 is issued at 12785 ns
+req: 632 is returnned at 12800 ns
+req: 632 2417 2560
+req: 668 is issued at 12805 ns
+req: 633 is returnned at 12820 ns
+req: 633 2421 2564
+req: 669 is issued at 12825 ns
+req: 634 is returnned at 12840 ns
+req: 634 2425 2568
+req: 670 is issued at 12845 ns
+req: 635 is returnned at 12860 ns
+req: 635 2429 2572
+req: 671 is issued at 12865 ns
+req: 636 is returnned at 12880 ns
+req: 636 2433 2576
+req: 672 is issued at 12885 ns
+req: 637 is returnned at 12900 ns
+req: 637 2437 2580
+req: 673 is issued at 12905 ns
+req: 638 is returnned at 12920 ns
+req: 638 2441 2584
+req: 674 is issued at 12925 ns
+req: 639 is returnned at 12940 ns
+req: 639 2445 2588
+req: 675 is issued at 12945 ns
+req: 640 is returnned at 12960 ns
+req: 640 2449 2592
+req: 676 is issued at 12965 ns
+req: 641 is returnned at 12980 ns
+req: 641 2453 2596
+req: 677 is issued at 12985 ns
+req: 642 is returnned at 13 us
+req: 642 2457 2600
+req: 678 is issued at 13005 ns
+req: 643 is returnned at 13020 ns
+req: 643 2461 2604
+req: 679 is issued at 13025 ns
+req: 644 is returnned at 13040 ns
+req: 644 2465 2608
+req: 680 is issued at 13045 ns
+req: 645 is returnned at 13060 ns
+req: 645 2469 2612
+req: 681 is issued at 13065 ns
+req: 646 is returnned at 13080 ns
+req: 646 2473 2616
+req: 682 is issued at 13085 ns
+req: 647 is returnned at 13100 ns
+req: 647 2477 2620
+req: 683 is issued at 13105 ns
+req: 648 is returnned at 13120 ns
+req: 648 2481 2624
+req: 684 is issued at 13125 ns
+req: 649 is returnned at 13140 ns
+req: 649 2485 2628
+req: 685 is issued at 13145 ns
+req: 650 is returnned at 13160 ns
+req: 650 2489 2632
+req: 686 is issued at 13165 ns
+req: 651 is returnned at 13180 ns
+req: 651 2493 2636
+req: 687 is issued at 13185 ns
+req: 652 is returnned at 13200 ns
+req: 652 2497 2640
+req: 688 is issued at 13205 ns
+req: 653 is returnned at 13220 ns
+req: 653 2501 2644
+req: 689 is issued at 13225 ns
+req: 654 is returnned at 13240 ns
+req: 654 2505 2648
+req: 690 is issued at 13245 ns
+req: 655 is returnned at 13260 ns
+req: 655 2509 2652
+req: 691 is issued at 13265 ns
+req: 656 is returnned at 13280 ns
+req: 656 2513 2656
+req: 692 is issued at 13285 ns
+req: 657 is returnned at 13300 ns
+req: 657 2517 2660
+req: 693 is issued at 13305 ns
+req: 658 is returnned at 13320 ns
+req: 658 2521 2664
+req: 694 is issued at 13325 ns
+req: 659 is returnned at 13340 ns
+req: 659 2525 2668
+req: 695 is issued at 13345 ns
+req: 660 is returnned at 13360 ns
+req: 660 2529 2672
+req: 696 is issued at 13365 ns
+req: 661 is returnned at 13380 ns
+req: 661 2533 2676
+req: 697 is issued at 13385 ns
+req: 662 is returnned at 13400 ns
+req: 662 2537 2680
+req: 698 is issued at 13405 ns
+req: 663 is returnned at 13420 ns
+req: 663 2541 2684
+req: 699 is issued at 13425 ns
+req: 664 is returnned at 13440 ns
+req: 664 2545 2688
+req: 700 is issued at 13445 ns
+req: 665 is returnned at 13460 ns
+req: 665 2549 2692
+req: 701 is issued at 13465 ns
+req: 666 is returnned at 13480 ns
+req: 666 2553 2696
+req: 702 is issued at 13485 ns
+req: 667 is returnned at 13500 ns
+req: 667 2557 2700
+req: 703 is issued at 13505 ns
+req: 668 is returnned at 13520 ns
+req: 668 2561 2704
+req: 704 is issued at 13525 ns
+req: 669 is returnned at 13540 ns
+req: 669 2565 2708
+req: 705 is issued at 13545 ns
+req: 670 is returnned at 13560 ns
+req: 670 2569 2712
+req: 706 is issued at 13565 ns
+req: 671 is returnned at 13580 ns
+req: 671 2573 2716
+req: 707 is issued at 13585 ns
+req: 672 is returnned at 13600 ns
+req: 672 2577 2720
+req: 708 is issued at 13605 ns
+req: 673 is returnned at 13620 ns
+req: 673 2581 2724
+req: 709 is issued at 13625 ns
+req: 674 is returnned at 13640 ns
+req: 674 2585 2728
+req: 710 is issued at 13645 ns
+req: 675 is returnned at 13660 ns
+req: 675 2589 2732
+req: 711 is issued at 13665 ns
+req: 676 is returnned at 13680 ns
+req: 676 2593 2736
+req: 712 is issued at 13685 ns
+req: 677 is returnned at 13700 ns
+req: 677 2597 2740
+req: 713 is issued at 13705 ns
+req: 678 is returnned at 13720 ns
+req: 678 2601 2744
+req: 714 is issued at 13725 ns
+req: 679 is returnned at 13740 ns
+req: 679 2605 2748
+req: 715 is issued at 13745 ns
+req: 680 is returnned at 13760 ns
+req: 680 2609 2752
+req: 716 is issued at 13765 ns
+req: 681 is returnned at 13780 ns
+req: 681 2613 2756
+req: 717 is issued at 13785 ns
+req: 682 is returnned at 13800 ns
+req: 682 2617 2760
+req: 718 is issued at 13805 ns
+req: 683 is returnned at 13820 ns
+req: 683 2621 2764
+req: 719 is issued at 13825 ns
+req: 684 is returnned at 13840 ns
+req: 684 2625 2768
+req: 720 is issued at 13845 ns
+req: 685 is returnned at 13860 ns
+req: 685 2629 2772
+req: 721 is issued at 13865 ns
+req: 686 is returnned at 13880 ns
+req: 686 2633 2776
+req: 722 is issued at 13885 ns
+req: 687 is returnned at 13900 ns
+req: 687 2637 2780
+req: 723 is issued at 13905 ns
+req: 688 is returnned at 13920 ns
+req: 688 2641 2784
+req: 724 is issued at 13925 ns
+req: 689 is returnned at 13940 ns
+req: 689 2645 2788
+req: 725 is issued at 13945 ns
+req: 690 is returnned at 13960 ns
+req: 690 2649 2792
+req: 726 is issued at 13965 ns
+req: 691 is returnned at 13980 ns
+req: 691 2653 2796
+req: 727 is issued at 13985 ns
+req: 692 is returnned at 14 us
+req: 692 2657 2800
+req: 728 is issued at 14005 ns
+req: 693 is returnned at 14020 ns
+req: 693 2661 2804
+req: 729 is issued at 14025 ns
+req: 694 is returnned at 14040 ns
+req: 694 2665 2808
+req: 730 is issued at 14045 ns
+req: 695 is returnned at 14060 ns
+req: 695 2669 2812
+req: 731 is issued at 14065 ns
+req: 696 is returnned at 14080 ns
+req: 696 2673 2816
+req: 732 is issued at 14085 ns
+req: 697 is returnned at 14100 ns
+req: 697 2677 2820
+req: 733 is issued at 14105 ns
+req: 698 is returnned at 14120 ns
+req: 698 2681 2824
+req: 734 is issued at 14125 ns
+req: 699 is returnned at 14140 ns
+req: 699 2685 2828
+req: 735 is issued at 14145 ns
+req: 700 is returnned at 14160 ns
+req: 700 2689 2832
+req: 736 is issued at 14165 ns
+req: 701 is returnned at 14180 ns
+req: 701 2693 2836
+req: 737 is issued at 14185 ns
+req: 702 is returnned at 14200 ns
+req: 702 2697 2840
+req: 738 is issued at 14205 ns
+req: 703 is returnned at 14220 ns
+req: 703 2701 2844
+req: 739 is issued at 14225 ns
+req: 704 is returnned at 14240 ns
+req: 704 2705 2848
+req: 740 is issued at 14245 ns
+req: 705 is returnned at 14260 ns
+req: 705 2709 2852
+req: 741 is issued at 14265 ns
+req: 706 is returnned at 14280 ns
+req: 706 2713 2856
+req: 742 is issued at 14285 ns
+req: 707 is returnned at 14300 ns
+req: 707 2717 2860
+req: 743 is issued at 14305 ns
+req: 708 is returnned at 14320 ns
+req: 708 2721 2864
+req: 744 is issued at 14325 ns
+req: 709 is returnned at 14340 ns
+req: 709 2725 2868
+req: 745 is issued at 14345 ns
+req: 710 is returnned at 14360 ns
+req: 710 2729 2872
+req: 746 is issued at 14365 ns
+req: 711 is returnned at 14380 ns
+req: 711 2733 2876
+req: 747 is issued at 14385 ns
+req: 712 is returnned at 14400 ns
+req: 712 2737 2880
+req: 748 is issued at 14405 ns
+req: 713 is returnned at 14420 ns
+req: 713 2741 2884
+req: 749 is issued at 14425 ns
+req: 714 is returnned at 14440 ns
+req: 714 2745 2888
+req: 750 is issued at 14445 ns
+req: 715 is returnned at 14460 ns
+req: 715 2749 2892
+req: 751 is issued at 14465 ns
+req: 716 is returnned at 14480 ns
+req: 716 2753 2896
+req: 752 is issued at 14485 ns
+req: 717 is returnned at 14500 ns
+req: 717 2757 2900
+req: 753 is issued at 14505 ns
+req: 718 is returnned at 14520 ns
+req: 718 2761 2904
+req: 754 is issued at 14525 ns
+req: 719 is returnned at 14540 ns
+req: 719 2765 2908
+req: 755 is issued at 14545 ns
+req: 720 is returnned at 14560 ns
+req: 720 2769 2912
+req: 756 is issued at 14565 ns
+req: 721 is returnned at 14580 ns
+req: 721 2773 2916
+req: 757 is issued at 14585 ns
+req: 722 is returnned at 14600 ns
+req: 722 2777 2920
+req: 758 is issued at 14605 ns
+req: 723 is returnned at 14620 ns
+req: 723 2781 2924
+req: 759 is issued at 14625 ns
+req: 724 is returnned at 14640 ns
+req: 724 2785 2928
+req: 760 is issued at 14645 ns
+req: 725 is returnned at 14660 ns
+req: 725 2789 2932
+req: 761 is issued at 14665 ns
+req: 726 is returnned at 14680 ns
+req: 726 2793 2936
+req: 762 is issued at 14685 ns
+req: 727 is returnned at 14700 ns
+req: 727 2797 2940
+req: 763 is issued at 14705 ns
+req: 728 is returnned at 14720 ns
+req: 728 2801 2944
+req: 764 is issued at 14725 ns
+req: 729 is returnned at 14740 ns
+req: 729 2805 2948
+req: 765 is issued at 14745 ns
+req: 730 is returnned at 14760 ns
+req: 730 2809 2952
+req: 766 is issued at 14765 ns
+req: 731 is returnned at 14780 ns
+req: 731 2813 2956
+req: 767 is issued at 14785 ns
+req: 732 is returnned at 14800 ns
+req: 732 2817 2960
+req: 733 is returnned at 14820 ns
+req: 733 2821 2964
+req: 734 is returnned at 14840 ns
+req: 734 2825 2968
+req: 735 is returnned at 14860 ns
+req: 735 2829 2972
+req: 736 is returnned at 14880 ns
+req: 736 2833 2976
+req: 737 is returnned at 14900 ns
+req: 737 2837 2980
+req: 738 is returnned at 14920 ns
+req: 738 2841 2984
+req: 739 is returnned at 14940 ns
+req: 739 2845 2988
+req: 740 is returnned at 14960 ns
+req: 740 2849 2992
+req: 741 is returnned at 14980 ns
+req: 741 2853 2996
+req: 742 is returnned at 15 us
+req: 742 2857 3000
+req: 743 is returnned at 15020 ns
+req: 743 2861 3004
+req: 744 is returnned at 15040 ns
+req: 744 2865 3008
+req: 745 is returnned at 15060 ns
+req: 745 2869 3012
+req: 746 is returnned at 15080 ns
+req: 746 2873 3016
+req: 747 is returnned at 15100 ns
+req: 747 2877 3020
+req: 748 is returnned at 15120 ns
+req: 748 2881 3024
+req: 749 is returnned at 15140 ns
+req: 749 2885 3028
+req: 750 is returnned at 15160 ns
+req: 750 2889 3032
+req: 751 is returnned at 15180 ns
+req: 751 2893 3036
+req: 752 is returnned at 15200 ns
+req: 752 2897 3040
+req: 753 is returnned at 15220 ns
+req: 753 2901 3044
+req: 754 is returnned at 15240 ns
+req: 754 2905 3048
+req: 755 is returnned at 15260 ns
+req: 755 2909 3052
+req: 756 is returnned at 15280 ns
+req: 756 2913 3056
+req: 757 is returnned at 15300 ns
+req: 757 2917 3060
+req: 758 is returnned at 15320 ns
+req: 758 2921 3064
+req: 759 is returnned at 15340 ns
+req: 759 2925 3068
+req: 760 is returnned at 15360 ns
+req: 760 2929 3072
+req: 761 is returnned at 15380 ns
+req: 761 2933 3076
+req: 762 is returnned at 15400 ns
+req: 762 2937 3080
+req: 763 is returnned at 15420 ns
+req: 763 2941 3084
+req: 764 is returnned at 15440 ns
+req: 764 2945 3088
+req: 765 is returnned at 15460 ns
+req: 765 2949 3092
+req: 766 is returnned at 15480 ns
+req: 766 2953 3096
+req: 767 is returnned at 15500 ns
+req: 767 2957 3100
+burst 512 is sent to ramulator. 
+burst 513 is sent to ramulator. 
+burst 514 is sent to ramulator. 
+burst 515 is sent to ramulator. 
+burst 516 is sent to ramulator. 
+burst 517 is sent to ramulator. 
+burst 518 is sent to ramulator. 
+burst 519 is sent to ramulator. 
+burst 520 is sent to ramulator. 
+burst 521 is sent to ramulator. 
+burst 522 is sent to ramulator. 
+burst 523 is sent to ramulator. 
+burst 524 is sent to ramulator. 
+burst 525 is sent to ramulator. 
+burst 526 is sent to ramulator. 
+burst 527 is sent to ramulator. 
+burst 528 is sent to ramulator. 
+burst 529 is sent to ramulator. 
+burst 530 is sent to ramulator. 
+burst 531 is sent to ramulator. 
+burst 532 is sent to ramulator. 
+burst 533 is sent to ramulator. 
+burst 534 is sent to ramulator. 
+burst 535 is sent to ramulator. 
+burst 536 is sent to ramulator. 
+burst 537 is sent to ramulator. 
+burst 538 is sent to ramulator. 
+burst 539 is sent to ramulator. 
+burst 540 is sent to ramulator. 
+burst 541 is sent to ramulator. 
+burst 542 is sent to ramulator. 
+burst 543 is sent to ramulator. 
+burst 544 is sent to ramulator. 
+burst 545 is sent to ramulator. 
+burst 546 is sent to ramulator. 
+burst 547 is sent to ramulator. 
+burst 548 is sent to ramulator. 
+burst 549 is sent to ramulator. 
+burst 550 is sent to ramulator. 
+burst 551 is sent to ramulator. 
+burst 552 is sent to ramulator. 
+burst 553 is sent to ramulator. 
+burst 554 is sent to ramulator. 
+burst 555 is sent to ramulator. 
+burst 556 is sent to ramulator. 
+burst 557 is sent to ramulator. 
+burst 558 is sent to ramulator. 
+burst 559 is sent to ramulator. 
+burst 560 is sent to ramulator. 
+burst 561 is sent to ramulator. 
+burst 562 is sent to ramulator. 
+burst 563 is sent to ramulator. 
+burst 564 is sent to ramulator. 
+burst 565 is sent to ramulator. 
+burst 566 is sent to ramulator. 
+burst 567 is sent to ramulator. 
+burst 568 is sent to ramulator. 
+burst 569 is sent to ramulator. 
+burst 570 is sent to ramulator. 
+burst 571 is sent to ramulator. 
+burst 572 is sent to ramulator. 
+burst 573 is sent to ramulator. 
+burst 574 is sent to ramulator. 
+burst 575 is sent to ramulator. 
+burst 576 is sent to ramulator. 
+burst 577 is sent to ramulator. 
+burst 578 is sent to ramulator. 
+burst 579 is sent to ramulator. 
+burst 580 is sent to ramulator. 
+burst 581 is sent to ramulator. 
+burst 582 is sent to ramulator. 
+burst 583 is sent to ramulator. 
+burst 584 is sent to ramulator. 
+burst 585 is sent to ramulator. 
+burst 586 is sent to ramulator. 
+burst 587 is sent to ramulator. 
+burst 588 is sent to ramulator. 
+burst 589 is sent to ramulator. 
+burst 590 is sent to ramulator. 
+burst 591 is sent to ramulator. 
+burst 592 is sent to ramulator. 
+burst 593 is sent to ramulator. 
+burst 594 is sent to ramulator. 
+burst 595 is sent to ramulator. 
+burst 596 is sent to ramulator. 
+burst 597 is sent to ramulator. 
+burst 598 is sent to ramulator. 
+burst 599 is sent to ramulator. 
+burst 600 is sent to ramulator. 
+burst 601 is sent to ramulator. 
+burst 602 is sent to ramulator. 
+burst 603 is sent to ramulator. 
+burst 604 is sent to ramulator. 
+burst 605 is sent to ramulator. 
+burst 606 is sent to ramulator. 
+burst 607 is sent to ramulator. 
+burst 608 is sent to ramulator. 
+burst 609 is sent to ramulator. 
+burst 610 is sent to ramulator. 
+burst 611 is sent to ramulator. 
+burst 612 is sent to ramulator. 
+burst 613 is sent to ramulator. 
+burst 614 is sent to ramulator. 
+burst 615 is sent to ramulator. 
+burst 616 is sent to ramulator. 
+burst 617 is sent to ramulator. 
+burst 618 is sent to ramulator. 
+burst 619 is sent to ramulator. 
+burst 620 is sent to ramulator. 
+burst 621 is sent to ramulator. 
+burst 622 is sent to ramulator. 
+burst 623 is sent to ramulator. 
+burst 624 is sent to ramulator. 
+burst 625 is sent to ramulator. 
+burst 626 is sent to ramulator. 
+burst 627 is sent to ramulator. 
+burst 628 is sent to ramulator. 
+burst 629 is sent to ramulator. 
+burst 630 is sent to ramulator. 
+burst 631 is sent to ramulator. 
+burst 632 is sent to ramulator. 
+burst 633 is sent to ramulator. 
+burst 634 is sent to ramulator. 
+burst 635 is sent to ramulator. 
+burst 636 is sent to ramulator. 
+burst 637 is sent to ramulator. 
+burst 638 is sent to ramulator. 
+burst 639 is sent to ramulator. 
+burst 640 is sent to ramulator. 
+burst 641 is sent to ramulator. 
+burst 642 is sent to ramulator. 
+burst 643 is sent to ramulator. 
+burst 644 is sent to ramulator. 
+burst 645 is sent to ramulator. 
+burst 646 is sent to ramulator. 
+burst 647 is sent to ramulator. 
+burst 648 is sent to ramulator. 
+burst 649 is sent to ramulator. 
+burst 650 is sent to ramulator. 
+burst 651 is sent to ramulator. 
+burst 652 is sent to ramulator. 
+burst 653 is sent to ramulator. 
+burst 654 is sent to ramulator. 
+burst 655 is sent to ramulator. 
+burst 656 is sent to ramulator. 
+burst 657 is sent to ramulator. 
+burst 658 is sent to ramulator. 
+burst 659 is sent to ramulator. 
+burst 660 is sent to ramulator. 
+burst 661 is sent to ramulator. 
+burst 662 is sent to ramulator. 
+burst 663 is sent to ramulator. 
+burst 664 is sent to ramulator. 
+burst 665 is sent to ramulator. 
+burst 666 is sent to ramulator. 
+burst 667 is sent to ramulator. 
+burst 668 is sent to ramulator. 
+burst 669 is sent to ramulator. 
+burst 670 is sent to ramulator. 
+burst 671 is sent to ramulator. 
+burst 672 is sent to ramulator. 
+burst 673 is sent to ramulator. 
+burst 674 is sent to ramulator. 
+burst 675 is sent to ramulator. 
+burst 676 is sent to ramulator. 
+burst 677 is sent to ramulator. 
+burst 678 is sent to ramulator. 
+burst 679 is sent to ramulator. 
+burst 680 is sent to ramulator. 
+burst 681 is sent to ramulator. 
+burst 682 is sent to ramulator. 
+burst 683 is sent to ramulator. 
+burst 684 is sent to ramulator. 
+burst 685 is sent to ramulator. 
+burst 686 is sent to ramulator. 
+burst 687 is sent to ramulator. 
+burst 688 is sent to ramulator. 
+burst 689 is sent to ramulator. 
+burst 690 is sent to ramulator. 
+burst 691 is sent to ramulator. 
+burst 692 is sent to ramulator. 
+burst 693 is sent to ramulator. 
+burst 694 is sent to ramulator. 
+burst 695 is sent to ramulator. 
+burst 696 is sent to ramulator. 
+burst 697 is sent to ramulator. 
+burst 698 is sent to ramulator. 
+burst 699 is sent to ramulator. 
+burst 700 is sent to ramulator. 
+burst 701 is sent to ramulator. 
+burst 702 is sent to ramulator. 
+burst 703 is sent to ramulator. 
+burst 704 is sent to ramulator. 
+burst 705 is sent to ramulator. 
+burst 706 is sent to ramulator. 
+burst 707 is sent to ramulator. 
+burst 708 is sent to ramulator. 
+burst 709 is sent to ramulator. 
+burst 710 is sent to ramulator. 
+burst 711 is sent to ramulator. 
+burst 712 is sent to ramulator. 
+burst 713 is sent to ramulator. 
+burst 714 is sent to ramulator. 
+burst 715 is sent to ramulator. 
+burst 716 is sent to ramulator. 
+burst 717 is sent to ramulator. 
+burst 718 is sent to ramulator. 
+burst 719 is sent to ramulator. 
+burst 720 is sent to ramulator. 
+burst 721 is sent to ramulator. 
+burst 722 is sent to ramulator. 
+burst 723 is sent to ramulator. 
+burst 724 is sent to ramulator. 
+burst 725 is sent to ramulator. 
+burst 726 is sent to ramulator. 
+burst 727 is sent to ramulator. 
+burst 728 is sent to ramulator. 
+burst 729 is sent to ramulator. 
+burst 730 is sent to ramulator. 
+burst 731 is sent to ramulator. 
+burst 732 is sent to ramulator. 
+burst 733 is sent to ramulator. 
+burst 734 is sent to ramulator. 
+burst 735 is sent to ramulator. 
+burst 736 is sent to ramulator. 
+burst 737 is sent to ramulator. 
+burst 738 is sent to ramulator. 
+burst 739 is sent to ramulator. 
+burst 740 is sent to ramulator. 
+burst 741 is sent to ramulator. 
+burst 742 is sent to ramulator. 
+burst 743 is sent to ramulator. 
+burst 744 is sent to ramulator. 
+burst 745 is sent to ramulator. 
+burst 746 is sent to ramulator. 
+burst 747 is sent to ramulator. 
+burst 748 is sent to ramulator. 
+burst 749 is sent to ramulator. 
+burst 750 is sent to ramulator. 
+burst 751 is sent to ramulator. 
+burst 752 is sent to ramulator. 
+burst 753 is sent to ramulator. 
+burst 754 is sent to ramulator. 
+burst 755 is sent to ramulator. 
+burst 756 is sent to ramulator. 
+burst 757 is sent to ramulator. 
+burst 758 is sent to ramulator. 
+burst 759 is sent to ramulator. 
+burst 760 is sent to ramulator. 
+burst 761 is sent to ramulator. 
+burst 762 is sent to ramulator. 
+burst 763 is sent to ramulator. 
+burst 764 is sent to ramulator. 
+burst 765 is sent to ramulator. 
+burst 766 is sent to ramulator. 
+burst 767 is sent to ramulator. 
+Simulation ends at 118020 ns
+The resulting vp : 
+0 1 4 9 16 25 36 49 64 81 100 121 144 169 196 225 256 289 324 361 
+
+Info: /OSCI/SystemC: Simulation stopped by user.
