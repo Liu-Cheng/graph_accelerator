@@ -6,6 +6,10 @@ critical to the accelerator's performance, we use Ramulator \[1\] as the memory 
 [\[1\] Kim et al. *Ramulator: A Fast and Extensible DRAM Simulator.* IEEE CAL
 2015.](https://users.ece.cmu.edu/~omutlu/pub/ramulator_dram_simulator-ieee-cal15.pdf)  
 
+Before starting the BFS simulator, we also have a equvalient software implementation in 
+bfs directory. Basically, we want to verify the correctness of the optimization techniques. 
+At the same time, we may do some analysis here as well based on some statistic counters. m
+
 ## Getting Started
 [SystemC-2.3.1](http://accellera.org/downloads/standards/systemc) 
 is used for the accelerator design. You need to download and compile it first. Then 
