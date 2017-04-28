@@ -1,0 +1,45 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CC	Makefile	/^CC = g++$/;"	m
+CFLAGS	Makefile	/^CFLAGS= -g -std=c++11 -O3$/;"	m
+CSR	graph.cpp	/^CSR::CSR(const Graph &g) : v_num(g.vertex_num), e_num(g.edge_num){$/;"	f	class:CSR
+CSR	graph.h	/^class CSR{$/;"	c
+Graph	graph.cpp	/^Graph::Graph(const std::string& fname){$/;"	f	class:Graph
+Graph	graph.h	/^class Graph{$/;"	c
+HERE	graph.h	14;"	d
+OBJS	Makefile	/^OBJS = $(SRCS:.cpp=.o)$/;"	m
+SRCS	Makefile	/^SRCS = bfs.cpp graph.cpp$/;"	m
+TARGET	Makefile	/^TARGET = bfs $/;"	m
+Vertex	graph.h	/^        explicit Vertex(int _idx) {$/;"	f	class:Vertex
+Vertex	graph.h	/^class Vertex {$/;"	c
+__GRAPH_H__	graph.h	2;"	d
+basic_bfs	graph.cpp	/^bool CSR::basic_bfs(const long &start_idx){$/;"	f	class:CSR
+bfs	graph.cpp	/^bool CSR::bfs(const long &start_idx){$/;"	f	class:CSR
+ciai	graph.h	/^        std::vector<long> ciai;    \/\/ column index array based on incoming vertices$/;"	m	class:CSR
+ciao	graph.h	/^        std::vector<long> ciao;    \/\/ column index array based on outgoing vertices$/;"	m	class:CSR
+e_num	graph.h	/^        const long e_num;$/;"	m	class:CSR
+edge_num	graph.h	/^        long edge_num;$/;"	m	class:Graph
+getHubVertexNum	graph.cpp	/^int CSR::getHubVertexNum(const int &threshold){$/;"	f	class:CSR
+getMaxIdx	graph.cpp	/^long Graph::getMaxIdx(const std::vector<std::vector<long>> &data){$/;"	f	class:Graph
+getMinIdx	graph.cpp	/^long Graph::getMinIdx(const std::vector<std::vector<long>> &data){$/;"	f	class:Graph
+idx	graph.h	/^        long idx;$/;"	m	class:Vertex
+in_deg	graph.h	/^        int in_deg;$/;"	m	class:Vertex
+in_vids	graph.h	/^        std::vector<long> in_vids;$/;"	m	class:Vertex
+isContinuous	graph.cpp	/^bool Graph::isContinuous($/;"	f	class:Graph
+isValidData	graph.cpp	/^bool Graph::isValidData(std::vector<std::vector<long>> &data){$/;"	f	class:Graph
+loadFile	graph.cpp	/^void Graph::loadFile($/;"	f	class:Graph
+main	bfs.cpp	/^int main(int argc, char** argv){$/;"	f
+out_deg	graph.h	/^        int out_deg;$/;"	m	class:Vertex
+out_vids	graph.h	/^        std::vector<long> out_vids;$/;"	m	class:Vertex
+reshapeData	graph.cpp	/^void Graph::reshapeData($/;"	f	class:Graph
+rpai	graph.h	/^        std::vector<long> rpai;    \/\/ row pointer array based on incoming vertices$/;"	m	class:CSR
+rpao	graph.h	/^        std::vector<long> rpao;    \/\/ row pointer array based on outgoing vertices$/;"	m	class:CSR
+v_num	graph.h	/^        const long v_num;$/;"	m	class:CSR
+vertex_num	graph.h	/^        long vertex_num;$/;"	m	class:Graph
+vertices	graph.h	/^        std::vector<Vertex*> vertices; $/;"	m	class:Graph
+weight	graph.h	/^        std::vector<float> weight; \/\/ It is not actually used in bfs$/;"	m	class:CSR
+~Vertex	graph.h	/^        ~Vertex(){$/;"	f	class:Vertex

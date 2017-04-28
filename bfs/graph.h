@@ -38,24 +38,15 @@ class Graph{
         long edge_num;
         std::vector<Vertex*> vertices; 
 
-        Graph(const std::string &file_name);
+        Graph(const std::string &fname);
         ~Graph();
 
     private:
-        bool isContinuous(
-                const std::vector<std::vector<long>> &data,
-                std::vector<long> &missing_vids,
-                const long &num
-                );
-        void reshapeData(
-                std::vector<std::vector<long>> &data,
-                std::vector<long> &missing_vids
-                );
         long getMaxIdx(const std::vector<std::vector<long>> &data);
         long getMinIdx(const std::vector<std::vector<long>> &data);
-        bool isValidData(std::vector<std::vector<long>> &data);
+        bool isValidData(const std::vector<std::vector<long>> &data);
         void loadFile(
-                const std::string& file_name,
+                const std::string& fname,
                 std::vector<std::vector<long>> &data
                 );
 
@@ -72,14 +63,17 @@ class CSR{
 
         // The CSR is constructed based on the simple graph
         explicit CSR(const Graph &g);
-        bool bfs(const long &start_idx);
-        bool basic_bfs(const long &start_idx);
+        bool bfs(const long &start_idx, std::ofstream &fhandle);
+        bool basic_bfs(const long &start_idx, std::ofstream &fhandle);
         ~CSR();
 
     private:
         const long v_num;
         const long e_num;
 
+        bool isInBuffer(
+                const std::vector<long> &buffer, 
+                const long &idx);
         int getHubVertexNum(const int &threshold);
 };
 
