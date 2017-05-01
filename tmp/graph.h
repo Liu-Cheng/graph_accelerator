@@ -38,7 +38,7 @@ class Graph{
         int edge_num;
         std::vector<Vertex*> vertices; 
 
-        Graph(const std::string &file_name);
+        Graph(const std::string &fname);
         ~Graph();
         void getRandomStartIndices(std::vector<int> &start_indices);
         void getStat();
@@ -47,7 +47,7 @@ class Graph{
         int getMaxIdx(const std::vector<std::vector<int>> &data);
         int getMinIdx(const std::vector<std::vector<int>> &data);
         void loadFile(
-                const std::string& file_name,
+                const std::string& fname,
                 std::vector<std::vector<int>> &data
                 );
 
@@ -64,15 +64,19 @@ class CSR{
 
         // The CSR is constructed based on the simple graph
         explicit CSR(const Graph &g);
-        bool bfs(const int &start_idx);
-        bool basic_bfs(const int &start_idx);
+        bool bfs(const int &start_idx, std::ofstream &fhandle);
+        bool basic_bfs(const int &start_idx, std::ofstream &fhandle);
         ~CSR();
 
     private:
         const int v_num;
         const int e_num;
 
+        bool isInBuffer(
+                const std::vector<int> &buffer, 
+                const int &idx);
         int getHubVertexNum(const int &threshold);
+        void hubVertexAnalysis(const int &threshold);
 };
 
 
