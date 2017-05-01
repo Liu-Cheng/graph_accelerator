@@ -3,11 +3,16 @@
 
 int main(int argc, char** argv){
 
-    double alpha = 0.85;
     int repeat_num = 10;
-    std::vector<long> start_indices{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    Graph* gptr = new Graph("./data/rmat2.txt");
+    std::vector<int> start_indices{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    //Graph* gptr = new Graph("/home/liucheng/gitrepo/graph-data/dblp.ungraph.txt");
+    //Graph* gptr = new Graph("/home/liucheng/gitrepo/graph-data/youtube.ungraph.txt");
+    //Graph* gptr = new Graph("/home/liucheng/gitrepo/graph-data/lj.ungraph.txt");
+    //Graph* gptr = new Graph("/home/liucheng/gitrepo/graph-data/pokec-relationships.txt");
+    Graph* gptr = new Graph("/home/liucheng/gitrepo/graph-data/wiki-Talk.txt");
     //Graph* gptr = new Graph("./data/mydata.txt");
+    gptr->getRandomStartIndices(start_indices);
+    gptr->getStat();
     CSR* csr_ptr = new CSR(*gptr);
 
     // result will be dumped to the files

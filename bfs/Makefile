@@ -1,5 +1,5 @@
 CC = g++
-#CFLAGS= -DDEBUG -g -Wall -gdwarf-2 
+#CFLAGS= -DDEBUG -g -std=c++11 -Wall -gdwarf-2 
 CFLAGS= -g -std=c++11 -O3
 #CFLAGS= -g -pg -O3
 TARGET = bfs 

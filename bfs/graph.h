@@ -15,12 +15,12 @@
 
 class Vertex {
     public:
-        long idx;
+        int idx;
         int in_deg;
         int out_deg;
 
-        std::vector<long> in_vids;
-        std::vector<long> out_vids;
+        std::vector<int> in_vids;
+        std::vector<int> out_vids;
 
         explicit Vertex(int _idx) {
             idx = _idx;
@@ -34,20 +34,21 @@ class Vertex {
 
 class Graph{
     public:
-        long vertex_num;
-        long edge_num;
+        int vertex_num;
+        int edge_num;
         std::vector<Vertex*> vertices; 
 
         Graph(const std::string &fname);
         ~Graph();
+        void getRandomStartIndices(std::vector<int> &start_indices);
+        void getStat();
 
     private:
-        long getMaxIdx(const std::vector<std::vector<long>> &data);
-        long getMinIdx(const std::vector<std::vector<long>> &data);
-        bool isValidData(const std::vector<std::vector<long>> &data);
+        int getMaxIdx(const std::vector<std::vector<int>> &data);
+        int getMinIdx(const std::vector<std::vector<int>> &data);
         void loadFile(
                 const std::string& fname,
-                std::vector<std::vector<long>> &data
+                std::vector<std::vector<int>> &data
                 );
 
 };
@@ -56,25 +57,26 @@ class Graph{
 class CSR{
     public:
         std::vector<float> weight; // It is not actually used in bfs
-        std::vector<long> rpao;    // row pointer array based on outgoing vertices
-        std::vector<long> ciao;    // column index array based on outgoing vertices
-        std::vector<long> rpai;    // row pointer array based on incoming vertices
-        std::vector<long> ciai;    // column index array based on incoming vertices
+        std::vector<int> rpao;    // row pointer array based on outgoing vertices
+        std::vector<int> ciao;    // column index array based on outgoing vertices
+        std::vector<int> rpai;    // row pointer array based on incoming vertices
+        std::vector<int> ciai;    // column index array based on incoming vertices
 
         // The CSR is constructed based on the simple graph
         explicit CSR(const Graph &g);
-        bool bfs(const long &start_idx, std::ofstream &fhandle);
-        bool basic_bfs(const long &start_idx, std::ofstream &fhandle);
+        bool bfs(const int &start_idx, std::ofstream &fhandle);
+        bool basic_bfs(const int &start_idx, std::ofstream &fhandle);
         ~CSR();
 
     private:
-        const long v_num;
-        const long e_num;
+        const int v_num;
+        const int e_num;
 
         bool isInBuffer(
-                const std::vector<long> &buffer, 
-                const long &idx);
+                const std::vector<int> &buffer, 
+                const int &idx);
         int getHubVertexNum(const int &threshold);
+        void hubVertexAnalysis(const int &threshold);
 };
 
 
