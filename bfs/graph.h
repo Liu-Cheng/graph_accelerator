@@ -44,6 +44,7 @@ class Graph{
         void getStat();
 
     private:
+        bool isUgraph;
         int getMaxIdx(const std::vector<std::vector<int>> &data);
         int getMinIdx(const std::vector<std::vector<int>> &data);
         void loadFile(
@@ -64,19 +65,40 @@ class CSR{
 
         // The CSR is constructed based on the simple graph
         explicit CSR(const Graph &g);
-        bool bfs(const int &start_idx, std::ofstream &fhandle);
-        bool basic_bfs(const int &start_idx, std::ofstream &fhandle);
+
+        void setBfsParam(float _alpha, float _beta, int _hub_vertex_threshold, int _cache_threshold, int _bucket_num);
+
+        // hybrid read based bfs with hub vertex cache
+        bool cacheHybridBfs(const int &start_idx, std::ofstream &fhandle); 
+
+        // hybrid read based bfs
+        bool hybridBfs(const int &start_idx, std::ofstream &fhandle); 
+
+        // frontier-based top-down bfs
+        bool basicBfs(const int &start_idx, std::ofstream &fhandle); 
+
+        // read based top-down bfs
+        bool tdBfs(const int &start_idx, std::ofstream &fhandle); 
+
+        // read based bottom-up bfs
+        bool buBfs(const int &start_idx, std::ofstream &fhandle); 
+
+        void degreeAnalysis();
         ~CSR();
 
     private:
         const int v_num;
         const int e_num;
+        float alpha;
+        float beta;
+        int hub_vertex_threshold;
+        int cache_threshold;
+        int bucket_num;
 
         bool isInBuffer(
                 const std::vector<int> &buffer, 
                 const int &idx);
-        int getHubVertexNum(const int &threshold);
-        void hubVertexAnalysis(const int &threshold);
+        int getHubVertexNum();
 };
 
 

@@ -19,86 +19,109 @@ class pe : public sc_module{
         sc_out<BurstOp> burstReq;
         sc_in<BurstOp> burstResp;
 
-        // pe parameter
         int peIdx;
 
         pe(sc_module_name _name, int _peIdx, int _peClkCycle);
         ~pe(){};
 
-        // public member function
-        void sendMemReq();
-        void getMemResp();
-        void issueVaReadReq();
-        void issueVbReadReq();
-        void issueVpWriteReq();
+
         void runtimeMonitor();
         void dumpResp();
         void setPeClkCycle(int _peClkCycle);
-        void vecAdd();
-        void statusMonitor();
+        void bfsController();
+
+        // As it takes time to write data to memory, even though the write requests 
+        // can always be accommodated. Thus we add additional delay here to simulate 
+        // the transmission cost here.
+        template<typename T>
         long createWriteBurstReq(
                 ramulator::Request::Type type, 
+                PortType ptype,
                 long addr, 
                 int length, 
-                int localAddr, 
-                std::vector<int> &buffer,
-                PortType ptype);
+                std::list<T> &buffer
+                )
+        {
+            long burstIdx = GL::getBurstIdx();
+            BurstOp op(type, ptype, burstIdx, peIdx, addr, length);
+            op.updateReqVec();
+            op.updateAddrVec();
+
+            // It takes a few cycles to read data from buffer
+            wait(peClkCycle * op.length / dataWidth, SC_NS);
+
+            // It takes a number of cycles to transmit data over the bus to memory.
+            // However, we assume it is only limited by the memory bandwidth and thus 
+            // we rely the ramulator to contrain the memory write access.
+            // wait(peClkCycle * op.getReqNum() * GL::burstLen/dataWidth, SC_NS);
+            op.bufferToBurstReq<T>(buffer);
+            burstReqQueue[ptype].push_back(op);
+
+            return burstIdx;
+        }
+
+
 
         long createReadBurstReq(
                 ramulator::Request::Type type, 
+                PortType ptype,
                 long addr, 
-                int length, 
-                int localAddr,
-                PortType ptype);
+                int length 
+                );
 
         void setDataWidth(int width);
 
     private:
+        unsigned char level;
         int peClkCycle;
-        int dataWidth;      // # of bytes can be transmitted to/from memory in each cycle
-        std::vector<int> va; // Input of vector a
-        std::vector<int> vb; // Input of vector b
-        std::vector<int> vp; // result of the element-wise production of a and b
+        int dataWidth; 
 
-        bool allVaReqGenerated;
-        bool allVaRespReceived;
-        bool allVbReqGenerated;
-        bool allVbRespReceived;
-        bool allVpReqGenerated;
-        bool allVpRespReceived;
+        // inspection process related flag
+        bool inspectDepthReadReqFlag;
+        bool inspectFrontierWriteReqFlag;
+        bool inspectFlag;
 
-        bool computingDone;
-        bool vaReady;
-        bool vbReady;
-        bool vpReady;
+        // expansion process
+        //bool expandReadDepthFlag;
+        //bool expandWriteDepthFlag;
+        //bool expandReadRpaoFlag;
+        //bool expandReadRpaiFlag;
+        //bool expandReadCiaoFlag;
+        //bool expandReadCiaiFlag;
 
-        // Each (read,write) queue pair is usedd by one memory access port
-        std::list<BurstOp> vaBurstReqQueue;
-        std::list<BurstOp> vbBurstReqQueue;
-        std::list<BurstOp> vpBurstReqQueue;
-        std::list<BurstOp> vaBurstRespQueue;
-        std::list<BurstOp> vbBurstRespQueue;
-        std::list<BurstOp> vpBurstRespQueue;
+        std::list<unsigned char> inspectDepthReadBuffer; 
+        std::list<int> inspectFrontierWriteBuffer;
+        std::list<int> expandRpaoReadBuffer;
+        std::list<int> expandCiaoReadBuffer;
+        std::list<int> exapndRpaiReadBuffer; 
+        std::list<int> expandCiaiReadBuffer;  
+        std::list<unsigned char> expandDepthWriteBuffer;
+        std::list<int> expandFrontierReadBuffer; 
+        std::vector<std::list<BurstOp>> burstReqQueue;
+        std::vector<std::list<BurstOp>> burstRespQueue;
 
         // It keeps the status of the burst requests. If a burst with burstIdx is not found 
         // in the mapper, it doesn't exist. If it is found to be false, the request is generated 
         // but is not responsed yet. If it is set true, the request is responsed.
         // These data structure will remain valid until the end of the object life.
-        std::map<long, bool> vaBurstReqStatus;
-        std::map<long, bool> vbBurstReqStatus;
-        std::map<long, bool> vpBurstReqStatus;
-
-        std::list<long> vaReqQueue;
-        std::list<long> vbReqQueue;
-        std::list<long> vpReqQueue;
+        std::map<long, bool> burstOpStatus;
+        std::map<long, PortType> burstOpPtype;
 
         bool isBurstReqQueueEmpty();
         bool isMemReqQueueEmpty();
         void init();
-        void vaRespProcess();
-        void vbRespProcess();
-        void vpRespProcess();
+        bool isInspectionDone();
         PortType burstReqArbiter(PortType winner);
+        bool isAllRespReceived(PortType ptype);
+        // processing thread
+        void sendMemReq();
+        void getMemResp();
+
+        void issueInspectDepthReadReq();
+        void processInspectDepthReadResp();
+        void inspectDepthRead();
+        void issueInspectFrontierWriteReq();
+        void processInspectFrontierWriteResp();
 };
 
 #endif

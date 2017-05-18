@@ -1,21 +1,69 @@
 #include "common.h"
 
-int GL::vaBufferDepth = 4096;
-int GL::vbBufferDepth = 4096;
-int GL::vpBufferDepth = 4096;
+// This will be updated in MemWrapper::loadGraph() 
+int GL::vertexNum = 0;
+int GL::edgeNum = 0;
+std::vector<int> GL::startingVertices;
 
-long GL::vaMemAddr = 0;
-long GL::vbMemAddr = 32768;
-long GL::vpMemAddr = 65536;
+// This will be updated in main.
+float GL::alpha = 0.2;
+int GL::beta = 5000;
+int GL::cacheThreshold = 0;
+int GL::hubVertexThreshold = 0;
 
-int GL::vaLen = 4096;
-int GL::vbLen = 4096;
-int GL::vpLen = 4096;
+// This can be used as default value
+int GL::depthBufferDepth = 4096;
+int GL::rpaoBufferDepth = 1024;
+int GL::ciaoBufferDepth = 1024;
+int GL::rpaiBufferDepth = 1024;
+int GL::ciaiBufferDepth = 1024;
+int GL::frontierBufferDepth = 1024;
+
+// They are updated in MemWrapper::ramInit()
+long GL::depthMemAddr = 0;
+long GL::rpaoMemAddr = 0;
+long GL::ciaoMemAddr = 0;
+long GL::rpaiMemAddr = 0;
+long GL::ciaiMemAddr = 0;
+long GL::frontierMemAddr = 0;
 
 long GL::reqIdx = -1;
 long GL::burstIdx = -1;
 int GL::burstLen = 64;
+int GL::baseLen = 1024; // 1024 bytes
 int GL::burstAddrWidth = GL::getBurstAddrWidth();
+
+void GL::cfgBfsParam(const std::string &cfgFileName){
+
+    std::ifstream fhandle(cfgFileName.c_str());
+    if(!fhandle.is_open()){
+        HERE;
+        std::cout << "Failed to open " << cfgFileName << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    std::string graphName;
+    std::string graphDir;
+    while(!fhandle.eof()){
+        std::string cfgKey;
+        fhandle >> cfgKey;
+        if(cfgKey == "alpha"){
+            fhandle >> alpha;
+        }
+        else if(cfgKey == "beta"){
+            fhandle >> beta;
+        }
+        else if(cfgKey == "cacheThreshold"){
+            fhandle >> cacheThreshold;
+        }
+        else if(cfgKey == "hubVertexThreshold"){
+            fhandle >> hubVertexThreshold;
+        }
+    }
+
+    fhandle.close();
+
+}
 
 long GL::getBurstIdx(){
     burstIdx++;
@@ -82,15 +130,49 @@ std::ostream& operator<< (std::ostream &os, const ramulator::Request::Type &type
     return os;
 }
 
+std::ostream& operator<< (std::ostream &os, const PortType &ptype){
+    switch (ptype){
+        case INSPECT_DEPTH_READ:
+            os << "INSPECT_DEPTH_READ";
+            break;
+        case INSPECT_FRONTIER_WRITE:
+            os << "INSPECT_FRONTIER_WRITE";
+            break;
+        case EXPAND_RPAO_READ:
+            os << "EXPAND_CIAO_READ";
+            break;
+        case EXPAND_CIAO_READ:
+            os << "EXPAND_CIAO_READ";
+            break;
+        case EXPAND_RPAI_READ:
+            os << "EXPAND_RPAI_READ";
+            break;
+        case EXPAND_CIAI_READ:
+            os << "EXPAND_CIAI_READ";
+            break;
+        case EXPAND_DEPTH_READ:
+            os << "EXPAND_DEPTH_READ";
+            break;
+        case EXPAND_DEPTH_WRITE:
+            os << "EXPAND_DEPTH_WRITE";
+            break;
+        case EXPAND_FRONTIER_READ:
+            os << "EXPAND_FRONTIER_READ";
+            break;
+    }
+
+    return os;
+}
+
 std::ostream& operator<<(std::ostream &os, const BurstOp &op){
 
     os << "valid: " << op.valid << " ";
     os << "type: " << op.type << " ";
+    os << "ptype: " << op.ptype << " ";
     os << "burstIdx: " << op.burstIdx << " ";
     os << "peIdx: " << op.peIdx << " ";
     os << "addr: " << op.addr << " ";
     os << "length: " << op.length << " ";
-    os << "localAddr " << op.localAddr << " ";
 
     os << "departPeTime: " << op.departPeTime << " ";
     os << "arriveMemTime: " << op.arriveMemTime << " ";
@@ -102,19 +184,19 @@ std::ostream& operator<<(std::ostream &os, const BurstOp &op){
 
 BurstOp::BurstOp(
         ramulator::Request::Type _type, 
+        PortType _ptype,
         long _burstIdx, 
         int _peIdx, 
         long _addr, 
-        int _length, 
-        int _localAddr)
+        int _length)
 {
     valid = true;
     type = _type;
+    ptype = _ptype;
     burstIdx = _burstIdx;
     peIdx = _peIdx;
     addr = _addr;
     length = _length;
-    localAddr = _localAddr;
     departPeTime = 0;
     arriveMemTime = 0;
     departMemTime = 0;
@@ -124,11 +206,11 @@ BurstOp::BurstOp(
 BurstOp::BurstOp(bool _valid){
     valid = _valid;
     type = ramulator::Request::Type::READ;
+    ptype = INSPECT_DEPTH_READ;
     peIdx = 0;
     addr = 0;
     burstIdx = 0;
     length = 0;
-    localAddr = 0;
     departPeTime = 0;
     arriveMemTime = 0;
     departMemTime = 0;
@@ -139,11 +221,11 @@ void BurstOp::operator=(const BurstOp &op){
 
     valid = op.valid;
     type = op.type;
+    ptype = op.ptype;
     burstIdx = op.burstIdx;
     peIdx = op.peIdx;
     addr = op.addr;
     length = op.length;
-    localAddr = op.localAddr;
     reqVec = op.reqVec;
     addrVec = op.addrVec;
     data = op.data;
@@ -161,11 +243,11 @@ bool BurstOp::operator==(const BurstOp &op) const{
     bool equal = true;;
     equal &= (valid == op.valid);
     equal &= (type == op.type);
+    equal &= (ptype == op.ptype);
     equal &= (burstIdx == op.burstIdx);
     equal &= (peIdx == op.peIdx);
     equal &= (addr == op.addr);
     equal &= (length == op.length);
-    equal &= (localAddr == op.localAddr);
 
     equal &= (departPeTime == op.departPeTime);
     equal &= (arriveMemTime == op.arriveMemTime);
@@ -182,11 +264,13 @@ void sc_trace(sc_trace_file *tf, const BurstOp &op, const std::string &name){
     oss << op.type;
     sc_trace(tf, op.valid, name+".valid");
     sc_trace(tf, oss.str().c_str(), name+".type");
+    oss.str(std::string());
+    oss << op.ptype;
+    sc_trace(tf, oss.str().c_str(), name+".ptype");
     sc_trace(tf, op.burstIdx, name+".burstIdx");
     sc_trace(tf, op.peIdx, name+".peIdx");
     sc_trace(tf, op.addr, name+".addr");
     sc_trace(tf, op.length, name+".length");
-    sc_trace(tf, op.localAddr, name+".localAddr");
     sc_trace(tf, op.departPeTime, name+".departPeTime");
     sc_trace(tf, op.arriveMemTime, name+".arriveMemTime");
     sc_trace(tf, op.departMemTime, name+".departMemTime");
@@ -201,6 +285,7 @@ void BurstOp::convertToReq(std::list<ramulator::Request> &reqQueue){
     for(int i = 0; i < reqNum; i++){
         ramulator::Request req;
         req.type = type;
+        req.udf.ptype = ptype;
         req.addr = addrVec[i];
         req.udf.burstIdx = burstIdx;
         req.udf.reqIdx = reqVec[i];
@@ -321,41 +406,6 @@ void BurstOp::setDepartMemTime(long departTime){
 
 void BurstOp::setArriveMemTime(long arriveTime){
     arriveMemTime = arriveTime;
-}
-
-// Basically it copies the data attached to the read burst response to on chip buffer.
-void BurstOp::burstReqToBuffer(std::vector<int> &buffer, int localAddr){
-    char* p = (char*) malloc(sizeof(int));
-    if(length%sizeof(int) != 0){
-        HERE;
-        std::cout << "The burst request length is not aligned to the buffer type.";
-        std::cout << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    int index = localAddr;
-    for(int i = 0; i < length;){
-        for(int j = 0; j < (int)sizeof(int); j++){
-            *(p+j) = data[i];
-            i++;
-        }
-        buffer[index] = *((int*)p);
-        index++;
-    }
-    delete p;
-}
-
-// This fucntion copies the data from local buffer to the write burst request data section.
-void BurstOp::bufferToBurstReq(std::vector<int> &buffer, int localAddr){
-    int* p = (int*)malloc(sizeof(int));
-    int size = length/sizeof(int);
-    int index = localAddr;
-    for(int i = 0; i < size; i++){
-        *p = buffer[index];
-        index++;
-        for(int j = 0; j < (int)sizeof(int); j++){
-            data.push_back(*((char*)p+j));
-        }
-    }
 }
 
 void BurstOp::ramToReq(const std::vector<char> &ramData){

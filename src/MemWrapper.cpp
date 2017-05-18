@@ -3,8 +3,8 @@
 // The memory configuration is initially ported from ramulator.
 // which are mostly parsed from input argument. We don't want to change it for now.
 MemWrapper::MemWrapper(sc_module_name _name,
-        int _memClkCycle,
-        int _peClkCycle,
+        double _memClkCycle,
+        double _peClkCycle,
         int argc, 
         char* argv[]) 
     : sc_module(_name), configs(argv[1]){
@@ -13,13 +13,96 @@ MemWrapper::MemWrapper(sc_module_name _name,
     memClkCycle = _memClkCycle; 
     peClkCycle = _peClkCycle; 
     GL::burstLen = calBurstLen();
-    ramInit();
+    ramInit("./config.txt");
     
     SC_THREAD(runMemSim);
     SC_THREAD(getBurstReq);
     SC_THREAD(sendBurstResp);
     SC_THREAD(respMonitor);
 
+}
+
+Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
+    std::ifstream fhandle(cfgFileName.c_str());
+    if(!fhandle.is_open()){
+        HERE;
+        std::cout << "Failed to open " << cfgFileName << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    std::string graphName;
+    std::string graphDir;
+    while(!fhandle.eof()){
+        std::string cfgKey;
+        fhandle >> cfgKey;
+        if(cfgKey == "graphName"){
+            fhandle >> graphName;
+        }
+        else if(cfgKey == "graphDir"){
+            fhandle >> graphDir;
+        }
+    }
+    fhandle.close();
+
+    Graph* gptr;
+    std::string fname;
+    if(graphName == "dblp"){
+        fname = graphDir + "dblp.ungraph.txt";
+    }
+    else if(graphName == "youtube"){
+        fname = graphDir + "youtube.ungraph.txt";
+    }
+    else if(graphName == "lj"){
+        fname = graphDir + "lj.ungraph.txt";
+    }
+    else if(graphName == "pokec"){
+        fname = graphDir + "pokec-relationships.txt";
+    }
+    else if(graphName == "wiki-talk"){
+        fname = graphDir + "wiki-Talk.txt";
+    }
+    else if(graphName == "lj1"){
+        fname = graphDir + "LiveJournal1.txt";
+    }
+    else if(graphName == "orkut"){
+        fname = graphDir + "orkut.ungraph.txt";
+    }
+    else if(graphName == "rmat"){
+        fname = graphDir + "rmat-2m-256m.txt";
+    }
+    else if(graphName == "twitter"){
+        fname = graphDir + "twitter_rv.txt";
+    }
+    else if(graphName == "friendster"){
+       fname = graphDir + "friendster.ungraph.txt";
+    }
+    else{
+        HERE;
+        std::cout << "Unrecognized graph " << graphName << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    gptr = new Graph(fname.c_str());
+
+    // Update global graph information
+    GL::vertexNum = gptr->vertex_num;
+    GL::edgeNum = gptr->edge_num;
+    gptr->getRandomStartIndices(GL::startingVertices);
+
+    return gptr;
+
+}
+
+// To prepare for new bfs traverse, we need to clean 
+// both the initial depth and frontier data.
+void MemWrapper::cleanRam(){
+    long depthAddr = GL::depthMemAddr;
+    
+    long frontierAddr = GL::frontierMemAddr;
+}
+
+void MemWrapper::setNewStartVertex(int idx){
+    long addr = GL::depthMemAddr + idx * sizeof(unsigned char);
+    updateSingleDataToRam<unsigned char>(addr, 0);
 }
 
 // This function is used to update ram content.
@@ -444,38 +527,86 @@ void MemWrapper::shallowReqCopy(const Request &simpleReq, Request &req){
     req.udf.arrivePeTime = simpleReq.udf.arrivePeTime;
 }
 
-void MemWrapper::ramInit(){
+// Global variables are reset here while this part should be 
+// moved to somewhere that is easy to be noticed.
+void MemWrapper::ramInit(const std::string &cfgFileName){
+    Graph* gptr = loadGraph(cfgFileName);
+    ramData.resize(GL::edgeNum * 4 * 4);
 
-    ramData.resize(1024*1024);
+    std::vector<unsigned char> depth;
+    //std::vector<float> weight;
+    std::vector<int> rpao;
+    std::vector<int> ciao;
+    std::vector<int> rpai;
+    std::vector<int> ciai;
+    std::vector<int> frontier;
 
-    long addrVa = GL::vaMemAddr;
-    long addrVb = GL::vbMemAddr;
-    long addrVp = GL::vpMemAddr;
-    int val = 0;
-
-    for(int i = 0; i < 512; i++){
-        updateSingleDataToRam<int>(addrVa, val);
-        updateSingleDataToRam<int>(addrVb, val);
-        updateSingleDataToRam<int>(addrVp, 0);
-        val++;
-        addrVa += (long)sizeof(int);
-        addrVb += (long)sizeof(int);
-        addrVp += (long)sizeof(int);
+    rpao.resize(gptr->vertex_num + 1);
+    rpai.resize(gptr->vertex_num + 1);
+    rpao[0] = 0;
+    rpai[0] = 0;
+    for(int i = 0; i < gptr->vertex_num; i++){
+        rpao[i+1] = rpao[i] + gptr->vertices[i]->out_deg;
+        rpai[i+1] = rpai[i] + gptr->vertices[i]->in_deg;
     }
 
-}
-
-// Update ram on a specified addr with specified data type.
-template <typename T>
-void MemWrapper::updateSingleDataToRam(long addr, T t){
-    T* p = (T*)malloc(sizeof(T));
-    *p = t;
-
-    for(int i = 0; i < (int)sizeof(T); i++){
-        ramData[addr+i] = *((char*)p + i);
+    for(int i = 0; i < gptr->vertex_num; i++){
+        for(auto id : gptr->vertices[i]->out_vids){
+            ciao.push_back(id);
+        }
+        for(auto id : gptr->vertices[i]->in_vids){
+            ciai.push_back(id);
+        }
     }
 
-    delete p;
+    depth.resize(gptr->vertex_num);
+    frontier.resize(gptr->vertex_num);
+    for(int i = 0; i < gptr->vertex_num; i++){
+        depth[i] = -1;
+        frontier[i] = -1;
+    }
+
+    auto alignMyself = [](long addr)->long{
+        int bw = 8;
+        long mask = 0xFF;
+        long result = addr;
+        if(addr & mask != 0){
+            result = ((addr >> bw) + 1) << bw; 
+        }
+
+        return result;
+    };
+
+    // Init memory
+    long depthAddr = GL::depthMemAddr = 0;
+    long rpaoAddr = depthAddr + (long)sizeof(unsigned char) * GL::vertexNum;
+    GL::rpaoMemAddr = rpaoAddr = alignMyslef(rpaoAddr);
+
+    long ciaoAddr = rpaoAddr + (long)sizeof(int) * (GL::vertexNum + 1);
+    GL::ciaoMemAddr = ciaoAddr = alignMyself(ciaoAddr);
+
+    long rpaiAddr = GL::rpaiMemAddr = ciaoAddr + (long)sizeof(int) * GL::edgeNum;
+    long ciaiAddr = GL::ciaiMemAddr = rpaiAddr + (long)sizeof(int) * (GL::vertexNum + 1);
+    long frontierAddr = ciaiAddr + (long)sizeof(int) * GL::vertexNum;
+
+    for(auto d : depth){
+        updateSingleDataToRam<unsigned char>(depthAddr, d);
+        depthAddr += (long)sizeof(unsigned char);
+    }
+
+    // fill memory with the data
+    auto fillMem = [this](const std::vector<int> &vec, long &addr){
+        for(auto val : vec){
+            updateSingleDataToRam<int>(addr, val);
+            addr += (long)sizeof(int);
+        }
+    };
+
+    fillMem(rpao, rpaoAddr);
+    fillMem(ciao, ciaoAddr);
+    fillMem(rpai, rpaiAddr);
+    fillMem(ciai, ciaiAddr);
+    fillMem(frontier, frontierAddr);
 }
 
 

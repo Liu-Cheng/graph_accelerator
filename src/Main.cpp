@@ -6,9 +6,10 @@ int sc_main(int argc, char *argv[]){
     sc_signal<BurstOp> burstReq;
     sc_signal<BurstOp> burstResp;
     
-    int peClkCycle = 10;
-    int memClkCycle = 5;
+    double peClkCycle = 1000.0/200;
+    double memClkCycle = 1000.0/1600;
 
+    GL::cfgBfsParam("./config.txt");
     MemWrapper memWrapper("memWrapper", memClkCycle, peClkCycle, argc, argv);
     memWrapper.burstReq(burstReq);
     memWrapper.burstResp(burstResp);

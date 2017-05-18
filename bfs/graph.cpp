@@ -76,6 +76,13 @@ void Graph::getRandomStartIndices(std::vector<int> &start_indices){
 
 Graph::Graph(const std::string& fname){
 
+    // Check if it is undirectional graph
+    auto found = fname.find("ungraph", 0);
+    if(found != std::string::npos)
+        isUgraph = true;
+    else
+        isUgraph = false;
+
     std::vector<std::vector<int>> data;
     loadFile(fname, data);
     vertex_num = getMaxIdx(data) + 1;
@@ -93,6 +100,10 @@ Graph::Graph(const std::string& fname){
         int dst_idx = (*it)[1];
         vertices[src_idx]->out_vids.push_back(dst_idx);
         vertices[dst_idx]->in_vids.push_back(src_idx);
+        if(isUgraph && src_idx != dst_idx){
+            vertices[dst_idx]->out_vids.push_back(src_idx);
+            vertices[src_idx]->in_vids.push_back(dst_idx);
+        }
     }
 
     for(auto it = vertices.begin(); it != vertices.end(); it++){
@@ -101,7 +112,23 @@ Graph::Graph(const std::string& fname){
     }
 }
 
+void CSR::setBfsParam(float _alpha, float _beta, int _hub_vertex_threshold, int _cache_threshold, int _bucket_num){
+    alpha = _alpha;
+    beta = _beta;
+    hub_vertex_threshold = _hub_vertex_threshold;
+    cache_threshold = _cache_threshold;
+    bucket_num = _bucket_num;
+}
+
 CSR::CSR(const Graph &g) : v_num(g.vertex_num), e_num(g.edge_num){
+
+    // Default parameter
+    alpha = 0.2;
+    beta = 0.1;
+    hub_vertex_threshold = 1024;
+    cache_threshold = 256;
+    bucket_num = 1024;
+
     // Assign random data to weight though it is not used in bfs.
     weight.resize(e_num);
     for(auto &w : weight){
@@ -125,10 +152,14 @@ CSR::CSR(const Graph &g) : v_num(g.vertex_num), e_num(g.edge_num){
             ciai.push_back(id);
         }
     }
+
 }
 
-// This function will not change the data in CSR
-bool CSR::basic_bfs(const int &start_idx, std::ofstream &fhandle){
+// This is the basic bfs algorithm. It will not have any duplicated 
+// vertices in the frontier due to the fully sequential inspection. 
+// (Any depth update will be visible by the following inspection in 
+// the same iteration.) This approach is difficult to parallelize.
+bool CSR::basicBfs(const int &start_idx, std::ofstream &fhandle){
     // Statistic information
     int read_bytes = 0;
     int write_bytes = 0;
@@ -141,6 +172,7 @@ bool CSR::basic_bfs(const int &start_idx, std::ofstream &fhandle){
     depth[start_idx] = 0;
     std::vector<int> frontier;
     frontier.push_back(start_idx);
+    std::vector<size_t> frontier_distribution;
 
     while(!frontier.empty()){
         std::vector<int> next_frontier;
@@ -155,10 +187,10 @@ bool CSR::basic_bfs(const int &start_idx, std::ofstream &fhandle){
                 read_bytes += 4; // read ciao[cidx]
                 int out_ngb = ciao[cidx];
 
-                read_bytes += 4; // read depth[out_ngb]
+                read_bytes += 1; // read depth[out_ngb]
                 if(depth[out_ngb] == -1){
 
-                    write_bytes += 4; // write depth[out_ngb]
+                    write_bytes += 1; // write depth[out_ngb]
                     depth[out_ngb] = level + 1;
 
                     // write out_ngb to next_frontier
@@ -169,9 +201,7 @@ bool CSR::basic_bfs(const int &start_idx, std::ofstream &fhandle){
         }
 
         // Update frontier
-        // suppose we can switch frontier and next_frontier without additional memory read/write. 
-        // read_bytes += (int)next_frontier.size() * 4;
-        // write_bytes += (int)next_frontier.size() * 4;
+        frontier_distribution.push_back(frontier.size());
         frontier = next_frontier;
         level++;
     }
@@ -181,14 +211,20 @@ bool CSR::basic_bfs(const int &start_idx, std::ofstream &fhandle){
     }
     fhandle << std::endl;
 
-    std::cout << "read " << read_bytes << " bytes from memory." << std::endl;
-    std::cout << "write " << write_bytes << " bytes to memory." << std::endl;
+    std::cout << "read/write bytes " << read_bytes << " " << write_bytes << std::endl;
+    
+    std::cout << "frontier distribution: " << std::endl;
+    for(auto num : frontier_distribution){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
 
     return true;
 }
 
-bool CSR::bfs(const int &start_idx, std::ofstream &fhandle){
-    // Statistic information
+// read based top-down bfs
+bool CSR::tdBfs(const int &start_idx, std::ofstream &fhandle){
+
     int read_bytes = 0;
     int write_bytes = 0;
 
@@ -198,90 +234,288 @@ bool CSR::bfs(const int &start_idx, std::ofstream &fhandle){
     std::fill(depth.begin(), depth.end(), -1);
     depth[start_idx] = 0;
 
-    //std::vector<int, int> hub_vertex_depth;
-    std::vector<int> lrg_frontier;
-    std::vector<int> mid_frontier;
-    std::vector<int> sml_frontier;
-
-    int hub_vertex_threshold = 4096;
-    int lrg_threshold = 1024;
-    int sml_threshold = 16;
-    int total_hub_vertex_num = getHubVertexNum(hub_vertex_threshold);
-    hubVertexAnalysis(hub_vertex_threshold);
-    bool visited_ngb_num = 0;
-    bool top_down = true;
+    std::vector<int> frontier;
+    std::vector<size_t> frontier_distribution;
     bool end_of_bfs;
 
-    //std::cout << "bfs starts: " << std::endl;
     do{
-        // Clean the frontier container
-        lrg_frontier.clear();
-        mid_frontier.clear();
-        sml_frontier.clear();
+        frontier.clear();
 
-        // get frontier and classfiy the frontier
-        int frontier_hub_vertex_num = 0;
-        //if(top_down) std::cout << "top down bfs." << std::endl;
-        //else std::cout << "bottom up bfs." << std::endl;
-        if(top_down){
-            for(int idx = 0; idx < v_num; idx++){
+        // get frontier 
+        for(int idx = 0; idx < v_num; idx++){
+            read_bytes += 1; // read depth[idx]
+            if(depth[idx] == level){ 
+                write_bytes += 4;
+                frontier.push_back(idx);
+            }
+        }
 
-                read_bytes += 4; // read depth[idx]
-                if(depth[idx] == level){ 
+        // Traverse the frontier
+        // As we may repeate depth written back to memory, it will be efficient to add a buffer to do batch write-back
+        auto traverse = [&depth, level, &read_bytes, &write_bytes, this](const std::vector<int> &frontier){
+            for(auto vidx : frontier){
+                read_bytes += 4; // read vidx from frontier
+                read_bytes += 4; // read rpao[vidx]
+                for(int cidx = rpao[vidx]; cidx < rpao[vidx+1]; cidx++){
 
-                    read_bytes += 4; // read rpao[idx+1]
-                    int degree = rpao[idx+1] - rpao[idx];
-                    if(degree <= sml_threshold){
+                    read_bytes += 4; // read ciao[cidx]
+                    int out_ngb = ciao[cidx];
 
-                        // write idx to sml_frontier
-                        write_bytes += 4;
-                        sml_frontier.push_back(idx);
+                    read_bytes += 1; // read depth[out_ngb]
+                    if(depth[out_ngb] == -1){
+
+                        write_bytes += 1; // write depth[out_ngb]
+                        depth[out_ngb] = level + 1; 
                     }
-                    else if(degree >= lrg_threshold){
+                }
+            }
+        };
+        traverse(frontier);
+        frontier_distribution.push_back(frontier.size());
 
-                        // write idx to lrg_frontier
-                        write_bytes += 4;
-                        lrg_frontier.push_back(idx);
-                    }
-                    else{
+        // update depth
+        level++;
+        end_of_bfs = frontier.empty();
 
-                        // write idx to mid_frontier
-                        write_bytes += 4;
-                        mid_frontier.push_back(idx);
-                    }
+    } while(!end_of_bfs); 
 
-                    // hub vertex buffer may be updated here.
-                    if(degree >= hub_vertex_threshold){
-                        frontier_hub_vertex_num++;
+
+    for(auto d : depth){
+        fhandle << d << " ";
+    }
+    fhandle << std::endl;
+
+    std::cout << "read/write bytes: " << read_bytes << " " << write_bytes << std::endl;
+    std::cout << "frontier distribution: " << std::endl;
+    for(auto num : frontier_distribution){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+
+    return true;
+}
+
+// Read based bottom-up bfs
+bool CSR::buBfs(const int &start_idx, std::ofstream &fhandle){
+
+    int read_bytes = 0;
+    int write_bytes = 0;
+
+    int level = 0;
+    std::vector<int> depth;
+    depth.resize(v_num);
+    std::fill(depth.begin(), depth.end(), -1);
+    depth[start_idx] = 0;
+
+    std::vector<int> frontier;
+    std::vector<size_t> frontier_distribution;
+
+    int visited_ngb_num;
+    bool end_of_bfs;
+
+    do{
+        for(int idx = 0; idx < v_num; idx++){
+            read_bytes += 1; // read depth[idx]
+            if(depth[idx] == -1){
+                write_bytes += 4; // write idx to mid_frontier
+                frontier.push_back(idx);
+            }
+        }
+
+        // Traverse the frontier
+        // When none of the frontier has a visited incoming neighboring, 
+        // it also indicates the end of the BFS. 
+        visited_ngb_num = 0;
+        auto traverse = [&depth, &visited_ngb_num, &read_bytes, &write_bytes, level, this](const std::vector<int> &frontier){
+            for(auto vidx : frontier){
+                read_bytes += 4; // read vidx from frontier
+                read_bytes += 4; // read rpai[vidx+1]
+                for(int cidx = rpai[vidx]; cidx < rpai[vidx+1]; cidx++){
+
+                    read_bytes += 4; // read ciai[cidx]
+                    int in_ngb = ciai[cidx];
+
+                    read_bytes += 1; // read depth[in_ngb]
+                    if(depth[in_ngb] == level){
+
+                        write_bytes += 1; // write depth[vidx]
+                        depth[vidx] = level + 1;
+                        visited_ngb_num++;
+                        break;
                     }
+                }
+            }
+        };
+        traverse(frontier);
+        frontier_distribution.push_back(frontier.size());
+
+        // update depth
+        level++;
+        end_of_bfs = frontier.empty() || (visited_ngb_num == 0);
+        frontier.clear();
+
+    } while(!end_of_bfs); 
+
+    for(auto d : depth){
+        fhandle << d << " ";
+    }
+    fhandle << std::endl;
+
+    std::cout << "read/write bytes: " << read_bytes << " " << write_bytes << std::endl;
+    std::cout << "frontier distribution: " << std::endl;
+    for(auto num : frontier_distribution){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+
+    return true;
+
+}
+
+/*
+// Read based bottom-up bfs
+bool CSR::buBfsModified(const int &start_idx, std::ofstream &fhandle){
+
+    int read_bytes = 0;
+    int write_bytes = 0;
+
+    int level = 0;
+    std::vector<int> depth;
+    depth.resize(v_num);
+    std::fill(depth.begin(), depth.end(), -1);
+    depth[start_idx] = 0;
+
+    std::vector<int> ping_frontier;
+    std::vector<int> pong_frontier;
+    std::vector<size_t> frontier_distribution;
+
+    int visited_ngb_num;
+    bool end_of_bfs;
+
+    do{
+        // Get the frontier: This can be further optimized, as exploring the frontier may not be 
+        // as efficient as exploring the depth directly when the frontier is still large.
+        // We don't have to explore all the depth information of the graph. Instead we can 
+        // simply inspect the last frontier. Similar idea also applies for the top-down bfs.
+        // The only concern is how much does the frontier generation takes the overall bfs time.
+        if(level > 0){
+            for(auto vidx : pong_frontier){
+                read_bytes += 4; // read vidx from pong_frontier
+                read_bytes += 1; // read depth[vidx];
+                if(depth[vidx] == -1){
+                    write_bytes += 4; // write ping_frontier
+                    ping_frontier.push_back(vidx);
                 }
             }
         }
         else{
             for(int idx = 0; idx < v_num; idx++){
-                
-                read_bytes += 4; // read depth[idx]
+                read_bytes += 1; // read depth[idx]
                 if(depth[idx] == -1){
+                    write_bytes += 4; // write idx to mid_frontier
+                    ping_frontier.push_back(idx);
+                }
+            }
+        }
 
-                    read_bytes += 4; // read rpai[idx+1]
-                    int degree = rpai[idx+1] - rpai[idx];
+        // Traverse the frontier
+        // When none of the frontier has a visited incoming neighboring, 
+        // it also indicates the end of the BFS. 
+        visited_ngb_num = 0;
+        auto traverse = [&depth, &visited_ngb_num, &read_bytes, &write_bytes, level, this](const std::vector<int> &frontier){
+            for(auto vidx : frontier){
+                read_bytes += 4; // read vidx from frontier
+                read_bytes += 4; // read rpai[vidx+1]
+                for(int cidx = rpai[vidx]; cidx < rpai[vidx+1]; cidx++){
 
-                    if(degree <= sml_threshold){
-                        write_bytes += 4; // write idx to sml_frontier
-                        sml_frontier.push_back(idx);
-                    }
-                    else if(degree >= lrg_threshold){
-                        write_bytes += 4; // write idx to lrg_frontier.
-                        lrg_frontier.push_back(idx);
-                    }
-                    else{
-                        write_bytes += 4; // write idx to mid_frontier
-                        mid_frontier.push_back(idx);
-                    }
+                    read_bytes += 4; // read ciai[cidx]
+                    int in_ngb = ciai[cidx];
 
-                    if(degree >= hub_vertex_threshold){
-                        frontier_hub_vertex_num++;
+                    read_bytes += 1; // read depth[in_ngb]
+                    if(depth[in_ngb] == level){
+
+                        write_bytes += 1; // write depth[vidx]
+                        depth[vidx] = level + 1;
+                        visited_ngb_num++;
+                        break;
                     }
+                }
+            }
+        };
+        traverse(ping_frontier);
+        frontier_distribution.push_back(ping_frontier.size());
+
+        // update depth
+        level++;
+        end_of_bfs = ping_frontier.empty() || (visited_ngb_num == 0);
+        pong_frontier = ping_frontier;
+        ping_frontier.clear();
+
+    } while(!end_of_bfs); 
+
+    for(auto d : depth){
+        fhandle << d << " ";
+    }
+    fhandle << std::endl;
+
+    std::cout << "read/write bytes: " << read_bytes << " " << write_bytes << std::endl;
+    std::cout << "frontier distribution: " << std::endl;
+    for(auto num : frontier_distribution){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+
+    return true;
+
+}
+*/
+
+// This function focuses only on the criteria of switching between top-down and bottom-up bfs
+bool CSR::hybridBfs(const int &start_idx, std::ofstream &fhandle){
+    int read_bytes = 0;
+    int write_bytes = 0;
+
+    int level = 0;
+    std::vector<int> depth;
+    depth.resize(v_num);
+    std::fill(depth.begin(), depth.end(), -1);
+    depth[start_idx] = 0;
+
+    std::vector<int> frontier;
+    std::vector<size_t> frontier_distribution;
+    std::vector<int> frontier_hub_vertex;
+    std::vector<bool> bfs_type;
+    int total_hub_vertex_num = getHubVertexNum();
+    int visited_ngb_num = 0;
+    bool top_down = true;
+    bool end_of_bfs;
+
+    do{
+        // Clean the frontier container
+        frontier.clear();
+        bfs_type.push_back(top_down);
+
+        // get frontier and classfiy the frontier
+        int frontier_hub_vertex_num = 0;
+        if(top_down){
+            for(int idx = 0; idx < v_num; idx++){
+                read_bytes += 1; // read depth[idx]
+                if(depth[idx] == level){ 
+                    write_bytes += 4;
+                    frontier.push_back(idx);
+
+                }
+            }
+        }
+        else{
+            for(int idx = 0; idx < v_num; idx++){
+                read_bytes += 1; // read depth[idx]
+                if(depth[idx] == -1){
+                    write_bytes += 4; // write idx to frontier
+                    frontier.push_back(idx);
                 }
             }
         }
@@ -289,48 +523,56 @@ bool CSR::bfs(const int &start_idx, std::ofstream &fhandle){
         // Traverse the frontier
         if(top_down){
             // top-down traverse
-            auto traverse = [&depth, level, &read_bytes, &write_bytes, this](const std::vector<int> &frontier){
+            auto traverse = [&frontier_hub_vertex_num, &depth, level, &read_bytes, &write_bytes, this](const std::vector<int> &frontier){
                 for(auto vidx : frontier){
                     read_bytes += 4; // read vidx from frontier
 
                     read_bytes += 4; // read rpao[vidx]
+                    int degree = rpao[vidx+1] - rpao[vidx];
+
+                    if(degree >= hub_vertex_threshold){
+                        frontier_hub_vertex_num++;
+                    }
+
                     for(int cidx = rpao[vidx]; cidx < rpao[vidx+1]; cidx++){
 
                         read_bytes += 4; // read ciao[cidx]
                         int out_ngb = ciao[cidx];
 
-                        read_bytes += 4; // read depth[out_ngb]
+                        read_bytes += 1; // read depth[out_ngb]
                         if(depth[out_ngb] == -1){
 
-                            write_bytes += 4; // write depth[out_ngb]
+                            write_bytes += 1; // write depth[out_ngb]
                             depth[out_ngb] = level + 1; 
                         }
                     }
                 }
             };
-
-            traverse(lrg_frontier);
-            traverse(mid_frontier);
-            traverse(sml_frontier);
+            traverse(frontier);
         }
         else{
             // bottom-up traverse
             // When none of the frontier has a visited incoming neighboring, 
             // it also indicates the end of the BFS. 
             visited_ngb_num = 0;
-            auto traverse = [hub_vertex_threshold, &depth, &visited_ngb_num, &read_bytes, &write_bytes, level, this](const std::vector<int> &frontier){
+            auto traverse = [&frontier_hub_vertex_num, &depth, &visited_ngb_num, &read_bytes, &write_bytes, level, this](const std::vector<int> &frontier){
                 for(auto vidx : frontier){
                     read_bytes += 4; // read vidx from frontier
-                    read_bytes += 4; // read rpai[vidx+1]
-                    for(int cidx = rpai[vidx]; cidx < rpai[vidx+1]; cidx++){
+                    read_bytes += 4; // read rpai[vidx+1] 
+                    int degree = rpai[vidx+1] - rpai[vidx];
 
+                    for(int cidx = rpai[vidx]; cidx < rpai[vidx+1]; cidx++){
                         read_bytes += 4; // read ciai[cidx]
                         int in_ngb = ciai[cidx];
 
-                        read_bytes += 4; // read depth[in_ngb]
+                        read_bytes += 1; // read depth[in_ngb]
                         if(depth[in_ngb] == level){
 
-                            write_bytes += 4; // write depth[vidx]
+                            if(degree >= hub_vertex_threshold){
+                                frontier_hub_vertex_num++;
+                            }
+
+                            write_bytes += 1; // write depth[vidx]
                             depth[vidx] = level + 1;
                             visited_ngb_num++;
                             break;
@@ -339,20 +581,22 @@ bool CSR::bfs(const int &start_idx, std::ofstream &fhandle){
                 }
             };
 
-            traverse(lrg_frontier);
-            traverse(mid_frontier);
-            traverse(sml_frontier);
+            traverse(frontier);
 
         }
 
+        frontier_distribution.push_back(frontier.size());
+        frontier_hub_vertex.push_back(frontier_hub_vertex_num);
+
         // update depth
         level++;
-        end_of_bfs = lrg_frontier.empty() && mid_frontier.empty() && sml_frontier.empty();
-        end_of_bfs = end_of_bfs || (top_down == false && visited_ngb_num == 0);
-
+        end_of_bfs = frontier.empty() || (top_down == false && visited_ngb_num == 0);
         float hub_percentage = frontier_hub_vertex_num * 1.0 / total_hub_vertex_num; 
-        if(hub_percentage >= 0.5){
+        if(top_down && hub_percentage >= alpha){
             top_down = false;
+        }
+        else if(top_down == false && visited_ngb_num <= beta){
+            top_down = true;
         }
 
     } while(!end_of_bfs); 
@@ -363,63 +607,245 @@ bool CSR::bfs(const int &start_idx, std::ofstream &fhandle){
     }
     fhandle << std::endl;
 
-    std::cout << "read " << read_bytes << " bytes from memory." << std::endl;
-    std::cout << "write " << write_bytes << " bytes to memory." << std::endl;
+    std::cout << "read/write bytes: " << read_bytes << " " << write_bytes << std::endl;
+
+    std::cout << "bfs type: " << std::endl;
+    for(auto s : bfs_type){
+        std::cout << s << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "frontier distribution: " << std::endl;
+    for(auto num : frontier_distribution){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "total hub vertex amount: " << total_hub_vertex_num << std::endl;
+    std::cout << "hub vertex amount: " << std::endl;
+    for(auto num : frontier_hub_vertex){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
 
     return true;
 }
 
-// Vertices with large out degree is helpful, but we may have only in degree 
-// information available during bottom-up traverse. We have no choice but to use 
-// in degree as the metric of a hub vertex. Here we want to analyze the relation 
-// between vertices with large in degree and out degree.
-void CSR::hubVertexAnalysis(const int &threshold){
-    int in_hub_vertex_num = 0;
-    int out_hub_vertex_num = 0;
-    int missmatch_type1_num = 0;
-    int missmatch_type2_num = 0;
-    int max_in_degree = 0;
-    int max_out_degree = 0;
 
+// This function further takes hub vertex cache into consideration.
+bool CSR::cacheHybridBfs(const int &start_idx, std::ofstream &fhandle){
+    int read_bytes = 0;
+    int write_bytes = 0;
+
+    int level = 0;
+    std::vector<int> depth;
+    depth.resize(v_num);
+    std::fill(depth.begin(), depth.end(), -1);
+    depth[start_idx] = 0;
+
+    std::vector<int> frontier;
+    std::vector<size_t> frontier_distribution;
+    int total_hub_vertex_num = getHubVertexNum();
+    int visited_ngb_num = 0;
+    bool top_down = true;
+    bool end_of_bfs;
+
+    std::vector<int> ping_buffer;
+    std::vector<int> pong_buffer;
+
+    do{
+        // Clean the frontier container
+        frontier.clear();
+
+        // get frontier and classfiy the frontier
+        int frontier_hub_vertex_num = 0;
+        if(top_down){
+            for(int idx = 0; idx < v_num; idx++){
+                read_bytes += 1; // read depth[idx]
+                if(depth[idx] == level){ 
+                    write_bytes += 4; // write frontier
+                    frontier.push_back(idx);
+                }
+            }
+        }
+        else{
+            for(int idx = 0; idx < v_num; idx++){
+                read_bytes += 1; // read depth[idx]
+                if(depth[idx] == -1){
+                    write_bytes += 4; // write idx to frontier
+                    frontier.push_back(idx);
+                }
+            }
+        }
+
+        // Traverse the frontier
+        if(top_down){
+            // top-down traverse
+            auto traverse = [&ping_buffer, &frontier_hub_vertex_num, &depth, level, &read_bytes, &write_bytes, this](const std::vector<int> &frontier){
+                for(auto vidx : frontier){
+                    read_bytes += 4; // read vidx from frontier
+                    read_bytes += 4; // read rpao[vidx]
+                    int degree = rpao[vidx+1] - rpao[vidx];
+
+                    if(degree >= hub_vertex_threshold){
+                        frontier_hub_vertex_num++;
+                    }
+                    if(degree >= cache_threshold){
+                        ping_buffer.push_back(vidx);
+                    }
+
+                    for(int cidx = rpao[vidx]; cidx < rpao[vidx+1]; cidx++){
+
+                        read_bytes += 4; // read ciao[cidx]
+                        int out_ngb = ciao[cidx];
+
+                        if(isInBuffer(ping_buffer, out_ngb)){
+                            continue;
+                        }
+                        else if(depth[out_ngb] == -1){
+                            read_bytes += 1; // read depth[out_ngb]
+                            write_bytes += 1; // write depth[out_ngb]
+                            depth[out_ngb] = level + 1; 
+                        }
+                        else{
+                            read_bytes += 1;
+                        }
+                    }
+                }
+            };
+            traverse(frontier);
+        }
+        else{
+            // bottom-up traverse
+            // When none of the frontier has a visited incoming neighboring, 
+            // it also indicates the end of the BFS. 
+            visited_ngb_num = 0;
+            auto traverse = [&ping_buffer, &pong_buffer, &frontier_hub_vertex_num, &depth, &visited_ngb_num, &read_bytes, &write_bytes, level, this](const std::vector<int> &frontier){
+                for(auto vidx : frontier){
+                    read_bytes += 4; // read vidx from frontier
+                    read_bytes += 4; // read rpai[vidx+1]
+                    int degree = rpai[vidx+1] - rpai[vidx];
+
+                    for(int cidx = rpai[vidx]; cidx < rpai[vidx+1]; cidx++){
+                        read_bytes += 4; // read ciai[cidx]
+                        int in_ngb = ciai[cidx];
+
+                        if(isInBuffer(ping_buffer, in_ngb)){
+                            write_bytes += 1; // write depth
+                            depth[vidx] = level + 1;
+                            if(degree >= hub_vertex_threshold){
+                                frontier_hub_vertex_num++;
+                            }
+                            if(degree >= cache_threshold){
+                                pong_buffer.push_back(vidx);
+                            }
+                            visited_ngb_num++;
+                            break;
+                        }
+                        else if(depth[in_ngb] == level){
+                            read_bytes += 1; // read depth[in_ngb]
+                            write_bytes += 1; // write depth[vidx]
+                            depth[vidx] = level + 1;
+                            if(degree >= hub_vertex_threshold){
+                                frontier_hub_vertex_num++;
+                            }
+                            if(degree >= cache_threshold){
+                                pong_buffer.push_back(vidx);
+                            }
+                            visited_ngb_num++;
+                            break;
+                        }
+                        else{
+                            read_bytes += 1;
+                        }
+                    }
+                }
+            };
+
+            traverse(frontier);
+
+        }
+
+        frontier_distribution.push_back(frontier.size());
+
+        // update depth
+        level++;
+        end_of_bfs = frontier.empty() || (top_down == false && visited_ngb_num == 0);
+        float hub_percentage = frontier_hub_vertex_num * 1.0 / total_hub_vertex_num; 
+        if(top_down && hub_percentage >= alpha){
+            top_down = false;
+        }
+        else if(top_down == false && visited_ngb_num <= beta){
+            top_down = true;
+            ping_buffer = pong_buffer;
+            pong_buffer.clear();
+        }
+        else if(top_down == false){
+            ping_buffer = pong_buffer;
+            pong_buffer.clear();
+        }
+
+
+    } while(!end_of_bfs); 
+
+
+    for(auto d : depth){
+        fhandle << d << " ";
+    }
+    fhandle << std::endl;
+
+    std::cout << "read/write bytes: " << read_bytes << " " << write_bytes << std::endl;
+    std::cout << "frontier distribution: " << std::endl;
+    for(auto num : frontier_distribution){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+}
+
+// Basically, we want to know the vertex degree distribution 
+void CSR::degreeAnalysis(){
+
+    std::map<int, int> in_degree_distribution;
+    std::map<int, int> out_degree_distribution;
     for(int idx = 0; idx < v_num; idx++){
         int out_degree = rpao[idx+1] - rpao[idx];
         int in_degree = rpai[idx+1] - rpai[idx];
 
-        if(out_degree >= threshold){
-            out_hub_vertex_num++;
-            if(in_degree * 10 < threshold){
-                missmatch_type1_num++;
-            }
+        if(in_degree_distribution.find(in_degree) == in_degree_distribution.end()){
+            in_degree_distribution[in_degree] = 1;
+        }
+        else{
+            in_degree_distribution[in_degree]++;
         }
 
-        if(in_degree >= threshold){
-            in_hub_vertex_num++;
-            if(out_degree * 10 < threshold){
-                missmatch_type2_num++;
-            }
+        if(out_degree_distribution.find(out_degree) == out_degree_distribution.end()){
+            out_degree_distribution[out_degree] = 1;
         }
-
-        if(max_in_degree < in_degree) max_in_degree = in_degree;
-        if(max_out_degree < out_degree) max_out_degree = out_degree;
-
+        else{
+            out_degree_distribution[out_degree]++;
+        }
     }
 
-    /*
-    std::cout << "max in_degree is " << max_in_degree << std::endl;
-    std::cout << "max out_degree is " << max_out_degree << std::endl;
-    std::cout << "out_hub_vertex_num is " << out_hub_vertex_num;
-    std::cout << " and missmatch_num is " << missmatch_type1_num << std::endl;
-    std::cout << "in_hub_vertex_num is " << in_hub_vertex_num;
-    std::cout << " and missmatch_num is " << missmatch_type2_num << std::endl; 
-    */
+    std::cout << "in degree distribution: " << std::endl;
+    for(auto it = in_degree_distribution.begin(); it != in_degree_distribution.end(); it++){
+        std::cout << it->first << " " << it->second << std::endl;
+    }
+
+    std::cout << "out degree distribution: " << std::endl;
+    for(auto it = out_degree_distribution.begin(); it != out_degree_distribution.end(); it++){
+        std::cout << it->first << " " << it->second << std::endl;
+    }
+
 }
 
-int CSR::getHubVertexNum(const int &threshold){
+int CSR::getHubVertexNum(){
     int max_degree = 0;
     int hub_vertex_num = 0;
     for(int idx = 0; idx < v_num; idx++){
         int degree = rpao[idx+1] - rpao[idx];
-        if(degree >= threshold){
+        if(degree >= hub_vertex_threshold){
             hub_vertex_num++;
         }
         if(degree > max_degree) max_degree = degree;
@@ -429,8 +855,18 @@ int CSR::getHubVertexNum(const int &threshold){
     if(hub_vertex_num == 0)
         hub_vertex_num = 1;
 
-    //std::cout << "max degree is " << max_degree << std::endl;
-
     return hub_vertex_num;
+}
+
+bool CSR::isInBuffer(
+        const std::vector<int> &buffer, 
+        const int &idx)
+{
+    if(std::find(buffer.begin(), buffer.end(), idx) != buffer.end()){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 

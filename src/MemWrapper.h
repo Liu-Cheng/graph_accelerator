@@ -20,6 +20,7 @@
 #include <algorithm>
 #include "pe.h"
 #include "common.h"
+#include "graph.h"
 
 /* Standards */
 #include "Gem5Wrapper.h"
@@ -72,8 +73,8 @@ class MemWrapper : public sc_module{
         std::list<Request> respQueue;
         
         MemWrapper(sc_module_name _name, 
-                int _memClkCycle, 
-                int _peClkCycle,
+                double _memClkCycle, 
+                double _peClkCycle,
                 int argc, 
                 char* argv[]);
 
@@ -89,6 +90,8 @@ class MemWrapper : public sc_module{
         void memReqMonitor();
         void respMonitor();
         void updateBurstToRam(long watchedBurstIdx);
+        void cleanRam(); // clean the ram content for new bfs traverse
+        void setNewStartVertex(int idx); // set ram for a different start vertices of bfs.
         ~MemWrapper(){};
 
     private:
@@ -112,21 +115,30 @@ class MemWrapper : public sc_module{
         // It it is not found here, it means there is no such write request yet.
         std::map<long, bool> writebackHistory;
 
-        int memClkCycle;
-        int peClkCycle;
+        double memClkCycle;
+        double peClkCycle;
 
         void loadConfig(int argc, char* argv[]);
+        Graph* loadGraph(const std::string &cfgFileName);
         int calBurstLen();
         long getMaxDepartTime(const std::vector<long> &reqVec);
         long getMinArriveTime(const std::vector<long> &reqVec);
         void cleanProcessedRequests();
         void shallowReqCopy(const Request &simpleReq, Request &req);
-        void ramInit();
+        void ramInit(const std::string &cfgFileName);
+
+        // Update ram on a specified addr with specified data type.
+        void cleanRespQueue(const std::vector<long> &reqVec);
 
         // Update ram on a specified addr with specified data type.
         template <typename T>
-        void updateSingleDataToRam(long addr, T t);
-        void cleanRespQueue(const std::vector<long> &reqVec);
+        void updateSingleDataToRam(long addr, T t){
+            T* p = &t;
+            for(int i = 0; i < (int)sizeof(T); i++){
+                ramData[addr+i] = *((char*)p + i);
+            }
+        }
+
 };
 
 #endif 
