@@ -5,3 +5,4 @@ cacheVertexThreshold 256
 cacheSize 1024
 alpha 0.2
 beta 5000
+startNum 10

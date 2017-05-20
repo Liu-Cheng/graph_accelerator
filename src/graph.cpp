@@ -60,10 +60,9 @@ int Graph::getMinIdx(const std::vector<std::vector<int>> &data){
 }
 
 void Graph::getRandomStartIndices(std::vector<int> &start_indices){
-    size_t num = start_indices.size();
     start_indices.clear();
     size_t n = 0;
-    while(n < num){
+    while(n < GL::startNum){
         int max_idx = vertex_num - 1;
         int idx = rand()%max_idx;
         if(vertices[idx]->out_vids.empty() || std::find(start_indices.begin(), start_indices.end(), idx) != start_indices.end()){
@@ -72,6 +71,13 @@ void Graph::getRandomStartIndices(std::vector<int> &start_indices){
         start_indices.push_back(idx);
         n++;
     }
+}
+
+void Graph::printOngb(int vidx){
+    for(auto x : vertices[vidx]->out_vids){
+        std::cout << x << " ";
+    }
+    std::cout << std::endl;
 }
 
 Graph::Graph(const std::string& fname){

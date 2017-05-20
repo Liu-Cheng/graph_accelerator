@@ -18,7 +18,6 @@
 #include <list>
 #include <vector>
 #include <algorithm>
-#include "pe.h"
 #include "common.h"
 #include "graph.h"
 
@@ -93,6 +92,18 @@ class MemWrapper : public sc_module{
         void cleanRam(); // clean the ram content for new bfs traverse
         void setNewStartVertex(int idx); // set ram for a different start vertices of bfs.
         ~MemWrapper(){};
+
+        // Get data from ram.
+        template<typename T>
+        T getSingleDataFromRam(long addr){
+            T t;
+            T* p = &t;
+            for(int i = 0; i < (int)sizeof(T); i++){
+                *((char*)p + i) = ramData[addr + i];
+            }
+            return t;
+        }
+
 
     private:
         int memSize;               // # of bytes

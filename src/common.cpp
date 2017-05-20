@@ -10,14 +10,15 @@ float GL::alpha = 0.2;
 int GL::beta = 5000;
 int GL::cacheThreshold = 0;
 int GL::hubVertexThreshold = 0;
+int GL::startNum = 10;
 
 // This can be used as default value
 int GL::depthBufferDepth = 4096;
-int GL::rpaoBufferDepth = 1024;
-int GL::ciaoBufferDepth = 1024;
-int GL::rpaiBufferDepth = 1024;
-int GL::ciaiBufferDepth = 1024;
-int GL::frontierBufferDepth = 1024;
+int GL::rpaoBufferDepth = 4096;
+int GL::ciaoBufferDepth = 4096;
+int GL::rpaiBufferDepth = 4096;
+int GL::ciaiBufferDepth = 4096;
+int GL::frontierBufferDepth = 4096;
 
 // They are updated in MemWrapper::ramInit()
 long GL::depthMemAddr = 0;
@@ -58,6 +59,9 @@ void GL::cfgBfsParam(const std::string &cfgFileName){
         }
         else if(cfgKey == "hubVertexThreshold"){
             fhandle >> hubVertexThreshold;
+        }
+        else if(cfgKey == "startNum"){
+            fhandle >> startNum;
         }
     }
 

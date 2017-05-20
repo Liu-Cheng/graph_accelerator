@@ -87,6 +87,7 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
     GL::vertexNum = gptr->vertex_num;
     GL::edgeNum = gptr->edge_num;
     gptr->getRandomStartIndices(GL::startingVertices);
+    gptr->printOngb(GL::startingVertices[0]);
 
     return gptr;
 
@@ -95,9 +96,17 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
 // To prepare for new bfs traverse, we need to clean 
 // both the initial depth and frontier data.
 void MemWrapper::cleanRam(){
-    long depthAddr = GL::depthMemAddr;
-    
+    long depthAddr = GL::depthMemAddr; 
+    for(int i = 0; i < GL::vertexNum; i++){
+        updateSingleDataToRam<unsigned char>(depthAddr, -1);
+        depthAddr += (long)sizeof(unsigned char);
+    }
+
     long frontierAddr = GL::frontierMemAddr;
+    for(int i = 0; i < GL::vertexNum; i++){
+        updateSingleDataToRam<int>(frontierAddr, -1);
+        frontierAddr += (long)sizeof(int);
+    }
 }
 
 void MemWrapper::setNewStartVertex(int idx){
@@ -570,7 +579,7 @@ void MemWrapper::ramInit(const std::string &cfgFileName){
         int bw = 8;
         long mask = 0xFF;
         long result = addr;
-        if(addr & mask != 0){
+        if((addr & mask) != 0){
             result = ((addr >> bw) + 1) << bw; 
         }
 
@@ -580,14 +589,19 @@ void MemWrapper::ramInit(const std::string &cfgFileName){
     // Init memory
     long depthAddr = GL::depthMemAddr = 0;
     long rpaoAddr = depthAddr + (long)sizeof(unsigned char) * GL::vertexNum;
-    GL::rpaoMemAddr = rpaoAddr = alignMyslef(rpaoAddr);
+    GL::rpaoMemAddr = rpaoAddr = alignMyself(rpaoAddr);
 
     long ciaoAddr = rpaoAddr + (long)sizeof(int) * (GL::vertexNum + 1);
     GL::ciaoMemAddr = ciaoAddr = alignMyself(ciaoAddr);
 
-    long rpaiAddr = GL::rpaiMemAddr = ciaoAddr + (long)sizeof(int) * GL::edgeNum;
-    long ciaiAddr = GL::ciaiMemAddr = rpaiAddr + (long)sizeof(int) * (GL::vertexNum + 1);
+    long rpaiAddr = ciaoAddr + (long)sizeof(int) * GL::edgeNum;
+    GL::rpaiMemAddr = rpaiAddr = alignMyself(rpaiAddr);
+
+    long ciaiAddr = rpaiAddr + (long)sizeof(int) * (GL::vertexNum + 1);
+    GL::ciaiMemAddr = ciaiAddr = alignMyself(ciaiAddr); 
+
     long frontierAddr = ciaiAddr + (long)sizeof(int) * GL::vertexNum;
+    GL::frontierMemAddr = frontierAddr = alignMyself(frontierAddr);
 
     for(auto d : depth){
         updateSingleDataToRam<unsigned char>(depthAddr, d);

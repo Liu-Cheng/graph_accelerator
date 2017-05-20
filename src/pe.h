@@ -8,6 +8,7 @@
 #include "Request.h"
 #include "common.h"
 #include "systemc.h"
+#include "MemWrapper.h" // for debugging purpose
 
 class pe : public sc_module{
 
@@ -20,6 +21,7 @@ class pe : public sc_module{
         sc_in<BurstOp> burstResp;
 
         int peIdx;
+        MemWrapper *mem; 
 
         pe(sc_module_name _name, int _peIdx, int _peClkCycle);
         ~pe(){};
@@ -54,13 +56,20 @@ class pe : public sc_module{
             // However, we assume it is only limited by the memory bandwidth and thus 
             // we rely the ramulator to contrain the memory write access.
             // wait(peClkCycle * op.getReqNum() * GL::burstLen/dataWidth, SC_NS);
+
+            std::cout << "Write request is created: " << std::endl;
+            std::cout << "data: ";
+            for(auto x : buffer){
+                std::cout << x << " ";
+            }
+            std::cout << std::endl;
+
             op.bufferToBurstReq<T>(buffer);
             burstReqQueue[ptype].push_back(op);
+            std::cout << op << std::endl;
 
             return burstIdx;
         }
-
-
 
         long createReadBurstReq(
                 ramulator::Request::Type type, 
@@ -80,8 +89,11 @@ class pe : public sc_module{
         bool inspectDepthReadReqFlag;
         bool inspectFrontierWriteReqFlag;
         bool inspectFlag;
+        bool inspectDone;
+        int frontierSize;
 
         // expansion process
+        bool expandFrontierReadReqFlag;
         //bool expandReadDepthFlag;
         //bool expandWriteDepthFlag;
         //bool expandReadRpaoFlag;
@@ -96,6 +108,7 @@ class pe : public sc_module{
         std::list<int> exapndRpaiReadBuffer; 
         std::list<int> expandCiaiReadBuffer;  
         std::list<unsigned char> expandDepthWriteBuffer;
+        std::lIst<unsigned char> expandDepthReadBuffer;
         std::list<int> expandFrontierReadBuffer; 
         std::vector<std::list<BurstOp>> burstReqQueue;
         std::vector<std::list<BurstOp>> burstRespQueue;
@@ -110,7 +123,7 @@ class pe : public sc_module{
         bool isBurstReqQueueEmpty();
         bool isMemReqQueueEmpty();
         void init();
-        bool isInspectionDone();
+        bool isInspectDone();
         PortType burstReqArbiter(PortType winner);
         bool isAllRespReceived(PortType ptype);
         // processing thread
@@ -122,6 +135,18 @@ class pe : public sc_module{
         void inspectDepthRead();
         void issueInspectFrontierWriteReq();
         void processInspectFrontierWriteResp();
+
+        void issueExpandFrontierReadReq();
+        void processExpandFrontierReadResp();
+        void issueExpandRpaoReadReq();
+        void processExpandRpaoReadResp();
+        void issueExpandCiaoReadReq();
+        void processExpandCiaoReadResp();
+        void issueExpandDepthReadReq();
+        void processExpandDepthReadResp();
+        void issueExpandDepthWriteReq();
+        void processExpandDepthWriteResp();
+
 };
 
 #endif

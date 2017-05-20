@@ -1,4 +1,4 @@
-#include "MemWrapper.h"
+//#include "MemWrapper.h"
 #include "pe.h"
 
 int sc_main(int argc, char *argv[]){
@@ -11,10 +11,13 @@ int sc_main(int argc, char *argv[]){
 
     GL::cfgBfsParam("./config.txt");
     MemWrapper memWrapper("memWrapper", memClkCycle, peClkCycle, argc, argv);
+    memWrapper.setNewStartVertex(GL::startingVertices[0]);
+    std::cout << "The start vertex of the BFS is " << GL::startingVertices[0] << std::endl;
     memWrapper.burstReq(burstReq);
     memWrapper.burstResp(burstResp);
 
     pe peInst("peInst", 0, peClkCycle);
+    peInst.mem = &memWrapper;
     peInst.burstReq(burstReq);
     peInst.burstResp(burstResp);
 

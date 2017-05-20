@@ -41,6 +41,7 @@ class Graph{
         ~Graph();
         void getRandomStartIndices(std::vector<int> &start_indices);
         void getStat();
+        void printOngb(int vidx);
 
     private:
         bool isUgraph;

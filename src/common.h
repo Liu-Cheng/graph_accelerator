@@ -24,6 +24,7 @@ class GL{
         static int beta; 
         static int cacheThreshold;
         static int hubVertexThreshold;
+        static int startNum;
 
         // Initial va, vb, and vp address. 
         // Suppose they stay in a continuous address space.
