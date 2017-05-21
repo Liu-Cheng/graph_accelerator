@@ -90,7 +90,9 @@ class pe : public sc_module{
         bool inspectFrontierWriteReqFlag;
         bool inspectFlag;
         bool inspectDone;
+
         int frontierSize;
+        int nextFrontierSize; // including the repated vertices
 
         // expansion process
         bool expandFrontierReadReqFlag;
@@ -107,6 +109,7 @@ class pe : public sc_module{
         std::list<int> expandCiaoReadBuffer;
         std::list<int> exapndRpaiReadBuffer; 
         std::list<int> expandCiaiReadBuffer;  
+        std::list<int> expandVidxForDepthWriteBuffer;
         std::list<unsigned char> expandDepthWriteBuffer;
         std::lIst<unsigned char> expandDepthReadBuffer;
         std::list<int> expandFrontierReadBuffer; 
