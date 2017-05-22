@@ -1,4 +1,4 @@
-//#include "MemWrapper.h"
+#include "MemWrapper.h"
 #include "pe.h"
 
 int sc_main(int argc, char *argv[]){
@@ -17,7 +17,6 @@ int sc_main(int argc, char *argv[]){
     memWrapper.burstResp(burstResp);
 
     pe peInst("peInst", 0, peClkCycle);
-    peInst.mem = &memWrapper;
     peInst.burstReq(burstReq);
     peInst.burstResp(burstResp);
 
