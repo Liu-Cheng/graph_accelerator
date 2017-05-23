@@ -61,7 +61,7 @@ int Graph::getMinIdx(const std::vector<std::vector<int>> &data){
 
 void Graph::getRandomStartIndices(std::vector<int> &start_indices){
     start_indices.clear();
-    size_t n = 0;
+    int n = 0;
     while(n < GL::startNum){
         int max_idx = vertex_num - 1;
         int idx = rand()%max_idx;

@@ -139,9 +139,6 @@ std::ostream& operator<< (std::ostream &os, const PortType &ptype){
         case INSPECT_DEPTH_READ:
             os << "INSPECT_DEPTH_READ";
             break;
-        case INSPECT_FRONTIER_WRITE:
-            os << "INSPECT_FRONTIER_WRITE";
-            break;
         case EXPAND_RPAO_READ:
             os << "EXPAND_CIAO_READ";
             break;
@@ -159,9 +156,6 @@ std::ostream& operator<< (std::ostream &os, const PortType &ptype){
             break;
         case EXPAND_DEPTH_WRITE:
             os << "EXPAND_DEPTH_WRITE";
-            break;
-        case EXPAND_FRONTIER_READ:
-            os << "EXPAND_FRONTIER_READ";
             break;
     }
 

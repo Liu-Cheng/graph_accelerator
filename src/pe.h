@@ -74,7 +74,7 @@ class pe : public sc_module{
         std::list<int> expandCiaiReadBuffer;  
         std::list<int> expandVidxForDepthWriteBuffer;
         std::list<unsigned char> expandDepthWriteBuffer;
-        std::lIst<unsigned char> expandDepthReadBuffer;
+        std::list<unsigned char> expandDepthReadBuffer;
         std::vector<std::list<BurstOp>> burstReqQueue;
         std::vector<std::list<BurstOp>> burstRespQueue;
 
@@ -86,10 +86,11 @@ class pe : public sc_module{
         std::map<long, PortType> burstOpPtype;
 
         bool isBurstReqQueueEmpty();
-        bool isMemReqQueueEmpty();
+        bool isBurstRespQueueEmpty();
         void init();
         PortType burstReqArbiter(PortType winner);
         bool isEndOfBfsIteration();
+        bool isAllReqProcessed();
 
         // processing thread
         void sendMemReq();
