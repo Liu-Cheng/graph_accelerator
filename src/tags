@@ -227,7 +227,6 @@ EXPAND_CIAI_READ	User.h	/^    EXPAND_CIAI_READ,$/;"	e	enum:PortType
 EXPAND_CIAO_READ	User.h	/^    EXPAND_CIAO_READ,$/;"	e	enum:PortType
 EXPAND_DEPTH_READ	User.h	/^    EXPAND_DEPTH_READ,$/;"	e	enum:PortType
 EXPAND_DEPTH_WRITE	User.h	/^    EXPAND_DEPTH_WRITE,$/;"	e	enum:PortType
-EXPAND_FRONTIER_READ	User.h	/^    EXPAND_FRONTIER_READ$/;"	e	enum:PortType
 EXPAND_RPAI_READ	User.h	/^    EXPAND_RPAI_READ,$/;"	e	enum:PortType
 EXPAND_RPAO_READ	User.h	/^    EXPAND_RPAO_READ,$/;"	e	enum:PortType
 EXTENSION	Request.h	/^                EXTENSION,$/;"	m	class:ramulator::Request::Type
@@ -278,7 +277,6 @@ Histogram	StatType.h	/^  Histogram(size_type __buckets):cvec(__buckets) {$/;"	f	
 Histogram	StatType.h	/^class Histogram: public Stat<Histogram> {$/;"	c	namespace:Stats
 HistogramStat	Statistics.h	/^class HistogramStat : public DistStatBase<Stats::Histogram> {$/;"	c	namespace:ramulator
 INSPECT_DEPTH_READ	User.h	/^    INSPECT_DEPTH_READ = 0,$/;"	e	enum:PortType
-INSPECT_FRONTIER_WRITE	User.h	/^    INSPECT_FRONTIER_WRITE,$/;"	e	enum:PortType
 INTEGRATED_WITH_GEM5	Statistics.h	8;"	d
 L1	Cache.h	/^    L1,$/;"	m	class:ramulator::Cache::Level
 L2	Cache.h	/^    L2,$/;"	m	class:ramulator::Cache::Level
@@ -874,6 +872,9 @@ begin_of_serving	DRAM.h	/^    long begin_of_serving = -1;$/;"	m	class:ramulator:
 beta	common.cpp	/^int GL::beta = 5000;$/;"	m	class:GL	file:
 beta	common.h	/^        static int beta; $/;"	m	class:GL
 bfsController	pe.cpp	/^void pe::bfsController(){$/;"	f	class:pe
+bfsDone	MemWrapper.h	/^        sc_in <bool> bfsDone;$/;"	m	class:MemWrapper
+bfsDone	pe.h	/^        sc_out<bool> bfsDone;$/;"	m	class:pe
+bfsIterationStart	pe.h	/^        bool bfsIterationStart;$/;"	m	class:pe
 block_num	Cache.h	/^  unsigned int block_num;$/;"	m	class:ramulator::Cache
 block_size	Cache.h	/^  unsigned int block_size;$/;"	m	class:ramulator::Cache
 bubble_cnt	Processor.h	/^    long bubble_cnt;$/;"	m	class:ramulator::Core
@@ -886,14 +887,16 @@ burstIdx	Request.h	/^        long burstIdx;$/;"	m	struct:ramulator::UDF
 burstIdx	common.cpp	/^long GL::burstIdx = -1;$/;"	m	class:GL	file:
 burstIdx	common.h	/^        long burstIdx;$/;"	m	struct:BurstOp
 burstIdx	common.h	/^        static long burstIdx;$/;"	m	class:GL
+burstIdxReorderQueue	pe.h	/^        std::vector<std::list<int>> burstIdxReorderQueue;$/;"	m	class:pe
 burstLen	common.cpp	/^int GL::burstLen = 64;$/;"	m	class:GL	file:
 burstLen	common.h	/^        static int burstLen; $/;"	m	class:GL
+burstOpPtype	pe.h	/^        std::map<long, PortType> burstOpPtype;$/;"	m	class:pe
+burstOpStatus	pe.h	/^        std::map<long, bool> burstOpStatus;$/;"	m	class:pe
 burstReq	MemWrapper.h	/^        sc_in <BurstOp> burstReq;$/;"	m	class:MemWrapper
 burstReq	pe.h	/^        sc_out<BurstOp> burstReq;$/;"	m	class:pe
 burstReqArbiter	pe.cpp	/^PortType pe::burstReqArbiter(PortType winner){$/;"	f	class:pe
 burstReqQueue	MemWrapper.h	/^        std::list<BurstOp> burstReqQueue;$/;"	m	class:MemWrapper
 burstReqQueue	pe.h	/^        std::vector<std::list<BurstOp>> burstReqQueue;$/;"	m	class:pe
-burstReqStatus	pe.h	/^        std::map<long, bool> burstReqStatus;$/;"	m	class:pe
 burstReqToBuffer	common.h	/^        void burstReqToBuffer(std::list<T> &buffer){$/;"	f	struct:BurstOp
 burstResp	MemWrapper.h	/^        sc_out <BurstOp> burstResp;$/;"	m	class:MemWrapper
 burstResp	pe.h	/^        sc_in<BurstOp> burstResp;$/;"	m	class:pe
@@ -950,15 +953,16 @@ check_row_hit	DRAM.h	/^bool DRAM<T>::check_row_hit(typename T::Command cmd, cons
 check_row_open	DRAM.h	/^bool DRAM<T>::check_row_open(typename T::Command cmd, const int* addr)$/;"	f	class:ramulator::DRAM
 check_unlock	Cache.h	/^  bool check_unlock(long addr) {$/;"	f	class:ramulator::Cache
 children	DRAM.h	/^    vector<DRAM*> children;$/;"	m	class:ramulator::DRAM
-ciaiBufferDepth	common.cpp	/^int GL::ciaiBufferDepth = 1024;$/;"	m	class:GL	file:
+ciaiBufferDepth	common.cpp	/^int GL::ciaiBufferDepth = 4096;$/;"	m	class:GL	file:
 ciaiBufferDepth	common.h	/^        static int ciaiBufferDepth;$/;"	m	class:GL
 ciaiMemAddr	common.cpp	/^long GL::ciaiMemAddr = 0;$/;"	m	class:GL	file:
 ciaiMemAddr	common.h	/^        static long ciaiMemAddr;$/;"	m	class:GL
-ciaoBufferDepth	common.cpp	/^int GL::ciaoBufferDepth = 1024;$/;"	m	class:GL	file:
+ciaoBufferDepth	common.cpp	/^int GL::ciaoBufferDepth = 4096;$/;"	m	class:GL	file:
 ciaoBufferDepth	common.h	/^        static int ciaoBufferDepth;$/;"	m	class:GL
 ciaoMemAddr	common.cpp	/^long GL::ciaoMemAddr = 0;$/;"	m	class:GL	file:
 ciaoMemAddr	common.h	/^        static long ciaoMemAddr;$/;"	m	class:GL
-cleanProcessedRequests	MemWrapper.cpp	/^void MemWrapper::cleanProcessedRequests(){}$/;"	f	class:MemWrapper
+cleanProcessedRequests	MemWrapper.cpp	/^void MemWrapper::cleanProcessedRequests(long idx){$/;"	f	class:MemWrapper
+cleanRam	MemWrapper.cpp	/^void MemWrapper::cleanRam(){$/;"	f	class:MemWrapper
 cleanRespQueue	MemWrapper.cpp	/^void MemWrapper::cleanRespQueue(const std::vector<long> &reqVec){$/;"	f	class:MemWrapper
 clear_lower_bits	Memory.h	/^    void clear_lower_bits(long& addr, int bits)$/;"	f	class:ramulator::Memory
 clk	Cache.h	/^  long clk = 0;$/;"	m	class:ramulator::CacheSystem
@@ -1040,7 +1044,6 @@ cvec	StatType.h	/^  VCounter cvec;$/;"	m	class:Stats::Distribution
 cvec	StatType.h	/^  VCounter cvec;$/;"	m	class:Stats::Histogram
 data	StatType.h	/^  std::vector<Element> data;$/;"	m	class:Stats::VectorBase
 data	common.h	/^        std::vector<char> data;$/;"	m	struct:BurstOp
-dataWidth	pe.h	/^        int dataWidth; $/;"	m	class:pe
 debug	Cache.cpp	4;"	d	file:
 debug	Cache.cpp	6;"	d	file:
 dec	StatType.h	/^  void dec(Counter val) {$/;"	f	class:Stats::Average
@@ -1085,6 +1088,7 @@ dq	TLDRAM.h	/^        int dq;$/;"	m	struct:ramulator::TLDRAM::OrgEntry
 dq	WideIO.h	/^        int dq;$/;"	m	struct:ramulator::WideIO::OrgEntry
 dq	WideIO2.h	/^        int dq;$/;"	m	struct:ramulator::WideIO2::OrgEntry
 dram_capacity	Memory.h	/^  ScalarStat dram_capacity;$/;"	m	class:ramulator::Memory
+dumpDepth	MemWrapper.cpp	/^void MemWrapper::dumpDepth(const std::string &fname){$/;"	f	class:MemWrapper
 early_exit	Processor.h	/^    bool early_exit;$/;"	m	class:ramulator::Processor
 early_inject_refresh	Refresh.cpp	/^void Refresh<DSARP>::early_inject_refresh() {$/;"	f	class:ramulator::Refresh
 edgeNum	common.cpp	/^int GL::edgeNum = 0;$/;"	m	class:GL	file:
@@ -1100,9 +1104,11 @@ evictline	Cache.cpp	/^void Cache::evictline(long addr, bool dirty) {$/;"	f	class
 exapndRpaiReadBuffer	pe.h	/^        std::list<int> exapndRpaiReadBuffer; $/;"	m	class:pe
 expandCiaiReadBuffer	pe.h	/^        std::list<int> expandCiaiReadBuffer;  $/;"	m	class:pe
 expandCiaoReadBuffer	pe.h	/^        std::list<int> expandCiaoReadBuffer;$/;"	m	class:pe
-expandDepthWriteBuffer	pe.h	/^        std::list<unsigned char> expandDepthWriteBuffer;$/;"	m	class:pe
-expandFrontierReadBuffer	pe.h	/^        std::list<int> expandFrontierReadBuffer; $/;"	m	class:pe
+expandDepthAnalysis	pe.cpp	/^void pe::expandDepthAnalysis(){$/;"	f	class:pe
+expandDepthReadBuffer	pe.h	/^        std::list<char> expandDepthReadBuffer;$/;"	m	class:pe
+expandDepthWriteBuffer	pe.h	/^        std::list<char> expandDepthWriteBuffer;$/;"	m	class:pe
 expandRpaoReadBuffer	pe.h	/^        std::list<int> expandRpaoReadBuffer;$/;"	m	class:pe
+expandVidxForDepthWriteBuffer	pe.h	/^        std::list<int> expandVidxForDepthWriteBuffer;$/;"	m	class:pe
 expected_limit_insts	Config.h	/^    long expected_limit_insts = 0;$/;"	m	class:ramulator::Config
 expected_limit_insts	Processor.h	/^    long expected_limit_insts;$/;"	m	class:ramulator::Core
 extend_channel_width	MemoryFactory.h	/^    static void extend_channel_width(T* spec, int cacheline)$/;"	f	class:ramulator::MemoryFactory
@@ -1133,10 +1139,12 @@ freq	SALP.h	/^        double freq, tCK;$/;"	m	struct:ramulator::SALP::SpeedEntry
 freq	TLDRAM.h	/^        double freq, tCK;$/;"	m	struct:ramulator::TLDRAM::SpeedEntry
 freq	WideIO.h	/^        double freq, tCK;$/;"	m	struct:ramulator::WideIO::SpeedEntry
 freq	WideIO2.h	/^        double freq, tCK;$/;"	m	struct:ramulator::WideIO2::SpeedEntry
-frontierBufferDepth	common.cpp	/^int GL::frontierBufferDepth = 1024;$/;"	m	class:GL	file:
+frontierAnalysis	pe.cpp	/^void pe::frontierAnalysis(){$/;"	f	class:pe
+frontierBufferDepth	common.cpp	/^int GL::frontierBufferDepth = 4096;$/;"	m	class:GL	file:
 frontierBufferDepth	common.h	/^        static int frontierBufferDepth;$/;"	m	class:GL
 frontierMemAddr	common.cpp	/^long GL::frontierMemAddr = 0;$/;"	m	class:GL	file:
 frontierMemAddr	common.h	/^        static long frontierMemAddr;$/;"	m	class:GL
+frontierSize	pe.h	/^        int frontierSize;$/;"	m	class:pe
 getAlignedAddr	common.cpp	/^long BurstOp::getAlignedAddr() const {$/;"	f	class:BurstOp
 getArriveMemTime	common.cpp	/^long BurstOp::getArriveMemTime() const{$/;"	f	class:BurstOp
 getArrivePeTime	common.cpp	/^long BurstOp::getArrivePeTime() const{$/;"	f	class:BurstOp
@@ -1153,8 +1161,10 @@ getMinArriveTime	MemWrapper.cpp	/^long MemWrapper::getMinArriveTime(const std::v
 getMinIdx	graph.cpp	/^int Graph::getMinIdx(const std::vector<std::vector<int>> &data){$/;"	f	class:Graph
 getOffset	common.cpp	/^int BurstOp::getOffset() const {$/;"	f	class:BurstOp
 getRandomStartIndices	graph.cpp	/^void Graph::getRandomStartIndices(std::vector<int> &start_indices){$/;"	f	class:Graph
+getReadyOp	pe.cpp	/^bool pe::getReadyOp(BurstOp &op){$/;"	f	class:pe
 getReqIdx	common.cpp	/^long GL::getReqIdx(){$/;"	f	class:GL
 getReqNum	common.cpp	/^int BurstOp::getReqNum() const {$/;"	f	class:BurstOp
+getSingleDataFromRam	MemWrapper.h	/^        T getSingleDataFromRam(long addr){$/;"	f	class:MemWrapper
 getStat	graph.cpp	/^void Graph::getStat(){$/;"	f	class:Graph
 get_addr_vec	Controller.cpp	/^vector<int> Controller<SALP>::get_addr_vec(SALP::Command cmd, list<Request>::iterator req){$/;"	f	class:ramulator::Controller
 get_addr_vec	Controller.h	/^    vector<int> get_addr_vec(typename T::Command cmd, list<Request>::iterator req){$/;"	f	class:ramulator::Controller
@@ -1292,18 +1302,17 @@ inject_refresh	Refresh.cpp	/^void Refresh<DSARP>::inject_refresh(bool b_ref_rank
 inject_refresh	Refresh.h	/^  void inject_refresh(bool b_ref_rank) {$/;"	f	class:ramulator::Refresh
 insert	DRAM.h	/^void DRAM<T>::insert(DRAM<T>* child)$/;"	f	class:ramulator::DRAM
 insert	Processor.cpp	/^void Window::insert(bool ready, long addr)$/;"	f	class:Window
-inspectDepthRead	pe.cpp	/^void pe::inspectDepthRead(){$/;"	f	class:pe
-inspectDepthReadBuffer	pe.h	/^        std::list<unsigned char> inspectDepthReadBuffer; $/;"	m	class:pe
-inspectDepthReadReqFlag	pe.h	/^        bool inspectDepthReadReqFlag;$/;"	m	class:pe
-inspectFlag	pe.h	/^        bool inspectFlag;$/;"	m	class:pe
-inspectFrontierWriteBuffer	pe.h	/^        std::list<int> inspectFrontierWriteBuffer;$/;"	m	class:pe
-inspectFrontierWriteReqFlag	pe.h	/^        bool inspectFrontierWriteReqFlag;$/;"	m	class:pe
+inspectDepthAnalysis	pe.cpp	/^void pe::inspectDepthAnalysis(){$/;"	f	class:pe
+inspectDepthReadBuffer	pe.h	/^        std::list<char> inspectDepthReadBuffer; $/;"	m	class:pe
+inspectFrontierBuffer	pe.h	/^        std::list<int> inspectFrontierBuffer;$/;"	m	class:pe
 invalidate	Cache.cpp	/^std::pair<long, bool> Cache::invalidate(long addr) {$/;"	f	class:ramulator::Cache
 ipc	Processor.h	/^    double ipc = 0;$/;"	m	class:ramulator::Processor
 ipc	Processor.h	/^    int ipc = 4;$/;"	m	class:ramulator::Window
 ipcs	Processor.h	/^    std::vector<double> ipcs;$/;"	m	class:ramulator::Processor
+isAllReqProcessed	pe.cpp	/^bool pe::isAllReqProcessed(){$/;"	f	class:pe
 isBurstReqQueueEmpty	pe.cpp	/^bool pe::isBurstReqQueueEmpty(){$/;"	f	class:pe
-isInspectionDone	pe.cpp	/^bool pe::isInspectionDone(){$/;"	f	class:pe
+isBurstRespQueueEmpty	pe.cpp	/^bool pe::isBurstRespQueueEmpty(){$/;"	f	class:pe
+isEndOfBfsIteration	pe.cpp	/^bool pe::isEndOfBfsIteration(){$/;"	f	class:pe
 isUgraph	graph.h	/^        bool isUgraph;$/;"	m	class:Graph
 is_accessing	ALDRAM.h	/^    bool is_accessing(Command cmd)$/;"	f	class:ramulator::ALDRAM
 is_accessing	DDR3.h	/^    bool is_accessing(Command cmd) $/;"	f	class:ramulator::DDR3
@@ -1378,8 +1387,9 @@ is_row_hit	SpeedyController.h	/^    bool is_row_hit(Request& req)$/;"	f	class:ra
 is_row_open	Controller.h	/^    bool is_row_open(list<Request>::iterator req)$/;"	f	class:ramulator::Controller
 is_row_open	Controller.h	/^    bool is_row_open(typename T::Command cmd, const vector<int>& addr_vec)$/;"	f	class:ramulator::Controller
 is_total	StatType.h	/^  bool is_total() const {return flags & total;}$/;"	f	class:Stats::Flags
+issueExpandCiaoReadReq	pe.cpp	/^void pe::issueExpandCiaoReadReq(){$/;"	f	class:pe
+issueExpandDepthReadReq	pe.cpp	/^void pe::issueExpandDepthReadReq(){$/;"	f	class:pe
 issueInspectDepthReadReq	pe.cpp	/^void pe::issueInspectDepthReadReq(){$/;"	f	class:pe
-issueInspectFrontierWriteReq	pe.cpp	/^void pe::issueInspectFrontierWriteReq(){$/;"	f	class:pe
 issue_cmd	Controller.h	/^    void issue_cmd(typename T::Command cmd, const vector<int>& addr_vec)$/;"	f	class:ramulator::Controller
 issue_cmd	SpeedyController.h	/^    void issue_cmd(typename T::Command cmd, int* addr_vec)$/;"	f	class:ramulator::SpeedyController
 l1_assoc	Processor.h	/^    int l1_assoc = 1 << 3;$/;"	m	class:ramulator::Core
@@ -1415,7 +1425,7 @@ latency_each	Cache.h	/^  int latency_each[int(Level::MAX)] = {4, 12, 31};$/;"	m	
 length	common.h	/^        int length;$/;"	m	struct:BurstOp
 level	Cache.h	/^  } level;$/;"	m	class:ramulator::Cache	typeref:class:ramulator::Cache::Level
 level	DRAM.h	/^    typename T::Level level;$/;"	m	class:ramulator::DRAM
-level	pe.h	/^        unsigned char level;$/;"	m	class:pe
+level	pe.h	/^        char level;$/;"	m	class:pe
 level_bank	Refresh.h	/^  int level_chan, level_rank, level_bank, level_sa;$/;"	m	class:ramulator::Refresh
 level_chan	Refresh.h	/^  int level_chan, level_rank, level_bank, level_sa;$/;"	m	class:ramulator::Refresh
 level_rank	Refresh.h	/^  int level_chan, level_rank, level_bank, level_sa;$/;"	m	class:ramulator::Refresh
@@ -1429,7 +1439,10 @@ load	Processor.h	/^    int load = 0;$/;"	m	class:ramulator::Window
 loadConfig	MemWrapper.cpp	/^void MemWrapper::loadConfig(int argc, char* argv[]){$/;"	f	class:MemWrapper
 loadFile	graph.cpp	/^void Graph::loadFile($/;"	f	class:Graph
 loadGraph	MemWrapper.cpp	/^Graph* MemWrapper::loadGraph(const std::string &cfgFileName){$/;"	f	class:MemWrapper
+localCounter	pe.h	/^        int localCounter;$/;"	m	class:pe
 lock	Cache.h	/^    bool lock; \/\/ When the lock is on, the value is not valid yet.$/;"	m	struct:ramulator::Cache::Line
+logon	common.cpp	/^int GL::logon = 0;$/;"	m	class:GL	file:
+logon	common.h	/^        static int logon;$/;"	m	class:GL
 logs	StatType.h	/^  Counter logs;$/;"	m	class:Stats::Histogram
 lower_cache	Cache.h	/^  Cache* lower_cache;$/;"	m	class:ramulator::Cache
 lrand	Memory.h	/^    long lrand(void) {$/;"	f	class:ramulator::Memory
@@ -1873,8 +1886,9 @@ param_min	StatType.h	/^  Counter param_min;$/;"	m	class:Stats::Distribution
 parent	DRAM.h	/^    DRAM* parent;$/;"	m	class:ramulator::DRAM
 parse	Config.cpp	/^void Config::parse(const string& fname)$/;"	f	class:Config
 pdf	StatType.h	/^const uint16_t pdf       = 0x00000020;$/;"	m	namespace:Stats
-pe	pe.cpp	/^pe::pe(sc_module_name _name, $/;"	f	class:pe
+pe	pe.cpp	/^pe::pe($/;"	f	class:pe
 pe	pe.h	/^class pe : public sc_module{$/;"	c
+peClk	pe.h	/^        sc_in<bool> peClk;$/;"	m	class:pe
 peClkCycle	MemWrapper.h	/^        double peClkCycle;$/;"	m	class:MemWrapper
 peClkCycle	pe.h	/^        int peClkCycle;$/;"	m	class:pe
 peIdx	Request.h	/^        int peIdx;$/;"	m	struct:ramulator::UDF
@@ -1928,14 +1942,18 @@ prev	DRAM.h	/^    deque<long> prev[int(T::Command::MAX)]; \/\/ the most recent h
 print	StatType.h	/^  virtual void print(std::ofstream& file) {$/;"	f	class:Stats::ScalarBase
 print	StatType.h	/^  virtual void print(std::ofstream& file) {};$/;"	f	class:Stats::Stat
 print	StatType.h	/^  void print(std::ofstream& file) {$/;"	f	class:Stats::VectorBase
+printOngb	graph.cpp	/^void Graph::printOngb(int vidx){$/;"	f	class:Graph
 print_cmd_trace	Config.h	/^    bool print_cmd_trace() const {$/;"	f	class:ramulator::Config
 print_cmd_trace	Controller.h	/^    bool print_cmd_trace = false;$/;"	m	class:ramulator::Controller
 print_cmd_trace	SpeedyController.h	/^    bool print_cmd_trace = false;$/;"	m	class:ramulator::SpeedyController
 printall	StatType.h	/^  void printall() {$/;"	f	class:Stats::StatList
 printdesc	StatType.h	/^  virtual void printdesc(std::ofstream& file) {$/;"	f	class:Stats::Stat
 printname	StatType.h	/^  virtual void printname(std::ofstream& file) {$/;"	f	class:Stats::Stat
+processExpandCiaoReadResp	pe.cpp	/^void pe::processExpandCiaoReadResp(){$/;"	f	class:pe
+processExpandDepthReadResp	pe.cpp	/^void pe::processExpandDepthReadResp(){$/;"	f	class:pe
+processExpandDepthWriteResp	pe.cpp	/^void pe::processExpandDepthWriteResp(){$/;"	f	class:pe
+processExpandRpaoReadResp	pe.cpp	/^void pe::processExpandRpaoReadResp(){$/;"	f	class:pe
 processInspectDepthReadResp	pe.cpp	/^void pe::processInspectDepthReadResp(){$/;"	f	class:pe
-processInspectFrontierWriteResp	pe.cpp	/^void pe::processInspectFrontierWriteResp(){$/;"	f	class:pe
 ptype	Request.h	/^        PortType ptype;$/;"	m	struct:ramulator::UDF
 ptype	common.h	/^        PortType ptype;$/;"	m	struct:BurstOp
 q	Controller.h	/^        list<Request> q;$/;"	m	struct:ramulator::Controller::Queue
@@ -2038,12 +2056,13 @@ refresh_target	Refresh.h	/^  void refresh_target(Controller<T>* ctrl, int rank, 
 refreshed	Refresh.h	/^  long clk, refreshed;$/;"	m	class:ramulator::Refresh
 refreshed	SpeedyController.h	/^    long refreshed = 0;  \/\/ last time refresh requests were generated$/;"	m	class:ramulator::SpeedyController
 regStats	DRAM.h	/^void DRAM<T>::regStats(const std::string& identifier) {$/;"	f	class:ramulator::DRAM
+reorderBuffer	pe.h	/^        std::list<BurstOp> reorderBuffer;$/;"	m	class:pe
 reqIdx	Request.h	/^        long reqIdx; $/;"	m	struct:ramulator::UDF
 reqIdx	common.cpp	/^long GL::reqIdx = -1;$/;"	m	class:GL	file:
 reqIdx	common.h	/^        static long reqIdx;$/;"	m	class:GL
 reqQueue	MemWrapper.h	/^        std::list<Request> reqQueue; $/;"	m	class:MemWrapper
 reqStatus	MemWrapper.h	/^        std::map<long, bool> reqStatus;$/;"	m	class:MemWrapper
-reqToRam	common.cpp	/^void BurstOp::reqToRam(std::vector<char> &ramData){$/;"	f	class:BurstOp
+reqToRam	common.cpp	/^void BurstOp::reqToRam(std::vector<char> &ramData){ $/;"	f	class:BurstOp
 reqVec	common.h	/^        std::vector<long> reqVec;$/;"	m	struct:BurstOp
 req_addr	Processor.h	/^    long req_addr = -1;$/;"	m	class:ramulator::Core
 req_queue_length_avg	Controller.h	/^    ScalarStat req_queue_length_avg;$/;"	m	class:ramulator::Controller
@@ -2104,11 +2123,11 @@ rowopen	WideIO.h	/^    function<bool(DRAM<WideIO>*, Command cmd, int)> rowopen[i
 rowopen	WideIO2.h	/^    function<bool(DRAM<WideIO2>*, Command cmd, int)> rowopen[int(Level::MAX)][int(Command::MAX)];$/;"	m	class:ramulator::WideIO2
 rowpolicy	Controller.h	/^    RowPolicy<T>* rowpolicy;  \/\/ determines the row-policy (e.g., closed-row vs. open-row)$/;"	m	class:ramulator::Controller
 rowtable	Controller.h	/^    RowTable<T>* rowtable;  \/\/ tracks metadata about rows (e.g., which are open and for how long)$/;"	m	class:ramulator::Controller
-rpaiBufferDepth	common.cpp	/^int GL::rpaiBufferDepth = 1024;$/;"	m	class:GL	file:
+rpaiBufferDepth	common.cpp	/^int GL::rpaiBufferDepth = 4096;$/;"	m	class:GL	file:
 rpaiBufferDepth	common.h	/^        static int rpaiBufferDepth;$/;"	m	class:GL
 rpaiMemAddr	common.cpp	/^long GL::rpaiMemAddr = 0;$/;"	m	class:GL	file:
 rpaiMemAddr	common.h	/^        static long rpaiMemAddr;$/;"	m	class:GL
-rpaoBufferDepth	common.cpp	/^int GL::rpaoBufferDepth = 1024;$/;"	m	class:GL	file:
+rpaoBufferDepth	common.cpp	/^int GL::rpaoBufferDepth = 4096;$/;"	m	class:GL	file:
 rpaoBufferDepth	common.h	/^        static int rpaoBufferDepth;$/;"	m	class:GL
 rpaoMemAddr	common.cpp	/^long GL::rpaoMemAddr = 0;$/;"	m	class:GL	file:
 rpaoMemAddr	common.h	/^        static long rpaoMemAddr;$/;"	m	class:GL
@@ -2158,9 +2177,9 @@ serving_requests	DRAM.h	/^    ScalarStat serving_requests;$/;"	m	class:ramulator
 set	StatType.h	/^  void set(Counter val) {$/;"	f	class:Stats::Average
 setArriveMemTime	common.cpp	/^void BurstOp::setArriveMemTime(long arriveTime){$/;"	f	class:BurstOp
 setArrivePeTime	common.cpp	/^void BurstOp::setArrivePeTime(long arriveTime){$/;"	f	class:BurstOp
-setDataWidth	pe.cpp	/^void pe::setDataWidth(int width){$/;"	f	class:pe
 setDepartMemTime	common.cpp	/^void BurstOp::setDepartMemTime(long departTime){$/;"	f	class:BurstOp
 setDepartPeTime	common.cpp	/^void BurstOp::setDepartPeTime(long departTime){$/;"	f	class:BurstOp
+setNewStartVertex	MemWrapper.cpp	/^void MemWrapper::setNewStartVertex(int idx){$/;"	f	class:MemWrapper
 setPeClkCycle	pe.cpp	/^void pe::setPeClkCycle(int _peClkCycle){$/;"	f	class:pe
 setSeparator	StatType.h	/^  Derived &setSeparator(std::string str) {$/;"	f	class:Stats::Stat
 setSeparator	StatType.h	/^  const std::string& setSeparator() const {return separatorString;}$/;"	f	class:Stats::Stat
@@ -2309,6 +2328,8 @@ start	SALP.h	/^    } start[int(Level::MAX)] = {$/;"	m	class:ramulator::SALP	type
 start	TLDRAM.h	/^    } start[int(Level::MAX)] = {$/;"	m	class:ramulator::TLDRAM	typeref:class:ramulator::TLDRAM::State
 start	WideIO.h	/^    } start[int(Level::MAX)] = {$/;"	m	class:ramulator::WideIO	typeref:class:ramulator::WideIO::State
 start	WideIO2.h	/^    } start[int(Level::MAX)] = {$/;"	m	class:ramulator::WideIO2	typeref:class:ramulator::WideIO2::State
+startNum	common.cpp	/^int GL::startNum = 10;$/;"	m	class:GL	file:
+startNum	common.h	/^        static int startNum;$/;"	m	class:GL
 start_run	MemWrapper.cpp	/^void MemWrapper::start_run(const Config& configs, T* spec, const vector<const char*>& files) {$/;"	f	class:MemWrapper
 startingVertices	common.cpp	/^std::vector<int> GL::startingVertices;$/;"	m	class:GL	file:
 startingVertices	common.h	/^        static std::vector<int> startingVertices;$/;"	m	class:GL
@@ -2318,6 +2339,7 @@ stat_output	StatType.h	/^  std::ofstream stat_output;$/;"	m	class:Stats::StatLis
 state	DRAM.h	/^    typename T::State state;$/;"	m	class:ramulator::DRAM
 statlist	StatType.cpp	/^StatList statlist;$/;"	m	namespace:Stats	file:
 stats_out	MemWrapper.h	/^        string stats_out;$/;"	m	class:MemWrapper
+statusMonitor	MemWrapper.cpp	/^void MemWrapper::statusMonitor(){$/;"	f	class:MemWrapper
 subarray_ref_counters	Refresh.h	/^  vector<vector<int>> subarray_ref_counters;$/;"	m	class:ramulator::Refresh
 subarrays	Config.h	/^    int subarrays;$/;"	m	class:ramulator::Config
 subdesc	Statistics.h	/^    StatBaseVec<StatType> & subdesc(Stats::off_type index, const std::string & desc) {$/;"	f	class:ramulator::StatBaseVec
@@ -2410,7 +2432,8 @@ update	SpeedyController.h	/^    void update(typename T::Command cmd, bool state_
 updateAddrVec	common.cpp	/^void BurstOp::updateAddrVec() {$/;"	f	class:BurstOp
 updateBurstToRam	MemWrapper.cpp	/^void MemWrapper::updateBurstToRam(long watchedBurstIdx){$/;"	f	class:MemWrapper
 updateReqVec	common.cpp	/^void BurstOp::updateReqVec() {$/;"	f	class:BurstOp
-updateSingleDataToRam	MemWrapper.cpp	/^void MemWrapper::updateSingleDataToRam(long addr, T t){$/;"	f	class:MemWrapper
+updateSingleDataToRam	MemWrapper.h	/^        void updateSingleDataToRam(long addr, T t){$/;"	f	class:MemWrapper
+updateWriteResp	MemWrapper.cpp	/^bool MemWrapper::updateWriteResp(){$/;"	f	class:MemWrapper
 update_serving_requests	DRAM.h	/^void DRAM<T>::update_serving_requests(const int* addr, int delta, long clk) {$/;"	f	class:ramulator::DRAM
 update_state	DRAM.h	/^void DRAM<T>::update_state(typename T::Command cmd, const int* addr)$/;"	f	class:ramulator::DRAM
 update_temp	Controller.cpp	/^void Controller<ALDRAM>::update_temp(ALDRAM::Temp current_temperature){$/;"	f	class:ramulator::Controller

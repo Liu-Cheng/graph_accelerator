@@ -34,6 +34,8 @@ int GL::burstLen = 64;
 int GL::baseLen = 1024; // 1024 bytes
 int GL::burstAddrWidth = GL::getBurstAddrWidth();
 
+int GL::logon = 0;
+
 void GL::cfgBfsParam(const std::string &cfgFileName){
 
     std::ifstream fhandle(cfgFileName.c_str());
@@ -62,6 +64,9 @@ void GL::cfgBfsParam(const std::string &cfgFileName){
         }
         else if(cfgKey == "startNum"){
             fhandle >> startNum;
+        }
+        else if(cfgKey == "logon"){
+            fhandle >> logon;
         }
     }
 

@@ -2,104 +2,14 @@
 vertex num: 1000
 edge num: 10000
 Starting vertex is 478
-Level = 0 issue inspect depth read request at 90 ns
-Level = 0 all depth read requests are sent at 100 ns
-Level = 0 process inspect depth read response at 320 ns
-Level = 0 all depth read responses are processed at 10320 ns
-Level = 0 analyze inspect depth at 10330 ns
-Level = 0 frontier analysis starts at 15120 ns
 Level = 0 process rpao read response at 15230 ns
-Level = 0 process ciao read request at 15260 ns
-Level = 0 process ciao read resp at 15380 ns
-Level = 0 issue expand depth read at 15460 ns
-Level = 0 process depth read resp at 15540 ns
-Level = 0 expand depth analysis starts at 15560 ns
-Level = 0 process depth write response at 15640 ns
-Level = 0 all the inspect depth are analyzed at 20320 ns
-level changes at 20320 ns
-Level = 1 issue inspect depth read request at 20430 ns
-Level = 1 all depth read requests are sent at 20440 ns
-Level = 1 process inspect depth read response at 20630 ns
-Level = 1 all depth read responses are processed at 30630 ns
-Level = 1 analyze inspect depth at 30640 ns
-Level = 1 frontier analysis starts at 31200 ns
 Level = 1 process rpao read response at 31310 ns
-Level = 1 process ciao read request at 31340 ns
-Level = 1 process ciao read resp at 31470 ns
-Level = 1 issue expand depth read at 31650 ns
-Level = 1 process depth read resp at 31760 ns
-Level = 1 expand depth analysis starts at 31770 ns
-Level = 1 process depth write response at 31810 ns
-Level = 1 all the inspect depth are analyzed at 40630 ns
-level changes at 40630 ns
-Level = 2 issue inspect depth read request at 40740 ns
-Level = 2 all depth read requests are sent at 40750 ns
-Level = 2 process inspect depth read response at 40940 ns
-Level = 2 all depth read responses are processed at 50940 ns
-Level = 2 analyze inspect depth at 50950 ns
-Level = 2 frontier analysis starts at 50950 ns
 Level = 2 process rpao read response at 51060 ns
-Level = 2 process ciao read request at 51090 ns
-Level = 2 process ciao read resp at 51200 ns
-Level = 2 issue expand depth read at 51870 ns
-Level = 2 process depth read resp at 51950 ns
-Level = 2 expand depth analysis starts at 51960 ns
-Level = 2 process depth write response at 52030 ns
-Level = 2 all the inspect depth are analyzed at 60940 ns
-level changes at 78960 ns
-Level = 3 issue inspect depth read request at 79070 ns
-Level = 3 all depth read requests are sent at 79080 ns
-Level = 3 process inspect depth read response at 79260 ns
-Level = 3 all depth read responses are processed at 89260 ns
-Level = 3 analyze inspect depth at 89270 ns
-Level = 3 frontier analysis starts at 89290 ns
 Level = 3 process rpao read response at 89400 ns
-Level = 3 process ciao read request at 89430 ns
-Level = 3 process ciao read resp at 89580 ns
-Level = 3 issue expand depth read at 90130 ns
-Level = 3 process depth read resp at 90890 ns
-Level = 3 expand depth analysis starts at 90910 ns
-Level = 3 process depth write response at 93350 ns
-Level = 3 all the inspect depth are analyzed at 99260 ns
-level changes at 178140 ns
-Level = 4 issue inspect depth read request at 178250 ns
-Level = 4 all depth read requests are sent at 178260 ns
-Level = 4 process inspect depth read response at 178440 ns
-Level = 4 all depth read responses are processed at 188440 ns
-Level = 4 analyze inspect depth at 188450 ns
-Level = 4 frontier analysis starts at 188700 ns
 Level = 4 process rpao read response at 188820 ns
-Level = 4 process ciao read request at 188850 ns
-Level = 4 process ciao read resp at 188940 ns
-Level = 4 issue expand depth read at 189100 ns
-Level = 4 process depth read resp at 189190 ns
-Level = 4 expand depth analysis starts at 189200 ns
-Level = 4 process depth write response at 193260 ns
-Level = 4 all the inspect depth are analyzed at 198440 ns
-level changes at 217050 ns
-Level = 5 issue inspect depth read request at 217160 ns
-Level = 5 all depth read requests are sent at 217170 ns
-Level = 5 process inspect depth read response at 217370 ns
-Level = 5 all depth read responses are processed at 227370 ns
-Level = 5 analyze inspect depth at 227380 ns
-Level = 5 frontier analysis starts at 230770 ns
 Level = 5 process rpao read response at 230870 ns
-Level = 5 process ciao read request at 230900 ns
-Level = 5 process ciao read resp at 231010 ns
-Level = 5 issue expand depth read at 231060 ns
-Level = 5 process depth read resp at 231150 ns
-Level = 5 expand depth analysis starts at 231160 ns
-Level = 5 all the inspect depth are analyzed at 237370 ns
-level changes at 238090 ns
-Level = 6 issue inspect depth read request at 238200 ns
-Level = 6 all depth read requests are sent at 238210 ns
-Level = 6 process inspect depth read response at 238390 ns
-Level = 6 all depth read responses are processed at 248390 ns
-Level = 6 analyze inspect depth at 248400 ns
-Level = 6 all the inspect depth are analyzed at 258390 ns
 Empty frontier is detected.
 This is the end of the BFS traverse.
-level changes at 258390 ns
 Simulation completes.
 
 Info: /OSCI/SystemC: Simulation stopped by user.

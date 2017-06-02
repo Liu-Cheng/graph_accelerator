@@ -96,9 +96,11 @@ void pe::issueInspectDepthReadReq(){
 
         while(currentLen < maxLen){
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "issue inspect depth read request at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "issue inspect depth read request at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -128,9 +130,11 @@ void pe::issueInspectDepthReadReq(){
         }
 
         if(validFlag2){
-            std::cout << "Level = " << (int)level << " ";
-            std::cout << "all depth read requests are sent at ";
-            std::cout << sc_time_stamp() << std::endl;
+            if(GL::logon != 0){
+                std::cout << "Level = " << (int)level << " ";
+                std::cout << "all depth read requests are sent at ";
+                std::cout << sc_time_stamp() << std::endl;
+            }
             validFlag2 = false;
         }
 
@@ -154,9 +158,11 @@ void pe::processInspectDepthReadResp(){
 
         if(burstRespQueue[INSPECT_DEPTH_READ].empty() == false){
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "process inspect depth read response at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "process inspect depth read response at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -174,9 +180,11 @@ void pe::processInspectDepthReadResp(){
         }
 
         if(validFlag2 && totalLen == GL::vertexNum * (int)sizeof(char)){
-            std::cout << "Level = " << (int)level << " ";
-            std::cout << "all depth read responses are processed at ";
-            std::cout << sc_time_stamp() << std::endl;
+            if(GL::logon != 0){
+                std::cout << "Level = " << (int)level << " ";
+                std::cout << "all depth read responses are processed at ";
+                std::cout << sc_time_stamp() << std::endl;
+            }
             validFlag2 = false;
         }
     }
@@ -201,9 +209,11 @@ void pe::inspectDepthAnalysis(){
            (int)(inspectFrontierBuffer.size()) < GL::frontierBufferDepth)
         {
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "analyze inspect depth at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "analyze inspect depth at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -217,9 +227,11 @@ void pe::inspectDepthAnalysis(){
         }
 
         if(idx == GL::vertexNum && validFlag2){
-            std::cout << "Level = " << (int)level << " ";
-            std::cout << "all the inspect depth are analyzed at ";
-            std::cout << sc_time_stamp() << std::endl;
+            if(GL::logon != 0){
+                std::cout << "Level = " << (int)level << " ";
+                std::cout << "all the inspect depth are analyzed at ";
+                std::cout << sc_time_stamp() << std::endl;
+            }
             validFlag2 = false;
 
             // bfs complete
@@ -249,9 +261,11 @@ void pe::frontierAnalysis(){
            ((int)expandRpaoReadBuffer.size() + 2 < GL::rpaoBufferDepth))
         {
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "frontier analysis starts at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "frontier analysis starts at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -279,9 +293,11 @@ void pe::processExpandRpaoReadResp(){
 
         if(burstRespQueue[EXPAND_RPAO_READ].empty()  == false){
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "process rpao read response at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "process rpao read response at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -311,9 +327,11 @@ void pe::issueExpandCiaoReadReq(){
 
         if((int)expandRpaoReadBuffer.size() >= 2){
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "process ciao read request at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "process ciao read request at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -360,9 +378,11 @@ void pe::processExpandCiaoReadResp(){
 
         if(burstRespQueue[EXPAND_CIAO_READ].empty() == false){
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "process ciao read resp at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "process ciao read resp at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -393,9 +413,11 @@ void pe::issueExpandDepthReadReq(){
            ((int)(expandDepthReadBuffer.size())) < GL::depthBufferDepth)
         {
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "issue expand depth read at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "issue expand depth read at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -423,9 +445,11 @@ void pe::processExpandDepthReadResp(){
 
         if(burstRespQueue[EXPAND_DEPTH_READ].empty() == false){
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "process depth read resp at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "process depth read resp at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -455,9 +479,11 @@ void pe::expandDepthAnalysis(){
            (int)expandDepthWriteBuffer.size() <= GL::depthBufferDepth)
         {
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "expand depth analysis starts at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "expand depth analysis starts at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -495,9 +521,11 @@ void pe::processExpandDepthWriteResp(){
 
         if(burstRespQueue[EXPAND_DEPTH_WRITE].empty() == false){
             if(validFlag1){
-                std::cout << "Level = " << (int)level << " ";
-                std::cout << "process depth write response at ";
-                std::cout << sc_time_stamp() << std::endl;
+                if(GL::logon != 0){
+                    std::cout << "Level = " << (int)level << " ";
+                    std::cout << "process depth write response at ";
+                    std::cout << sc_time_stamp() << std::endl;
+                }
                 validFlag1 = false;
             }
 
@@ -526,7 +554,9 @@ void pe::bfsController(){
     if(isEndOfBfsIteration() && localCounter == 20){
         burstOpStatus.clear();
         level++;
-        std::cout << "level changes at " << sc_time_stamp() << std::endl;
+        if(GL::logon != 0){
+            std::cout << "level changes at " << sc_time_stamp() << std::endl;
+        }
         localCounter = 0;
     }
 

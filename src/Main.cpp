@@ -16,7 +16,6 @@ int sc_main(int argc, char *argv[]){
     GL::cfgBfsParam("./config.txt");
     MemWrapper memWrapper("memWrapper", memClkCycle, peClkCycle, argc, argv);
     memWrapper.setNewStartVertex(GL::startingVertices[0]);
-    std::cout << "Starting vertex is " << GL::startingVertices[0] << std::endl;
     memWrapper.burstReq(burstReq);
     memWrapper.burstResp(burstResp);
     memWrapper.bfsDone(bfsDone);

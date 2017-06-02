@@ -46,6 +46,8 @@ class GL{
         // It will be reset based on memory configuration
         static int burstLen; 
         static int burstAddrWidth;
+
+        static int logon;
         // A long request will be split into base length of 
         // bursts such that the burst will not be overflow 
         // the buffer and block shorter bursts coming afterwards.

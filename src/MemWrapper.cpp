@@ -495,12 +495,11 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
     auto read_complete = [this, &latencies](Request& r){
         long latency = r.depart - r.arrive;
         latencies[latency]++;
+
         //update departMemTime
         r.udf.departMemTime = r.udf.arriveMemTime + memClkCycle * latency;
         respQueue.push_back(r);
         reqStatus[r.udf.reqIdx] = true;
-        //std::cout << "req: " << r.udf.reqIdx << " is returnned at " << sc_time_stamp() << std::endl;
-        //std::cout << "req: " << r.udf.reqIdx << " " << r.arrive << " " << r.depart << std::endl;
     };
 
     std::vector<int> addr_vec;
@@ -688,7 +687,9 @@ void MemWrapper::statusMonitor(){
     while(true){
         if(bfsDone.read()){
             if(updateWriteResp() == false){
+                HERE;
                 std::cout << "There are still requests needed to be processed." << std::endl;
+                exit(EXIT_FAILURE);
             }
             dumpDepth("./depth.txt");
             std::cout << "Simulation completes." << std::endl;

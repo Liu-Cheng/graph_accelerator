@@ -95,9 +95,10 @@ Graph::Graph(const std::string& fname){
     vertex_num = getMaxIdx(data) + 1;
     edge_num = (int)data.size();
     if(isUgraph) edge_num *= 2;
-    std::cout << "vertex num: " << vertex_num << std::endl;
-    std::cout << "edge num: " << edge_num << std::endl;
-
+    if(GL::logon != 0){
+        std::cout << "vertex num: " << vertex_num << std::endl;
+        std::cout << "edge num: " << edge_num << std::endl;
+    }
     for(int i = 0; i < vertex_num; i++){
         Vertex* v = new Vertex(i);
         vertices.push_back(v);
