@@ -51,6 +51,7 @@ class MemWrapper : public sc_module{
         // Signals from/to pes. They will be processed following the peClk.
         sc_in <BurstOp> burstReq;
         sc_out <BurstOp> burstResp;
+        sc_in <bool> bfsDone;
 
         // The queue stores all the burst request transactions 
         // and it will not be removed untill the end of the program.
@@ -91,6 +92,7 @@ class MemWrapper : public sc_module{
         void updateBurstToRam(long watchedBurstIdx);
         void cleanRam(); // clean the ram content for new bfs traverse
         void setNewStartVertex(int idx); // set ram for a different start vertices of bfs.
+        void statusMonitor();
         ~MemWrapper(){};
 
         // Get data from ram.
@@ -134,9 +136,11 @@ class MemWrapper : public sc_module{
         int calBurstLen();
         long getMaxDepartTime(const std::vector<long> &reqVec);
         long getMinArriveTime(const std::vector<long> &reqVec);
-        void cleanProcessedRequests();
+        void cleanProcessedRequests(long idx);
         void shallowReqCopy(const Request &simpleReq, Request &req);
         void ramInit(const std::string &cfgFileName);
+        void dumpDepth(const std::string &fname);
+        bool updateWriteResp();
 
         // Update ram on a specified addr with specified data type.
         void cleanRespQueue(const std::vector<long> &reqVec);

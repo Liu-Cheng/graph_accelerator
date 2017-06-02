@@ -412,7 +412,7 @@ void BurstOp::ramToReq(const std::vector<char> &ramData){
     }
 }
 
-void BurstOp::reqToRam(std::vector<char> &ramData){
+void BurstOp::reqToRam(std::vector<char> &ramData){ 
     for(int i = 0; i < length; i++){
         ramData[addr+i] = data[i];
     }

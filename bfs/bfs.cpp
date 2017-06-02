@@ -3,8 +3,8 @@
 
 int main(int argc, char** argv){
 
-    int repeat_num = 10;
-    std::vector<int> start_indices{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int repeat_num = 1;
+    std::vector<int> start_indices{478};
     std::string fname = argv[1];
     std::string bfs_type = argv[2];
     std::string graph_type = argv[3];
@@ -40,6 +40,9 @@ int main(int argc, char** argv){
     else if(graph_type == "friendster"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/friendster.ungraph.txt");
     }
+    else if(graph_type == "example"){
+        gptr = new Graph("/home/liucheng/gitrepo/graph-data/rmat-1k-10k.txt");
+    }
     else{
         gptr = new Graph("./data/mydata.txt");
     }
@@ -47,7 +50,7 @@ int main(int argc, char** argv){
     gptr->getRandomStartIndices(start_indices);
     gptr->getStat();
     CSR* csr_ptr = new CSR(*gptr);
-    csr_ptr->degreeAnalysis();
+    //csr_ptr->degreeAnalysis();
     csr_ptr->setBfsParam(0.2, 5000, 1024, 256, 1024);
 
     // result will be dumped to the files

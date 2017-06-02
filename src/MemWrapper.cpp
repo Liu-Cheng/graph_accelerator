@@ -19,6 +19,7 @@ MemWrapper::MemWrapper(sc_module_name _name,
     SC_THREAD(getBurstReq);
     SC_THREAD(sendBurstResp);
     SC_THREAD(respMonitor);
+    SC_THREAD(statusMonitor);
 
 }
 
@@ -70,6 +71,9 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
     else if(graphName == "rmat"){
         fname = graphDir + "rmat-2m-256m.txt";
     }
+    else if(graphName == "example"){
+        fname = graphDir + "rmat-1k-10k.txt";
+    }
     else if(graphName == "twitter"){
         fname = graphDir + "twitter_rv.txt";
     }
@@ -87,7 +91,7 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
     GL::vertexNum = gptr->vertex_num;
     GL::edgeNum = gptr->edge_num;
     gptr->getRandomStartIndices(GL::startingVertices);
-    gptr->printOngb(GL::startingVertices[0]);
+    //gptr->printOngb(GL::startingVertices[0]);
 
     return gptr;
 
@@ -98,8 +102,8 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
 void MemWrapper::cleanRam(){
     long depthAddr = GL::depthMemAddr; 
     for(int i = 0; i < GL::vertexNum; i++){
-        updateSingleDataToRam<unsigned char>(depthAddr, -1);
-        depthAddr += (long)sizeof(unsigned char);
+        updateSingleDataToRam<signed char>(depthAddr, -1);
+        depthAddr += (long)sizeof(signed char);
     }
 
     long frontierAddr = GL::frontierMemAddr;
@@ -110,8 +114,8 @@ void MemWrapper::cleanRam(){
 }
 
 void MemWrapper::setNewStartVertex(int idx){
-    long addr = GL::depthMemAddr + idx * sizeof(unsigned char);
-    updateSingleDataToRam<unsigned char>(addr, 0);
+    long addr = GL::depthMemAddr + idx * sizeof(signed char);
+    updateSingleDataToRam<signed char>(addr, 0);
 }
 
 // This function is used to update ram content.
@@ -130,7 +134,9 @@ void MemWrapper::updateBurstToRam(long watchedBurstIdx){
             break;
         }
         else{
-            if(it->type == ramulator::Request::Type::WRITE){
+            if(it->type == ramulator::Request::Type::WRITE && 
+               writebackHistory[it->burstIdx] == false)
+            {
                 it->reqToRam(ramData);
                 writebackHistory[it->burstIdx] = true;
             }
@@ -210,7 +216,16 @@ long MemWrapper::getMaxDepartTime(const std::vector<long> &reqVec){
 // As we don't want to have the resp/req queues grow with time and don't want to 
 // implement complex and accurate clean strategy, thus we just clean 
 // the old memory requests based on the timestamps.  
-void MemWrapper::cleanProcessedRequests(){}
+void MemWrapper::cleanProcessedRequests(long idx){
+    for(auto it = burstReqQueue.begin(); it != burstReqQueue.end(); ){
+        if(it->burstIdx <= idx && burstStatus[it->burstIdx]){
+            burstReqQueue.erase(it++);
+        }
+        else{
+            break;
+        }
+    }
+}
 
 // It reads request from pe and thus is synchronized to the pe's clock
 void MemWrapper::getBurstReq(){
@@ -263,6 +278,10 @@ void MemWrapper::sendBurstResp(){
                         // arrives earlier than this request to ramData
                         updateBurstToRam(it->burstIdx); 
                         it->ramToReq(ramData);
+
+                        // Remove all the requests that comes before this one
+                        cleanProcessedRequests(it->burstIdx);
+
                     }
                     burstResp.write(*it);
                     burstRespQueue.erase(it++);
@@ -497,7 +516,6 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
             stall = !memory.send(req);
             if (!stall){
                 if (req.type == Request::Type::READ){ 
-                    //std::cout << "req: " << req.udf.reqIdx << " is issued at " << sc_time_stamp() << std::endl;
                     reads++;
                 }
                 // At this time, we can already assume that the write operation is done.
@@ -542,7 +560,7 @@ void MemWrapper::ramInit(const std::string &cfgFileName){
     Graph* gptr = loadGraph(cfgFileName);
     ramData.resize(GL::edgeNum * 4 * 4);
 
-    std::vector<unsigned char> depth;
+    std::vector<signed char> depth;
     //std::vector<float> weight;
     std::vector<int> rpao;
     std::vector<int> ciao;
@@ -588,7 +606,8 @@ void MemWrapper::ramInit(const std::string &cfgFileName){
 
     // Init memory
     long depthAddr = GL::depthMemAddr = 0;
-    long rpaoAddr = depthAddr + (long)sizeof(unsigned char) * GL::vertexNum;
+
+    long rpaoAddr = depthAddr + (long)sizeof(signed char) * GL::vertexNum;
     GL::rpaoMemAddr = rpaoAddr = alignMyself(rpaoAddr);
 
     long ciaoAddr = rpaoAddr + (long)sizeof(int) * (GL::vertexNum + 1);
@@ -600,12 +619,12 @@ void MemWrapper::ramInit(const std::string &cfgFileName){
     long ciaiAddr = rpaiAddr + (long)sizeof(int) * (GL::vertexNum + 1);
     GL::ciaiMemAddr = ciaiAddr = alignMyself(ciaiAddr); 
 
-    long frontierAddr = ciaiAddr + (long)sizeof(int) * GL::vertexNum;
+    long frontierAddr = ciaiAddr + (long)sizeof(int) * GL::edgeNum;
     GL::frontierMemAddr = frontierAddr = alignMyself(frontierAddr);
 
     for(auto d : depth){
-        updateSingleDataToRam<unsigned char>(depthAddr, d);
-        depthAddr += (long)sizeof(unsigned char);
+        updateSingleDataToRam<signed char>(depthAddr, d);
+        depthAddr += (long)sizeof(signed char);
     }
 
     // fill memory with the data
@@ -633,5 +652,48 @@ void MemWrapper::cleanRespQueue(const std::vector<long> &reqVec){
                 break;
             }
         }
+    }
+}
+
+void MemWrapper::dumpDepth(const std::string &fname){
+    std::ofstream fhandle(fname.c_str());
+    if(!fhandle.is_open()){
+        HERE;
+        std::cout << "Failed to open " << fname << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    long addr = GL::depthMemAddr;
+    for(int i = 0; i < GL::vertexNum; i++){
+        fhandle << (int)(getSingleDataFromRam<char>(addr)) << std::endl;
+        addr += sizeof(char);
+    }
+}
+
+bool MemWrapper::updateWriteResp(){
+    for(auto it = burstReqQueue.begin(); it != burstReqQueue.end(); it++){
+        if(it->type == ramulator::Request::Type::WRITE && 
+                writebackHistory[it->burstIdx] == false)
+        {
+            return false;
+            //it->reqToRam(ramData);
+            //writebackHistory[it->burstIdx] = true;
+        }
+    }
+
+    return true;
+}
+
+void MemWrapper::statusMonitor(){
+    while(true){
+        if(bfsDone.read()){
+            if(updateWriteResp() == false){
+                std::cout << "There are still requests needed to be processed." << std::endl;
+            }
+            dumpDepth("./depth.txt");
+            std::cout << "Simulation completes." << std::endl;
+            sc_stop();
+        }
+        wait(peClkCycle, SC_NS);
     }
 }

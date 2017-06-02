@@ -1,6 +1,6 @@
 SYSTEMC_HOME = /usr/local/systemc-2.3.1
 SYSTEMC_INC_DIR = $(SYSTEMC_HOME)/include
-SYSTEMC_LIB_DIR = $(SYSTEMC_HOME)/lib/x86_64-linux-gnu
+SYSTEMC_LIB_DIR = $(SYSTEMC_HOME)/lib-linux64
 
 SRCDIR := src
 OBJDIR := obj
@@ -14,7 +14,7 @@ OBJS := $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRCS))
 #CXX := clang++
 CXX := g++
  
-CFLAGS = -O0 -std=c++11 -g -Wall -pedantic -Wno-long-long \
+CFLAGS = -O3 -std=c++11 -Wall -pedantic -Wno-long-long \
 		 -DSC_INCLUDE_DYNAMIC_PROCESSES -fpermissive \
 		 -I$(SYSTEMC_INC_DIR) 
 

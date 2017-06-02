@@ -239,22 +239,25 @@ bool CSR::tdBfs(const int &start_idx, std::ofstream &fhandle){
     bool end_of_bfs;
 
     do{
+        fhandle << "Level = " << level << std::endl;
+
         frontier.clear();
 
         // get frontier 
         for(int idx = 0; idx < v_num; idx++){
             read_bytes += 1; // read depth[idx]
             if(depth[idx] == level){ 
-                write_bytes += 4;
                 frontier.push_back(idx);
+                fhandle << idx << " ";
             }
         }
+        fhandle << std::endl << std::endl;
 
         // Traverse the frontier
-        // As we may repeate depth written back to memory, it will be efficient to add a buffer to do batch write-back
+        // As we may repeate depth written back to memory, 
+        // it will be efficient to add a buffer to do batch write-back
         auto traverse = [&depth, level, &read_bytes, &write_bytes, this](const std::vector<int> &frontier){
             for(auto vidx : frontier){
-                read_bytes += 4; // read vidx from frontier
                 read_bytes += 4; // read rpao[vidx]
                 for(int cidx = rpao[vidx]; cidx < rpao[vidx+1]; cidx++){
 
@@ -280,8 +283,9 @@ bool CSR::tdBfs(const int &start_idx, std::ofstream &fhandle){
     } while(!end_of_bfs); 
 
 
+    fhandle << "depth: " << std::endl;
     for(auto d : depth){
-        fhandle << d << " ";
+        fhandle << d << std::endl;
     }
     fhandle << std::endl;
 
@@ -358,7 +362,7 @@ bool CSR::buBfs(const int &start_idx, std::ofstream &fhandle){
     } while(!end_of_bfs); 
 
     for(auto d : depth){
-        fhandle << d << " ";
+        fhandle << d << std::endl;
     }
     fhandle << std::endl;
 

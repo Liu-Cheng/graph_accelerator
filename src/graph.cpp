@@ -74,6 +74,7 @@ void Graph::getRandomStartIndices(std::vector<int> &start_indices){
 }
 
 void Graph::printOngb(int vidx){
+    std::cout << vidx << " outgoing neighbors: ";
     for(auto x : vertices[vidx]->out_vids){
         std::cout << x << " ";
     }
@@ -93,6 +94,7 @@ Graph::Graph(const std::string& fname){
     loadFile(fname, data);
     vertex_num = getMaxIdx(data) + 1;
     edge_num = (int)data.size();
+    if(isUgraph) edge_num *= 2;
     std::cout << "vertex num: " << vertex_num << std::endl;
     std::cout << "edge num: " << edge_num << std::endl;
 

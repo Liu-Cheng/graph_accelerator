@@ -17,29 +17,40 @@ TARGET	Makefile	/^TARGET = bfs $/;"	m
 Vertex	graph.h	/^        explicit Vertex(int _idx) {$/;"	f	class:Vertex
 Vertex	graph.h	/^class Vertex {$/;"	c
 __GRAPH_H__	graph.h	2;"	d
-basic_bfs	graph.cpp	/^bool CSR::basic_bfs(const long &start_idx){$/;"	f	class:CSR
-bfs	graph.cpp	/^bool CSR::bfs(const long &start_idx){$/;"	f	class:CSR
-ciai	graph.h	/^        std::vector<long> ciai;    \/\/ column index array based on incoming vertices$/;"	m	class:CSR
-ciao	graph.h	/^        std::vector<long> ciao;    \/\/ column index array based on outgoing vertices$/;"	m	class:CSR
-e_num	graph.h	/^        const long e_num;$/;"	m	class:CSR
-edge_num	graph.h	/^        long edge_num;$/;"	m	class:Graph
-getHubVertexNum	graph.cpp	/^int CSR::getHubVertexNum(const int &threshold){$/;"	f	class:CSR
-getMaxIdx	graph.cpp	/^long Graph::getMaxIdx(const std::vector<std::vector<long>> &data){$/;"	f	class:Graph
-getMinIdx	graph.cpp	/^long Graph::getMinIdx(const std::vector<std::vector<long>> &data){$/;"	f	class:Graph
-idx	graph.h	/^        long idx;$/;"	m	class:Vertex
+alpha	graph.h	/^        float alpha;$/;"	m	class:CSR
+basicBfs	graph.cpp	/^bool CSR::basicBfs(const int &start_idx, std::ofstream &fhandle){$/;"	f	class:CSR
+beta	graph.h	/^        float beta;$/;"	m	class:CSR
+buBfs	graph.cpp	/^bool CSR::buBfs(const int &start_idx, std::ofstream &fhandle){$/;"	f	class:CSR
+bucket_num	graph.h	/^        int bucket_num;$/;"	m	class:CSR
+cacheHybridBfs	graph.cpp	/^bool CSR::cacheHybridBfs(const int &start_idx, std::ofstream &fhandle){$/;"	f	class:CSR
+cache_threshold	graph.h	/^        int cache_threshold;$/;"	m	class:CSR
+ciai	graph.h	/^        std::vector<int> ciai;    \/\/ column index array based on incoming vertices$/;"	m	class:CSR
+ciao	graph.h	/^        std::vector<int> ciao;    \/\/ column index array based on outgoing vertices$/;"	m	class:CSR
+degreeAnalysis	graph.cpp	/^void CSR::degreeAnalysis(){$/;"	f	class:CSR
+e_num	graph.h	/^        const int e_num;$/;"	m	class:CSR
+edge_num	graph.h	/^        int edge_num;$/;"	m	class:Graph
+getHubVertexNum	graph.cpp	/^int CSR::getHubVertexNum(){$/;"	f	class:CSR
+getMaxIdx	graph.cpp	/^int Graph::getMaxIdx(const std::vector<std::vector<int>> &data){$/;"	f	class:Graph
+getMinIdx	graph.cpp	/^int Graph::getMinIdx(const std::vector<std::vector<int>> &data){$/;"	f	class:Graph
+getRandomStartIndices	graph.cpp	/^void Graph::getRandomStartIndices(std::vector<int> &start_indices){$/;"	f	class:Graph
+getStat	graph.cpp	/^void Graph::getStat(){$/;"	f	class:Graph
+hub_vertex_threshold	graph.h	/^        int hub_vertex_threshold;$/;"	m	class:CSR
+hybridBfs	graph.cpp	/^bool CSR::hybridBfs(const int &start_idx, std::ofstream &fhandle){$/;"	f	class:CSR
+idx	graph.h	/^        int idx;$/;"	m	class:Vertex
 in_deg	graph.h	/^        int in_deg;$/;"	m	class:Vertex
-in_vids	graph.h	/^        std::vector<long> in_vids;$/;"	m	class:Vertex
-isContinuous	graph.cpp	/^bool Graph::isContinuous($/;"	f	class:Graph
-isValidData	graph.cpp	/^bool Graph::isValidData(std::vector<std::vector<long>> &data){$/;"	f	class:Graph
+in_vids	graph.h	/^        std::vector<int> in_vids;$/;"	m	class:Vertex
+isInBuffer	graph.cpp	/^bool CSR::isInBuffer($/;"	f	class:CSR
+isUgraph	graph.h	/^        bool isUgraph;$/;"	m	class:Graph
 loadFile	graph.cpp	/^void Graph::loadFile($/;"	f	class:Graph
 main	bfs.cpp	/^int main(int argc, char** argv){$/;"	f
 out_deg	graph.h	/^        int out_deg;$/;"	m	class:Vertex
-out_vids	graph.h	/^        std::vector<long> out_vids;$/;"	m	class:Vertex
-reshapeData	graph.cpp	/^void Graph::reshapeData($/;"	f	class:Graph
-rpai	graph.h	/^        std::vector<long> rpai;    \/\/ row pointer array based on incoming vertices$/;"	m	class:CSR
-rpao	graph.h	/^        std::vector<long> rpao;    \/\/ row pointer array based on outgoing vertices$/;"	m	class:CSR
-v_num	graph.h	/^        const long v_num;$/;"	m	class:CSR
-vertex_num	graph.h	/^        long vertex_num;$/;"	m	class:Graph
+out_vids	graph.h	/^        std::vector<int> out_vids;$/;"	m	class:Vertex
+rpai	graph.h	/^        std::vector<int> rpai;    \/\/ row pointer array based on incoming vertices$/;"	m	class:CSR
+rpao	graph.h	/^        std::vector<int> rpao;    \/\/ row pointer array based on outgoing vertices$/;"	m	class:CSR
+setBfsParam	graph.cpp	/^void CSR::setBfsParam(float _alpha, float _beta, int _hub_vertex_threshold, int _cache_threshold, int _bucket_num){$/;"	f	class:CSR
+tdBfs	graph.cpp	/^bool CSR::tdBfs(const int &start_idx, std::ofstream &fhandle){$/;"	f	class:CSR
+v_num	graph.h	/^        const int v_num;$/;"	m	class:CSR
+vertex_num	graph.h	/^        int vertex_num;$/;"	m	class:Graph
 vertices	graph.h	/^        std::vector<Vertex*> vertices; $/;"	m	class:Graph
 weight	graph.h	/^        std::vector<float> weight; \/\/ It is not actually used in bfs$/;"	m	class:CSR
 ~Vertex	graph.h	/^        ~Vertex(){$/;"	f	class:Vertex

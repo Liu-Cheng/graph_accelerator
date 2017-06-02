@@ -3,22 +3,29 @@
 
 int sc_main(int argc, char *argv[]){
 
+    sc_set_time_resolution(1, SC_NS);
     sc_signal<BurstOp> burstReq;
     sc_signal<BurstOp> burstResp;
-    
-    double peClkCycle = 1;
-    double memClkCycle = 1;
+    sc_signal<bool> bfsDone;
+
+    double peClkCycle = 10;
+    double memClkCycle = 2;
+    sc_clock peClk("peClk", peClkCycle, SC_NS, 0.5);
+
 
     GL::cfgBfsParam("./config.txt");
     MemWrapper memWrapper("memWrapper", memClkCycle, peClkCycle, argc, argv);
     memWrapper.setNewStartVertex(GL::startingVertices[0]);
-    std::cout << "The start vertex of the BFS is " << GL::startingVertices[0] << std::endl;
+    std::cout << "Starting vertex is " << GL::startingVertices[0] << std::endl;
     memWrapper.burstReq(burstReq);
     memWrapper.burstResp(burstResp);
+    memWrapper.bfsDone(bfsDone);
 
     pe peInst("peInst", 0, peClkCycle);
     peInst.burstReq(burstReq);
     peInst.burstResp(burstResp);
+    peInst.bfsDone(bfsDone);
+    peInst.peClk(peClk);
 
     sc_start();
 

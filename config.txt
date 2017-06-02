@@ -1,5 +1,5 @@
 graphDir /home/liucheng/gitrepo/graph-data/
-graphName dblp
+graphName example
 hubVertexThreshold 1024
 cacheVertexThreshold 256
 cacheSize 1024

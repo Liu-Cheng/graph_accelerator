@@ -18,6 +18,8 @@ class pe : public sc_module{
         // only one of the request goes to the ramulator eventually in each cycle.
         sc_out<BurstOp> burstReq;
         sc_in<BurstOp> burstResp;
+        sc_in<bool> peClk;
+        sc_out<bool> bfsDone;
 
         int peIdx;
         pe(sc_module_name _name, int _peIdx, int _peClkCycle);
@@ -61,22 +63,28 @@ class pe : public sc_module{
                 );
 
     private:
-        unsigned char level;
+        char level;
         int peClkCycle;
         int frontierSize;
         bool bfsIterationStart;
+        int localCounter;
 
-        std::list<unsigned char> inspectDepthReadBuffer; 
+        std::list<char> inspectDepthReadBuffer; 
         std::list<int> inspectFrontierBuffer;
         std::list<int> expandRpaoReadBuffer;
         std::list<int> expandCiaoReadBuffer;
         std::list<int> exapndRpaiReadBuffer; 
         std::list<int> expandCiaiReadBuffer;  
         std::list<int> expandVidxForDepthWriteBuffer;
-        std::list<unsigned char> expandDepthWriteBuffer;
-        std::list<unsigned char> expandDepthReadBuffer;
+        std::list<char> expandDepthWriteBuffer;
+        std::list<char> expandDepthReadBuffer;
         std::vector<std::list<BurstOp>> burstReqQueue;
         std::vector<std::list<BurstOp>> burstRespQueue;
+        
+        // The memory responses for each port must be in 
+        // the same order with its request order.
+        std::list<BurstOp> reorderBuffer;
+        std::vector<std::list<int>> burstIdxReorderQueue;
 
         // It keeps the status of the burst requests. If a burst with burstIdx is not found 
         // in the mapper, it doesn't exist. If it is found to be false, the request is generated 
@@ -91,6 +99,7 @@ class pe : public sc_module{
         PortType burstReqArbiter(PortType winner);
         bool isEndOfBfsIteration();
         bool isAllReqProcessed();
+        bool getReadyOp(BurstOp &op);
 
         // processing thread
         void sendMemReq();
