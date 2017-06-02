@@ -14,6 +14,9 @@ At the same time, we may do some analysis here as well based on some statistic c
 [SystemC-2.3.1](http://accellera.org/downloads/standards/systemc) 
 is used for the accelerator design. You need to download and compile it first. Then 
 you may change the SystemC library path accordingly in the Makefile. 
+(There are some strange SC_METHOD synchronization problem using SystemC-2.3.1a, so I changed 
+to SystemC-2.3.1. It works fine except that the systemc-2.3.1.so library is not linked correctly 
+by simply changing the LD_LIBRARY_PATH. You may need to specify the library through ldconfig manually.)
 In order to compile Ramulator, a C++11 compiler (e.g., `clang++` or `g++-5`) is required. 
 You may refer to [Ramulator git repo](https://github.com/CMU-SAFARI/ramulator) 
 for more details. When the compilation environment is ready, you can compile 
