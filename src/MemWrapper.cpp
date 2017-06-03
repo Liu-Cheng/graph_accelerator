@@ -149,15 +149,31 @@ void MemWrapper::updateBurstToRam(long watchedBurstIdx){
 // the end of the burstRequest processing. And a burst Response will be 
 // genenrated and enqueued into the burstRespQueue.
 void MemWrapper::respMonitor(){
+
+    // Explore readyRespQueue
+    while(true){
+        if(readyRespQueue.empty() == false){
+            long burstIdx = readyRespQueue.front();
+            readyRespQueue.pop_front();
+            auto resp = std::find_if(burstReqQueue.begin(), burstReqQueue.end(), 
+                    [burstIdx](const BurstOp &op)->bool{return op.burstIdx == burstIdx;});
+            resp->setArriveMemTime(getMinArriveTime(resp->reqVec));
+            resp->setDepartMemTime(getMaxDepartTime(resp->reqVec));
+            burstRespQueue.push_back(*resp);
+            cleanRespQueue(resp->reqVec);
+        }
+        
+        wait(memClkCycle, SC_NS);
+    }
+
+    /*
     while(true){
         for(auto bit = burstReqQueue.begin(); bit != burstReqQueue.end(); bit++){
 
-            // Skip the burst requests that have been responsed.
             if(burstStatus[bit->burstIdx]) continue;
 
-            // Check if all the splitted requests get responsed.
-            bool burstRespReady = true;
-            if(burstStatus[bit->burstIdx] == false){
+             bool burstRespReady = true;
+             if(burstStatus[bit->burstIdx] == false){
                 for(auto rit = bit->reqVec.begin(); rit != bit->reqVec.end(); rit++){
                     if(reqStatus[*rit] == false){
                         burstRespReady = false;
@@ -178,6 +194,7 @@ void MemWrapper::respMonitor(){
 
         wait(memClkCycle, SC_NS);
     }
+    */
 }
 
 // Analyze the arrive memory time of all basic requests of a single burst operation.
@@ -235,6 +252,8 @@ void MemWrapper::getBurstReq(){
         if(op.valid){
             burstReqQueue.push_back(op);
             burstStatus[op.burstIdx] = false;
+            totalReqNum[op.burstIdx] = op.getReqNum(); 
+            processedReqNum[op.burstIdx] = 0;
             if(op.type == ramulator::Request::Type::WRITE){
                 writebackHistory[op.burstIdx] = false;
             }
@@ -500,6 +519,11 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
         r.udf.departMemTime = r.udf.arriveMemTime + memClkCycle * latency;
         respQueue.push_back(r);
         reqStatus[r.udf.reqIdx] = true;
+        int burstIdx = r.udf.burstIdx;
+        processedReqNum[burstIdx]++;
+        if(processedReqNum[burstIdx] == totalReqNum[burstIdx]){
+            readyRespQueue.push_back(burstIdx);
+        }
     };
 
     std::vector<int> addr_vec;
@@ -524,6 +548,11 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
                     req.udf.departMemTime = currentTimeStamp;
                     respQueue.push_back(req);
                     reqStatus[req.udf.reqIdx] = true;
+                    int burstIdx = req.udf.burstIdx;
+                    processedReqNum[burstIdx]++;
+                    if(processedReqNum[burstIdx] == totalReqNum[burstIdx]){
+                        readyRespQueue.push_back(burstIdx);
+                    }
                 }
             }
         }

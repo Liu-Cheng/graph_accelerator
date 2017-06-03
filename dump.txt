@@ -1,13 +1,4 @@
 ./ramulator configs/DDR3-config.cfg --mode=acc dram.trace
-vertex num: 1000
-edge num: 10000
-Starting vertex is 478
-Level = 0 process rpao read response at 15230 ns
-Level = 1 process rpao read response at 31310 ns
-Level = 2 process rpao read response at 51060 ns
-Level = 3 process rpao read response at 89400 ns
-Level = 4 process rpao read response at 188820 ns
-Level = 5 process rpao read response at 230870 ns
 Empty frontier is detected.
 This is the end of the BFS traverse.
 Simulation completes.

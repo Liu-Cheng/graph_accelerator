@@ -122,6 +122,12 @@ class MemWrapper : public sc_module{
         // burstStatus represnts similar information with that of reqStatus.
         std::map<long, bool> burstStatus;
 
+        // Keep two map containers that help to keep a record of the 
+        // number of basic requests processed of a burst
+        std::map<long, int> totalReqNum;
+        std::map<long, int> processedReqNum;
+        std::list<long> readyRespQueue;
+
         // Basically we keep a record of the write request updating history.
         // If the write request has its content written to ramData, it will be set 
         // true. If the write response is under processing, it will be set as false;
