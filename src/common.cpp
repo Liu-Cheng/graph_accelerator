@@ -4,6 +4,7 @@
 int GL::vertexNum = 0;
 int GL::edgeNum = 0;
 std::vector<int> GL::startingVertices;
+std::vector<BurstOp*> GL::bursts;
 
 // This will be updated in main.
 float GL::alpha = 0.2;
@@ -288,15 +289,12 @@ void BurstOp::convertToReq(std::list<ramulator::Request> &reqQueue){
     for(int i = 0; i < reqNum; i++){
         ramulator::Request req;
         req.type = type;
-        req.udf.ptype = ptype;
         req.addr = addrVec[i];
         req.udf.burstIdx = burstIdx;
         req.udf.reqIdx = reqVec[i];
         req.udf.peIdx = peIdx;
-        req.udf.departPeTime = departPeTime;
         req.udf.arriveMemTime = arriveMemTime;
         req.udf.departMemTime = departMemTime;
-        req.udf.arrivePeTime = arrivePeTime;
         reqQueue.push_back(req);
     }
 }
@@ -327,12 +325,15 @@ int BurstOp::getReqNum() const {
     }
     else{
         reqNum = 1;
-        int residueLen = length - (GL::burstLen - offset);
-        if(residueLen%GL::burstLen == 0){
-            reqNum += residueLen/GL::burstLen;
-        }
-        else{
-            reqNum += residueLen/GL::burstLen + 1;
+        int residueLen = GL::burstLen - offset;
+        if(length > residueLen){
+            residueLen = length - residueLen;
+            if(residueLen%GL::burstLen == 0){
+                reqNum = 1 + residueLen/GL::burstLen;
+            }
+            else{
+                reqNum = 1 + residueLen/GL::burstLen + 1;
+            }
         }
     }
 
@@ -377,38 +378,6 @@ void BurstOp::updateAddrVec() {
             }
         }
     }
-}
-
-long BurstOp::getDepartPeTime() const{
-    return departPeTime;
-}
-
-long BurstOp::getArrivePeTime() const{
-    return arrivePeTime;
-}
-
-long BurstOp::getDepartMemTime() const{
-    return departMemTime;
-}
-
-long BurstOp::getArriveMemTime() const{
-    return arriveMemTime;
-}
-
-void BurstOp::setDepartPeTime(long departTime){
-    departPeTime = departTime;
-}
-
-void BurstOp::setArrivePeTime(long arriveTime){
-    arrivePeTime = arriveTime;
-}
-
-void BurstOp::setDepartMemTime(long departTime){
-    departMemTime = departTime;
-}
-
-void BurstOp::setArriveMemTime(long arriveTime){
-    arriveMemTime = arriveTime;
 }
 
 void BurstOp::ramToReq(const std::vector<char> &ramData){

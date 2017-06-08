@@ -14,7 +14,7 @@ OBJS := $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRCS))
 #CXX := clang++
 CXX := g++
  
-CFLAGS = -O3 -pg -std=c++11 -Wall -pedantic -Wno-long-long \
+CFLAGS = -O3 -std=c++11 -pg -Wall -pedantic -Wno-long-long \
 		 -DSC_INCLUDE_DYNAMIC_PROCESSES -fpermissive \
 		 -I$(SYSTEMC_INC_DIR) 
 
@@ -34,6 +34,9 @@ depend: $(OBJDIR)/.depend
 
 exe:
 	./ramulator configs/DDR3-config.cfg --mode=acc dram.trace
+
+analysis: exe
+	gprof ./ramulator | gprof2dot -s | dot -Tpdf -o analysis.pdf
 
 gdb:
 	gdb --args ./ramulator configs/DDR3-config.cfg --mode=acc dram.trace

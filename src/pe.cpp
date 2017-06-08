@@ -58,17 +58,18 @@ pe::pe(
     sensitive << peClk.pos();
 }
 
+void pe::sigInit(){
+    burstReq.write(-1);
+}
+
 void pe::init(){
 
     level = 0;
     bfsIterationStart = false;
     for(int i = INSPECT_DEPTH_READ; i <= EXPAND_DEPTH_WRITE; i++){
-        std::list<BurstOp> opBuffer;
-        burstReqQueue.push_back(opBuffer);
-        burstRespQueue.push_back(opBuffer);
-
-        std::list<int> reqIdxBuffer;
-        burstIdxReorderQueue.push_back(reqIdxBuffer);
+        std::list<long> buffer;
+        burstReqQueue.push_back(buffer);
+        burstRespQueue.push_back(buffer);
     }
 
 }
@@ -117,14 +118,13 @@ void pe::issueInspectDepthReadReq(){
                 continue;
             }
 
-            int burstIdx = createReadBurstReq(
+            long burstIdx = createReadBurstReq(
                     type, 
                     INSPECT_DEPTH_READ, 
                     depthMemAddr, 
                     actualLen);
 
             burstOpStatus[burstIdx] = false;
-            //burstOpPtype[burstIdx] = INSPECT_DEPTH_READ;
             depthMemAddr += actualLen;
             currentLen += actualLen;
         }
@@ -167,13 +167,15 @@ void pe::processInspectDepthReadResp(){
             }
 
             // latency caused by copying burst response to buffer
-            BurstOp op = burstRespQueue[INSPECT_DEPTH_READ].front();
-            int num = op.length/((int)sizeof(char));
+            long burstIdx = burstRespQueue[INSPECT_DEPTH_READ].front();
+            BurstOp* ptr = GL::bursts[burstIdx];
+            int num = ptr->length/((int)sizeof(char));
             wait(num * peClkCycle, SC_NS);
-            burstOpStatus[op.burstIdx] = true;
-            op.burstReqToBuffer<char>(inspectDepthReadBuffer);
+            //burstOpStatus[burstIdx] = true;
+            burstOpStatus.erase(burstIdx);
+            ptr->burstReqToBuffer<char>(inspectDepthReadBuffer);
             burstRespQueue[INSPECT_DEPTH_READ].pop_front();
-            totalLen += op.length;
+            totalLen += ptr->length;
         }
         else{
             wait(peClkCycle, SC_NS);
@@ -237,6 +239,9 @@ void pe::inspectDepthAnalysis(){
             // bfs complete
             if(frontierSize == 0){
                 std::cout << "Empty frontier is detected." << std::endl;
+                double runtime = (long)(sc_time_stamp()/sc_time(1, SC_NS))/1000;
+                std::cout << "BFS performance is " << GL::edgeNum/runtime;
+                std::cout << " billion traverse per second." << std::endl;
                 std::cout << "This is the end of the BFS traverse." << std::endl;
                 bfsDone.write(true);
                 //sc_stop();
@@ -273,9 +278,8 @@ void pe::frontierAnalysis(){
             inspectFrontierBuffer.pop_front();
             long rpaoMemAddr = GL::rpaoMemAddr + vidx * sizeof(int);
             int len = sizeof(int) * 2;
-            int burstIdx = createReadBurstReq(type, EXPAND_RPAO_READ, rpaoMemAddr, len);
+            long burstIdx = createReadBurstReq(type, EXPAND_RPAO_READ, rpaoMemAddr, len);
             burstOpStatus[burstIdx] = false;
-            //burstOpPtype[burstIdx] = EXPAND_RPAO_READ;
         }
         else{
             wait(peClkCycle, SC_NS);
@@ -301,12 +305,14 @@ void pe::processExpandRpaoReadResp(){
                 validFlag1 = false;
             }
 
-            BurstOp op = burstRespQueue[EXPAND_RPAO_READ].front();
-            int num = op.length/sizeof(int);
+            long burstIdx = burstRespQueue[EXPAND_RPAO_READ].front();
+            BurstOp* ptr = GL::bursts[burstIdx];
+            int num = ptr->length/sizeof(int);
             wait(num * peClkCycle, SC_NS);
 
-            burstOpStatus[op.burstIdx] = true;
-            op.burstReqToBuffer<int>(expandRpaoReadBuffer);
+            //burstOpStatus[burstIdx] = true;
+            burstOpStatus.erase(burstIdx);
+            ptr->burstReqToBuffer<int>(expandRpaoReadBuffer);
             burstRespQueue[EXPAND_RPAO_READ].pop_front();
         }
         else{
@@ -352,9 +358,8 @@ void pe::issueExpandCiaoReadReq(){
                 int bufferSize = (int)expandCiaoReadBuffer.size();
                 int toBeSentSize = actualLen / (int)sizeof(int);
                 if(bufferSize + toBeSentSize < GL::ciaoBufferDepth){
-                    int burstIdx = createReadBurstReq(type, EXPAND_CIAO_READ, ciaoMemAddr, actualLen);
+                    long burstIdx = createReadBurstReq(type, EXPAND_CIAO_READ, ciaoMemAddr, actualLen);
                     burstOpStatus[burstIdx] = false;
-                    //burstOpPtype[burstIdx] = EXPAND_CIAO_READ;
                     ciaoMemAddr += actualLen;
                     len += actualLen;
                 }
@@ -386,11 +391,13 @@ void pe::processExpandCiaoReadResp(){
                 validFlag1 = false;
             }
 
-            BurstOp op = burstRespQueue[EXPAND_CIAO_READ].front();
-            int num = op.length/(int)sizeof(int);
+            long burstIdx = burstRespQueue[EXPAND_CIAO_READ].front();
+            BurstOp* ptr = GL::bursts[burstIdx];
+            int num = ptr->length/(int)sizeof(int);
             wait(num * peClkCycle, SC_NS);
-            burstOpStatus[op.burstIdx] = true;
-            op.burstReqToBuffer<int>(expandCiaoReadBuffer);
+            //burstOpStatus[burstIdx] = true;
+            burstOpStatus.erase(burstIdx);
+            ptr->burstReqToBuffer<int>(expandCiaoReadBuffer);
             burstRespQueue[EXPAND_CIAO_READ].pop_front();
         }
         else{
@@ -425,9 +432,8 @@ void pe::issueExpandDepthReadReq(){
             expandVidxForDepthWriteBuffer.push_back(vidx);
             expandCiaoReadBuffer.pop_front();
             long depthMemAddr = GL::depthMemAddr + vidx * sizeof(char);
-            int burstIdx = createReadBurstReq(type, EXPAND_DEPTH_READ, depthMemAddr, 1);
+            long burstIdx = createReadBurstReq(type, EXPAND_DEPTH_READ, depthMemAddr, 1);
             burstOpStatus[burstIdx] = false;
-            //burstOpPtype[burstIdx] = EXPAND_DEPTH_READ;
         }
         else{
             wait(peClkCycle, SC_NS);
@@ -453,11 +459,13 @@ void pe::processExpandDepthReadResp(){
                 validFlag1 = false;
             }
 
-            BurstOp op = burstRespQueue[EXPAND_DEPTH_READ].front();
-            int num = op.length/(int)sizeof(char);
+            long burstIdx = burstRespQueue[EXPAND_DEPTH_READ].front();
+            BurstOp* ptr = GL::bursts[burstIdx];
+            int num = ptr->length/(int)sizeof(char);
             wait(num * peClkCycle, SC_NS);
-            burstOpStatus[op.burstIdx] = true;
-            op.burstReqToBuffer<char>(expandDepthReadBuffer);
+            //burstOpStatus[ptr->burstIdx] = true;
+            burstOpStatus.erase(ptr->burstIdx);
+            ptr->burstReqToBuffer<char>(expandDepthReadBuffer);
             burstRespQueue[EXPAND_DEPTH_READ].pop_front();
         }
         else{
@@ -503,7 +511,6 @@ void pe::expandDepthAnalysis(){
                     expandDepthWriteBuffer);
 
                 burstOpStatus[burstIdx] = false;
-                //burstOpPtype[burstIdx] = EXPAND_DEPTH_WRITE; 
             }
         }
         else{
@@ -529,8 +536,10 @@ void pe::processExpandDepthWriteResp(){
                 validFlag1 = false;
             }
 
-            BurstOp op = burstRespQueue[EXPAND_DEPTH_WRITE].front();
-            burstOpStatus[op.burstIdx] = true;
+            long burstIdx = burstRespQueue[EXPAND_DEPTH_WRITE].front();
+            BurstOp* ptr = GL::bursts[burstIdx];
+            //burstOpStatus[ptr->burstIdx] = true;
+            burstOpStatus.erase(ptr->burstIdx);
             burstRespQueue[EXPAND_DEPTH_WRITE].pop_front();
         }
         else{
@@ -566,14 +575,14 @@ bool pe::isEndOfBfsIteration(){
     bool isIterationEnd = true;
     isIterationEnd &= isBurstReqQueueEmpty();
     isIterationEnd &= isBurstRespQueueEmpty();
-    isIterationEnd &= reorderBuffer.empty();
-    isIterationEnd &= isAllReqProcessed();
+    isIterationEnd &= burstOpStatus.empty();
     isIterationEnd &= inspectDepthReadBuffer.empty();
     isIterationEnd &= inspectFrontierBuffer.empty();
     isIterationEnd &= expandRpaoReadBuffer.empty();
     isIterationEnd &= expandCiaoReadBuffer.empty();
     isIterationEnd &= expandDepthReadBuffer.empty();
     isIterationEnd &= expandDepthWriteBuffer.empty();
+
     return isIterationEnd;
 }
 
@@ -584,12 +593,13 @@ long pe::createReadBurstReq(
         int length)
 {
     long burstIdx = GL::getBurstIdx();
-    BurstOp op(type, ptype, burstIdx, peIdx, addr, length);
-    op.updateReqVec();
-    op.updateAddrVec();
+    BurstOp* ptr = new BurstOp(type, ptype, burstIdx, peIdx, addr, length);
+    ptr->updateReqVec();
+    ptr->updateAddrVec();
+    GL::bursts.push_back(ptr);
 
     wait(peClkCycle, SC_NS);
-    burstReqQueue[ptype].push_back(op);
+    burstReqQueue[ptype].push_back(burstIdx);
     
     return burstIdx;
 }
@@ -619,20 +629,20 @@ PortType pe::burstReqArbiter(PortType winner){
  *=---------------------------------------------------------*/
 void pe::sendMemReq(){ 
     PortType winner = INSPECT_DEPTH_READ;
+    burstReq.write(-1); //default signal value
     while(true){
         if(isBurstReqQueueEmpty() == false){
             PortType ptype = burstReqArbiter(winner);
             winner = ptype;
-            BurstOp op = burstReqQueue[ptype].front(); 
+            long burstIdx = burstReqQueue[ptype].front(); 
+            BurstOp* ptr = GL::bursts[burstIdx];
             long departTime = (long)(sc_time_stamp()/sc_time(1, SC_NS));
-            op.setDepartPeTime(departTime);
-            burstReq.write(op);
+            ptr->departPeTime = departTime;
+            burstReq.write(burstIdx);
             burstReqQueue[ptype].pop_front();
-            burstIdxReorderQueue[ptype].push_back(op.burstIdx);
         }
         else{
-            BurstOp op(false);
-            burstReq.write(op);
+            burstReq.write(-1);
         }
 
         wait(peClkCycle, SC_NS);
@@ -647,6 +657,7 @@ bool pe::isBurstReqQueueEmpty(){
     return empty;
 }
 
+/*
 bool pe::isAllReqProcessed(){
     for(auto it = burstOpStatus.begin(); it != burstOpStatus.end(); it++){
         if(it->second == false){
@@ -655,6 +666,7 @@ bool pe::isAllReqProcessed(){
     }
     return true;
 }
+*/
 
 bool pe::isBurstRespQueueEmpty(){
     bool empty = true;
@@ -664,57 +676,15 @@ bool pe::isBurstRespQueueEmpty(){
     return empty;
 }
 
-bool pe::getReadyOp(BurstOp &op){
-    for(auto it = burstIdxReorderQueue.begin(); it != burstIdxReorderQueue.end(); it++){
-        if(it->empty()) continue;
-
-        int idx = it->front();
-        auto isInBuffer = [idx](const std::list<BurstOp> &buffer)->bool{
-            for(auto bit = buffer.begin(); bit != buffer.end(); bit++){
-                if(bit->burstIdx == idx){
-                    return true;
-                }
-            }
-            return false;
-        };
-
-        auto extract = [idx](std::list<BurstOp> &buffer, BurstOp &op){
-            for(auto bit = buffer.begin(); bit != buffer.end();){
-                if(bit->burstIdx == idx){
-                    op = (*bit);
-                    buffer.erase(bit++);
-                    break;
-                }
-                bit++;
-            }
-        };
-
-        if(isInBuffer(reorderBuffer)){
-            extract(reorderBuffer, op); 
-            it->pop_front();
-            return true;
-        }
-    }
-    return false;
-}
-
 void pe::getMemResp(){
     while(true){
-        BurstOp op = burstResp.read();
-        if(op.valid){
+        long burstIdx = burstResp.read();
+        if(burstIdx != -1){
             long arriveTime = (long)(sc_time_stamp()/sc_time(1, SC_NS));
-            op.setArrivePeTime(arriveTime);
-            reorderBuffer.push_back(op);
+            GL::bursts[burstIdx]->arrivePeTime = arriveTime;
+            BurstOp* ptr = GL::bursts[burstIdx];
+            burstRespQueue[ptr->ptype].push_back(burstIdx);
         } 
-
-        // Assume there is no delay here.
-        if(reorderBuffer.empty() == false){
-            BurstOp readyOp;
-            if(getReadyOp(readyOp)){
-                burstRespQueue[readyOp.ptype].push_back(readyOp);
-            }
-        }
-
         wait(peClkCycle, SC_NS);
     }
 }

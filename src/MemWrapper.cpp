@@ -14,11 +14,10 @@ MemWrapper::MemWrapper(sc_module_name _name,
     peClkCycle = _peClkCycle; 
     GL::burstLen = calBurstLen();
     ramInit("./config.txt");
-    
+
     SC_THREAD(runMemSim);
     SC_THREAD(getBurstReq);
     SC_THREAD(sendBurstResp);
-    SC_THREAD(respMonitor);
     SC_THREAD(statusMonitor);
 
 }
@@ -71,8 +70,14 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
     else if(graphName == "rmat"){
         fname = graphDir + "rmat-2m-256m.txt";
     }
-    else if(graphName == "example"){
+    else if(graphName == "rmat1k10k"){
         fname = graphDir + "rmat-1k-10k.txt";
+    }
+    else if(graphName == "rmat10k100k"){
+        fname = graphDir + "rmat-10k-100k.txt";
+    }
+    else if(graphName == "ramt100k1m"){
+        fname = graphDir + "rmat-100k-1m.txt";
     }
     else if(graphName == "twitter"){
         fname = graphDir + "twitter_rv.txt";
@@ -97,6 +102,10 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
 
 }
 
+void MemWrapper::sigInit(){
+    burstResp.write(-1);
+}
+
 // To prepare for new bfs traverse, we need to clean 
 // both the initial depth and frontier data.
 void MemWrapper::cleanRam(){
@@ -118,197 +127,51 @@ void MemWrapper::setNewStartVertex(int idx){
     updateSingleDataToRam<signed char>(addr, 0);
 }
 
-// This function is used to update ram content.
-// As the ramulator doesn't returns the write response to request, 
-// it is not easy to decide when to update write request based on the 
-// basic read/write request. To solve this problem, we update ram content 
-// based on the burst request order. We will not update write burst 
-// request until there is a following read request coming up. In this case, 
-// we can be sure the ram follows the sequential consistence despite the 
-// parallel memory processing.
-void MemWrapper::updateBurstToRam(long watchedBurstIdx){
-    for(auto it = burstReqQueue.begin(); it != burstReqQueue.end(); it++){
-        // All the write burst requests that arrive after the watched burst request
-        // will not affect the read processing.
-        if(it->burstIdx == watchedBurstIdx){
-            break;
-        }
-        else{
-            if(it->type == ramulator::Request::Type::WRITE && 
-               writebackHistory[it->burstIdx] == false)
-            {
-                it->reqToRam(ramData);
-                writebackHistory[it->burstIdx] = true;
-            }
-        }
-    }
-}
-
-// This process basically detects the respQueue every memClkCycle.
-// When a burstRequest has all its requests processed, we will declare 
-// the end of the burstRequest processing. And a burst Response will be 
-// genenrated and enqueued into the burstRespQueue.
-void MemWrapper::respMonitor(){
-
-    // Explore readyRespQueue
-    while(true){
-        if(readyRespQueue.empty() == false){
-            long burstIdx = readyRespQueue.front();
-            readyRespQueue.pop_front();
-            auto resp = std::find_if(burstReqQueue.begin(), burstReqQueue.end(), 
-                    [burstIdx](const BurstOp &op)->bool{return op.burstIdx == burstIdx;});
-            resp->setArriveMemTime(getMinArriveTime(resp->reqVec));
-            resp->setDepartMemTime(getMaxDepartTime(resp->reqVec));
-            burstRespQueue.push_back(*resp);
-            cleanRespQueue(resp->reqVec);
-        }
-        
-        wait(memClkCycle, SC_NS);
-    }
-
-    /*
-    while(true){
-        for(auto bit = burstReqQueue.begin(); bit != burstReqQueue.end(); bit++){
-
-            if(burstStatus[bit->burstIdx]) continue;
-
-             bool burstRespReady = true;
-             if(burstStatus[bit->burstIdx] == false){
-                for(auto rit = bit->reqVec.begin(); rit != bit->reqVec.end(); rit++){
-                    if(reqStatus[*rit] == false){
-                        burstRespReady = false;
-                        break;
-                    }
-                }
-            }
-
-            if(burstRespReady){
-                burstStatus[bit->burstIdx] = true;
-                BurstOp resp = *bit;
-                resp.setArriveMemTime(getMinArriveTime(bit->reqVec));
-                resp.setDepartMemTime(getMaxDepartTime(bit->reqVec));
-                burstRespQueue.push_back(resp);
-                cleanRespQueue(bit->reqVec);
-            }
-        }
-
-        wait(memClkCycle, SC_NS);
-    }
-    */
-}
-
-// Analyze the arrive memory time of all basic requests of a single burst operation.
-// To save the function passsing cost, we have only the involved reqIdx vectoe passed.
-long MemWrapper::getMinArriveTime(const std::vector<long> &reqVec){
-    std::vector<long> arriveTime;
-    for(auto rit = reqVec.begin(); rit != reqVec.end(); rit++){
-        for(auto it = respQueue.begin(); it != respQueue.end(); it++){
-            if(it->udf.reqIdx == *rit){
-                arriveTime.push_back(it->udf.arriveMemTime);
-                break;
-            }
-        }
-    }
-
-    auto mit = std::min_element(arriveTime.begin(), arriveTime.end());
-    return *mit; 
-        
-}
-
-long MemWrapper::getMaxDepartTime(const std::vector<long> &reqVec){
-    std::vector<long> departTime;
-    for(auto rit = reqVec.begin(); rit != reqVec.end(); rit++){
-        for(auto it = respQueue.begin(); it != respQueue.end(); it++){
-            if(it->udf.reqIdx == *rit){
-                departTime.push_back(it->udf.departMemTime);
-                break;
-            }
-        }
-    }
-
-    auto it = std::max_element(departTime.begin(), departTime.end());
-    return *it;
-}
-
-// As we don't want to have the resp/req queues grow with time and don't want to 
-// implement complex and accurate clean strategy, thus we just clean 
-// the old memory requests based on the timestamps.  
-void MemWrapper::cleanProcessedRequests(long idx){
-    for(auto it = burstReqQueue.begin(); it != burstReqQueue.end(); ){
-        if(it->burstIdx <= idx && burstStatus[it->burstIdx]){
-            burstReqQueue.erase(it++);
-        }
-        else{
-            break;
-        }
-    }
-}
-
 // It reads request from pe and thus is synchronized to the pe's clock
 void MemWrapper::getBurstReq(){
-    int counter = 0;
     while(true){
-        BurstOp op = burstReq.read();
-        if(op.valid){
-            burstReqQueue.push_back(op);
-            burstStatus[op.burstIdx] = false;
-            totalReqNum[op.burstIdx] = op.getReqNum(); 
-            processedReqNum[op.burstIdx] = 0;
-            if(op.type == ramulator::Request::Type::WRITE){
-                writebackHistory[op.burstIdx] = false;
-            }
-
-            op.convertToReq(reqQueue);
-
-            // update request status
-            for(auto it = op.reqVec.begin(); it != op.reqVec.end(); it++){
-                reqStatus[*it] = false;
-            }
-
-            if(op.type == ramulator::Request::Type::READ){
-                counter++;
-            }
+        long burstIdx = burstReq.read();
+        if(burstIdx != -1){
+            BurstOp* ptr = GL::bursts[burstIdx];
+            burstReqQueue.push_back(burstIdx);
+            totalReqNum[burstIdx] = ptr->getReqNum(); 
+            processedReqNum[burstIdx] = 0;
+            ptr->convertToReq(reqQueue);
         }
         wait(peClkCycle, SC_NS);
     }
 }
 
-// Traverse the response request and write the response to 
-// pe based on the response time. Basically, we need to synchronize 
-// pe and memory operations.
+// The memory response will be sent in the same order with 
+// its incoming order. Meanwhile, the response can only be 
+// sent at the right timestamp.
 void MemWrapper::sendBurstResp(){
     while(true){
-        long currentTimeStamp = (long)(sc_time_stamp()/sc_time(1, SC_NS));
-        if(burstRespQueue.empty()){
-            BurstOp op(false);
-            burstResp.write(op);
+        if(burstReqQueue.empty()){
+            //std::cout << "burstReqQueue is empty." << std::endl;
+            burstResp.write(-1);
+            wait(peClkCycle, SC_NS);
+            continue;
         }
-        else {
-            // Although multiple memory response may be sent, only a single 
-            // one can be sent to a pe each time. Basically, it is possible 
-            // that memory responses may not be able to sent out and 
-            // additional queuing time is required. 
-            auto it = burstRespQueue.begin();
-            while(it != burstRespQueue.end()){
-                long respReadyTime = it->getDepartMemTime(); 
-                if(respReadyTime <= currentTimeStamp){
-                    if(it->type == ramulator::Request::Type::READ){
-                        // Update all the write burst requests that 
-                        // arrives earlier than this request to ramData
-                        updateBurstToRam(it->burstIdx); 
-                        it->ramToReq(ramData);
 
-                        // Remove all the requests that comes before this one
-                        cleanProcessedRequests(it->burstIdx);
-
-                    }
-                    burstResp.write(*it);
-                    burstRespQueue.erase(it++);
-                    break;
+        int idx = burstReqQueue.front();
+        if(std::find(burstRespQueue.begin(), burstRespQueue.end(), idx) == burstRespQueue.end()){
+            burstResp.write(-1);
+        }
+        else{
+            BurstOp* ptr = GL::bursts[idx];
+            long respReadyTime = ptr->departMemTime; 
+            long currentTimeStamp = (long)(sc_time_stamp()/sc_time(1, SC_NS));
+            if(respReadyTime <= currentTimeStamp){
+                burstResp.write(idx);
+                if(ptr->type == ramulator::Request::Type::WRITE){
+                    ptr->reqToRam(ramData);
                 }
                 else{
-                    it++;
+                    ptr->ramToReq(ramData);
                 }
+                burstReqQueue.remove(idx);
+                burstRespQueue.remove(idx);
             }
         }
 
@@ -487,9 +350,9 @@ void MemWrapper::start_run(const Config& configs, T* spec, const vector<const ch
 // memory processing limitation of the DRAM model.
 bool MemWrapper::getMemReq(Request &req){
     std::list<Request>::iterator it;
-    if(!reqQueue.empty()){
-        it = reqQueue.begin();
-        shallowReqCopy(*it, req);
+    if(reqQueue.empty() == false){
+        Request tmp = reqQueue.front();
+        shallowReqCopy(tmp, req);
         req.udf.arriveMemTime = (long)(sc_time_stamp()/sc_time(1, SC_NS));
         reqQueue.pop_front();
         return true;
@@ -503,7 +366,7 @@ template<typename T>
 void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
     /* run simulation */
     bool stall = false;
-    bool end = false;
+    bool success = false;
     int reads = 0;
     int writes = 0;
     int clks = 0;
@@ -517,12 +380,15 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
 
         //update departMemTime
         r.udf.departMemTime = r.udf.arriveMemTime + memClkCycle * latency;
-        respQueue.push_back(r);
-        reqStatus[r.udf.reqIdx] = true;
         int burstIdx = r.udf.burstIdx;
+
         processedReqNum[burstIdx]++;
+        if(processedReqNum[burstIdx] == 1){
+            GL::bursts[burstIdx]->arriveMemTime = r.udf.arriveMemTime;
+        }
         if(processedReqNum[burstIdx] == totalReqNum[burstIdx]){
-            readyRespQueue.push_back(burstIdx);
+            GL::bursts[burstIdx]->departMemTime = r.udf.departMemTime;
+            burstRespQueue.push_back(burstIdx);
         }
     };
 
@@ -532,11 +398,11 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
     // Keep waiting for the memory request processing
     while (true){
         if (!stall){
-            end = !getMemReq(req); 
+            success = getMemReq(req);  
         }
 
-        if (!end){
-            stall = !memory.send(req);
+        if (success){
+            stall = !memory.send(req); 
             if (!stall){
                 if (req.type == Request::Type::READ){ 
                     reads++;
@@ -546,12 +412,14 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
                     writes++;
                     long currentTimeStamp = (long)(sc_time_stamp()/sc_time(1, SC_NS));
                     req.udf.departMemTime = currentTimeStamp;
-                    respQueue.push_back(req);
-                    reqStatus[req.udf.reqIdx] = true;
                     int burstIdx = req.udf.burstIdx;
                     processedReqNum[burstIdx]++;
+                    if(processedReqNum[burstIdx] ==1){
+                        GL::bursts[burstIdx]->arriveMemTime = req.udf.arriveMemTime;
+                    }
                     if(processedReqNum[burstIdx] == totalReqNum[burstIdx]){
-                        readyRespQueue.push_back(burstIdx);
+                        GL::bursts[burstIdx]->departMemTime = req.udf.departMemTime;
+                        burstRespQueue.push_back(burstIdx);
                     }
                 }
             }
@@ -576,10 +444,8 @@ void MemWrapper::shallowReqCopy(const Request &simpleReq, Request &req){
     req.udf.burstIdx = simpleReq.udf.burstIdx;
     req.udf.reqIdx = simpleReq.udf.reqIdx;
     req.udf.peIdx = simpleReq.udf.peIdx;
-    req.udf.departPeTime = simpleReq.udf.departPeTime;
     req.udf.arriveMemTime = simpleReq.udf.arriveMemTime;
     req.udf.departMemTime = simpleReq.udf.departMemTime;
-    req.udf.arrivePeTime = simpleReq.udf.arrivePeTime;
 }
 
 // Global variables are reset here while this part should be 
@@ -671,18 +537,6 @@ void MemWrapper::ramInit(const std::string &cfgFileName){
 }
 
 
-// Clean the resp that has been combined to a burst response from the queue.
-void MemWrapper::cleanRespQueue(const std::vector<long> &reqVec){
-    for(auto rit = reqVec.begin(); rit != reqVec.end(); rit++){
-        for(auto it = respQueue.begin(); it != respQueue.end(); it++){
-            if(it->udf.reqIdx == *rit){
-                respQueue.erase(it);
-                break;
-            }
-        }
-    }
-}
-
 void MemWrapper::dumpDepth(const std::string &fname){
     std::ofstream fhandle(fname.c_str());
     if(!fhandle.is_open()){
@@ -698,28 +552,9 @@ void MemWrapper::dumpDepth(const std::string &fname){
     }
 }
 
-bool MemWrapper::updateWriteResp(){
-    for(auto it = burstReqQueue.begin(); it != burstReqQueue.end(); it++){
-        if(it->type == ramulator::Request::Type::WRITE && 
-                writebackHistory[it->burstIdx] == false)
-        {
-            return false;
-            //it->reqToRam(ramData);
-            //writebackHistory[it->burstIdx] = true;
-        }
-    }
-
-    return true;
-}
-
 void MemWrapper::statusMonitor(){
     while(true){
         if(bfsDone.read()){
-            if(updateWriteResp() == false){
-                HERE;
-                std::cout << "There are still requests needed to be processed." << std::endl;
-                exit(EXIT_FAILURE);
-            }
             dumpDepth("./depth.txt");
             std::cout << "Simulation completes." << std::endl;
             sc_stop();

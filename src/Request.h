@@ -18,12 +18,9 @@ namespace ramulator
         long burstIdx;
         long reqIdx; 
         int peIdx;
-        PortType ptype;
 
-        long departPeTime; 
         long arriveMemTime;
         long departMemTime;
-        long arrivePeTime;
     };
 
     class Request

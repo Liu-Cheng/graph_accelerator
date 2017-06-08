@@ -12,56 +12,6 @@ std::ostream& operator<<(std::ostream &os, const PortType &type);
 // This macro is used to locate the code position.
 #define HERE do {std::cout <<"File: " << __FILE__ << " Line: " << __LINE__ << std::endl;} while(0)
 
-class GL{
-    public:
-        // Application parameters
-        static int vertexNum;
-        static int edgeNum;
-        static std::vector<int> startingVertices;
-
-        // cache based bfs parameter
-        static float alpha;
-        static int beta; 
-        static int cacheThreshold;
-        static int hubVertexThreshold;
-        static int startNum;
-
-        // Initial va, vb, and vp address. 
-        // Suppose they stay in a continuous address space.
-        static long depthMemAddr;
-        static long rpaoMemAddr;
-        static long ciaoMemAddr;
-        static long rpaiMemAddr;
-        static long ciaiMemAddr;
-        static long frontierMemAddr;
-
-        // Processing element setup
-        static int depthBufferDepth;
-        static int rpaoBufferDepth;
-        static int ciaoBufferDepth;
-        static int rpaiBufferDepth;
-        static int ciaiBufferDepth;
-        static int frontierBufferDepth;
-
-        // It will be reset based on memory configuration
-        static int burstLen; 
-        static int burstAddrWidth;
-
-        static int logon;
-        // A long request will be split into base length of 
-        // bursts such that the burst will not be overflow 
-        // the buffer and block shorter bursts coming afterwards.
-        static int baseLen;
-        static long getReqIdx();
-        static long getBurstIdx();
-        static void cfgBfsParam(const std::string &cfgFileName);
-
-    private:
-        static long reqIdx;
-        static long burstIdx;
-        static int getBurstAddrWidth();
-};
-
 // ----------------------------------------------------------------------------
 // The burst operation is decoded in the memory wrapper and 
 // it provides a simple and easy-to-use interface to the processing elements.
@@ -90,6 +40,11 @@ struct BurstOp{
         // and the memory opid and address will be stored in the vector.
         std::vector<long> reqVec;
         std::vector<long> addrVec;
+
+        long departPeTime;
+        long arriveMemTime;
+        long departMemTime;
+        long arrivePeTime;
 
         void convertToReq(std::list<ramulator::Request> &reqQueue);
 
@@ -135,17 +90,7 @@ struct BurstOp{
         friend void sc_trace(sc_trace_file *tf, const BurstOp &op, const std::string &name);
         friend std::ostream& operator<<(std::ostream &os, const BurstOp &op);
 
-        void setDepartPeTime(long departTime);
-        void setArrivePeTime(long arriveTime);
-        void setDepartMemTime(long departTime);
-        void setArriveMemTime(long arriveTime);
-
-        long getDepartPeTime() const;
-        long getArrivePeTime() const;
-        long getDepartMemTime() const;
-        long getArriveMemTime() const;
         int getReqNum() const;
-
         void updateReqVec();
         void updateAddrVec();
 
@@ -163,16 +108,69 @@ struct BurstOp{
         BurstOp(bool _valid = false);
 
     private:
-        long departPeTime;
-        long arriveMemTime;
-        long departMemTime;
-        long arrivePeTime;
-
         // Attached data. 
         std::vector<char> data;
 
         long getAlignedAddr() const;
         int getOffset() const;
 };
+
+class GL{
+    public:
+        // Application parameters
+        static int vertexNum;
+        static int edgeNum;
+        static std::vector<int> startingVertices;
+
+        // cache based bfs parameter
+        static float alpha;
+        static int beta; 
+        static int cacheThreshold;
+        static int hubVertexThreshold;
+        static int startNum;
+
+        // Initial va, vb, and vp address. 
+        // Suppose they stay in a continuous address space.
+        static long depthMemAddr;
+        static long rpaoMemAddr;
+        static long ciaoMemAddr;
+        static long rpaiMemAddr;
+        static long ciaiMemAddr;
+        static long frontierMemAddr;
+
+        // Processing element setup
+        static int depthBufferDepth;
+        static int rpaoBufferDepth;
+        static int ciaoBufferDepth;
+        static int rpaiBufferDepth;
+        static int ciaiBufferDepth;
+        static int frontierBufferDepth;
+
+        // It will be reset based on memory configuration
+        static int burstLen; 
+        static int burstAddrWidth;
+
+        static int logon;
+
+        // Gloabl container that stores all the bursts created in the bfs.
+        // When the a burst is no longer used, the allocated memory will be 
+        // released and the corresponding element in the vector will be set 
+        // to be NULL.
+        static std::vector<BurstOp*> bursts;
+
+        // A long request will be split into base length of 
+        // bursts such that the burst will not be overflow 
+        // the buffer and block shorter bursts coming afterwards.
+        static int baseLen;
+        static long getReqIdx();
+        static long getBurstIdx();
+        static void cfgBfsParam(const std::string &cfgFileName);
+
+    private:
+        static long reqIdx;
+        static long burstIdx;
+        static int getBurstAddrWidth();
+};
+
 
 #endif

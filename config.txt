@@ -1,9 +1,9 @@
 graphDir /home/liucheng/gitrepo/graph-data/
-graphName example
+graphName rmat10k100k
 hubVertexThreshold 1024
 cacheVertexThreshold 256
 cacheSize 1024
 alpha 0.2
 beta 5000
 startNum 10
-logon 0
+logon 1

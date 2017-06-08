@@ -49,28 +49,23 @@ class MemWrapper : public sc_module{
         std::vector<const char*> files;
 
         // Signals from/to pes. They will be processed following the peClk.
-        sc_in <BurstOp> burstReq;
-        sc_out <BurstOp> burstResp;
+        sc_in <long> burstReq;
+        sc_out <long> burstResp;
         sc_in <bool> bfsDone;
 
-        // The queue stores all the burst request transactions 
-        // and it will not be removed untill the end of the program.
         // In addition, as the requests are stored in order, 
         // it is also the basis of the data memory content management.  
-        std::list<BurstOp> burstReqQueue;
+        std::list<long> burstReqQueue;
 
         // It stores the response obtained from the ramulator and it will 
         // be gradually removed when the response is sent out.
-        std::list<BurstOp> burstRespQueue;
+        std::list<long> burstRespQueue;
 
         // It stores all the requests to be sent to the ramulator
         // It will gradually be removed when it is processed.
+        // It also helps with the synchronization between 
+        // the mem clock domain and the pe clock domain.
         std::list<Request> reqQueue; 
-
-        // It stores all the responses returned from the ramulator as well as 
-        // the write response generated accordingly. The response will be removed 
-        // when it is combined to a burst response and sent back to pe. 
-        std::list<Request> respQueue;
         
         MemWrapper(sc_module_name _name, 
                 double _memClkCycle, 
@@ -89,10 +84,10 @@ class MemWrapper : public sc_module{
         void sendBurstResp();
         void memReqMonitor();
         void respMonitor();
-        void updateBurstToRam(long watchedBurstIdx);
         void cleanRam(); // clean the ram content for new bfs traverse
         void setNewStartVertex(int idx); // set ram for a different start vertices of bfs.
         void statusMonitor();
+        void sigInit();
         ~MemWrapper(){};
 
         // Get data from ram.
@@ -111,28 +106,10 @@ class MemWrapper : public sc_module{
         int memSize;               // # of bytes
         std::vector<char> ramData; // byte level memory data management.
 
-        // It stores the status of all the basic memory requests.
-        // If a reqIdx is not found, it means the request doesn't exist.
-        // If a regIdx is found and boolean value is false, it means the 
-        // request is under processing.
-        // If a reqIdx is found and boolean value is true, it means the request gets 
-        // responsed.
-        std::map<long, bool> reqStatus;
-
-        // burstStatus represnts similar information with that of reqStatus.
-        std::map<long, bool> burstStatus;
-
         // Keep two map containers that help to keep a record of the 
         // number of basic requests processed of a burst
         std::map<long, int> totalReqNum;
         std::map<long, int> processedReqNum;
-        std::list<long> readyRespQueue;
-
-        // Basically we keep a record of the write request updating history.
-        // If the write request has its content written to ramData, it will be set 
-        // true. If the write response is under processing, it will be set as false;
-        // It it is not found here, it means there is no such write request yet.
-        std::map<long, bool> writebackHistory;
 
         double memClkCycle;
         double peClkCycle;
