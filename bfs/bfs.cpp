@@ -3,55 +3,75 @@
 
 int main(int argc, char** argv){
 
-    int repeat_num = 1;
-    std::vector<int> start_indices{478};
+    int repeatNum = 1;
+    std::vector<int> startIndices{1429};
     std::string fname = argv[1];
-    std::string bfs_type = argv[2];
-    std::string graph_type = argv[3];
+    std::string bfsType = argv[2];
+    std::string graphType = argv[3];
 
     Graph* gptr;
-    if(graph_type == "dblp"){
+    if(graphType == "dblp"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/dblp.ungraph.txt");
     }
-    else if(graph_type == "youtube"){
+    else if(graphType == "youtube"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/youtube.ungraph.txt");
     }
-    else if(graph_type == "lj"){
+    else if(graphType == "lj"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/lj.ungraph.txt");
     }
-    else if(graph_type == "pokec"){
+    else if(graphType == "pokec"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/pokec-relationships.txt");
     }
-    else if(graph_type == "wiki-talk"){
+    else if(graphType == "wiki-talk"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/wiki-Talk.txt");
     }
-    else if(graph_type == "lj1"){
+    else if(graphType == "lj1"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/LiveJournal1.txt");
     }
-    else if(graph_type == "orkut"){
+    else if(graphType == "orkut"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/orkut.ungraph.txt");
     }
-    else if(graph_type == "rmat"){
+    else if(graphType == "rmat"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/rmat-2m-256m.txt");
     }
-    else if(graph_type == "twitter"){
+    else if(graphType == "rmat1k10k"){
+        gptr = new Graph("/home/liucheng/gitrepo/graph-data/rmat1k10k.txt");
+    }
+    else if(graphType == "rmat10k100k"){
+        gptr = new Graph("/home/liucheng/gitrepo/graph-data/rmat10k100k.txt");
+    }
+    else if(graphType == "twitter"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/twitter_rv.txt");
     }
-    else if(graph_type == "friendster"){
+    else if(graphType == "friendster"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/friendster.ungraph.txt");
     }
-    else if(graph_type == "example"){
+    else if(graphType == "example"){
         gptr = new Graph("/home/liucheng/gitrepo/graph-data/rmat-1k-10k.txt");
     }
     else{
         gptr = new Graph("./data/mydata.txt");
     }
 
-    gptr->getRandomStartIndices(start_indices);
-    gptr->getStat();
-    CSR* csr_ptr = new CSR(*gptr);
-    //csr_ptr->degreeAnalysis();
-    csr_ptr->setBfsParam(0.2, 5000, 1024, 256, 1024);
+    gptr->getRandomStartIndices(startIndices);
+    //gptr->getStat();
+    CSR* csrPtr = new CSR(*gptr);
+    //csrPtr->degreeAnalysis();
+    if(graphType == "dblp"){
+        csrPtr->setBfsParam(0.2, 5000, 128, 64, 1024);
+    }
+    else if(graphType == "youtube"){
+        csrPtr->setBfsParam(0.2, 5000, 1024, 256, 1024);
+    }
+    else if(graphType == "pokec"){
+        csrPtr->setBfsParam(0.2, 5000, 4096, 128, 1024);
+    }
+    else if(graphType == "lj"){
+        csrPtr->setBfsParam(0.2, 5000, 1024, 256, 1024);
+    }
+    else if(graphType == "wiki-talk"){
+        csrPtr->setBfsParam(0.2, 5000, 1024, 256, 1024);
+    }
 
     // result will be dumped to the files
     std::ofstream fhandle(fname.c_str());
@@ -61,23 +81,26 @@ int main(int argc, char** argv){
         exit(EXIT_FAILURE);
     }
 
-    double total_time = 0;
-    for(auto idx : start_indices){
+    double totalTime = 0;
+    for(auto idx : startIndices){
+        std::cout << "startIdx = " << idx << std::endl;
         std::clock_t begin = clock();
-        if(bfs_type == "basic"){
-            csr_ptr->basicBfs(idx, fhandle);
+        if(bfsType == "basic"){
+            csrPtr->basicBfs(idx, fhandle);
         }
-        else if(bfs_type == "td"){
-            csr_ptr->tdBfs(idx, fhandle);
+        else if(bfsType == "td"){
+            csrPtr->tdBfs(idx, fhandle);
         }
-        else if(bfs_type == "bu"){
-            csr_ptr->buBfs(idx, fhandle);
+        else if(bfsType == "bu"){
+            csrPtr->buBfs(idx, fhandle);
         }
-        else if(bfs_type == "hybrid"){
-            csr_ptr->hybridBfs(idx, fhandle);
+        else if(bfsType == "hybrid"){
+            csrPtr->hybridBfs(idx, fhandle);
         }
-        else if(bfs_type == "cache"){
-            csr_ptr->cacheHybridBfs(idx, fhandle);
+        else if(bfsType == "cache"){
+            csrPtr->cacheHybridBfs(idx, fhandle);
+            std::cout << "potential cache saving: ";
+            std::cout << csrPtr->getPotentialCacheSaving() << std::endl;
         }
         else{
             HERE;
@@ -86,13 +109,13 @@ int main(int argc, char** argv){
         }
 
         std::clock_t end = clock();
-        double elapsed_sec = double(end - begin)/CLOCKS_PER_SEC;
-        total_time += elapsed_sec;
+        double elapsedTime = double(end - begin)/CLOCKS_PER_SEC;
+        totalTime += elapsedTime;
     }
     fhandle.close();
 
-    double avg_time = total_time / repeat_num;
-    std::cout << "BFS rum time: " << avg_time << " seconds." << std::endl;
+    double avgTime = totalTime / repeatNum;
+    std::cout << "BFS rum time: " << avgTime << " seconds." << std::endl;
 
     return 0;
 

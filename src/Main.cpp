@@ -10,13 +10,14 @@ int sc_main(int argc, char *argv[]){
     sc_signal<long> burstResp;
     sc_signal<bool> bfsDone;
 
-    double peClkCycle = 5000;
+    double peClkCycle = 2500;
     double memClkCycle = 625;
     sc_clock peClk("peClk", peClkCycle, SC_NS, 0.5);
 
     GL::cfgBfsParam("./config.txt");
     MemWrapper memWrapper("memWrapper", memClkCycle, peClkCycle, argc, argv);
     memWrapper.setNewStartVertex(GL::startingVertices[0]);
+    std::cout << "start vertex: " << GL::startingVertices[0] << std::endl;
     memWrapper.burstReq(burstReq);
     memWrapper.burstResp(burstResp);
     memWrapper.bfsDone(bfsDone);

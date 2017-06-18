@@ -155,7 +155,17 @@ void MemWrapper::sendBurstResp(){
         }
 
         int idx = burstReqQueue.front();
-        if(std::find(burstRespQueue.begin(), burstRespQueue.end(), idx) == burstRespQueue.end()){
+        auto simpleFind = [this](long idx)->std::list<long>::iterator{
+            for(auto it = burstRespQueue.begin(); it != burstRespQueue.end(); it++){
+                if((*it) == idx){
+                    return it;
+                }
+            }
+            return burstRespQueue.end();
+        };
+        //auto it = std::find(burstRespQueue.begin(), burstRespQueue.end(), idx);
+        auto it = simpleFind(idx);
+        if(it == burstRespQueue.end()){
             burstResp.write(-1);
         }
         else{
@@ -170,8 +180,11 @@ void MemWrapper::sendBurstResp(){
                 else{
                     ptr->ramToReq(ramData);
                 }
-                burstReqQueue.remove(idx);
-                burstRespQueue.remove(idx);
+
+                //burstReqQueue.remove(idx);
+                burstReqQueue.pop_front();
+                //burstRespQueue.remove(idx);
+                burstRespQueue.erase(it);
             }
         }
 

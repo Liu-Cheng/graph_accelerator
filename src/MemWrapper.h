@@ -20,6 +20,7 @@
 #include <algorithm>
 #include "common.h"
 #include "graph.h"
+#include <ctime>
 
 /* Standards */
 #include "Gem5Wrapper.h"
@@ -66,6 +67,10 @@ class MemWrapper : public sc_module{
         // It also helps with the synchronization between 
         // the mem clock domain and the pe clock domain.
         std::list<Request> reqQueue; 
+
+        double findTime;
+        double removeTime;
+        double memProcessTime;
         
         MemWrapper(sc_module_name _name, 
                 double _memClkCycle, 

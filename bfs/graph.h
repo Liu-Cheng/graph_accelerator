@@ -13,14 +13,19 @@
 
 #define HERE do {std::cout << "File: " << __FILE__ << " Line: " << __LINE__ << std::endl;} while(0)
 
+class GL{
+    public:
+        static int burstlen;
+};
+
 class Vertex {
     public:
         int idx;
-        int in_deg;
-        int out_deg;
+        int inDeg;
+        int outDeg;
 
-        std::vector<int> in_vids;
-        std::vector<int> out_vids;
+        std::vector<int> inVid;
+        std::vector<int> outVid;
 
         explicit Vertex(int _idx) {
             idx = _idx;
@@ -34,13 +39,13 @@ class Vertex {
 
 class Graph{
     public:
-        int vertex_num;
-        int edge_num;
+        int vertexNum;
+        int edgeNum;
         std::vector<Vertex*> vertices; 
 
         Graph(const std::string &fname);
         ~Graph();
-        void getRandomStartIndices(std::vector<int> &start_indices);
+        void getRandomStartIndices(std::vector<int> &startIndices);
         void getStat();
 
     private:
@@ -66,39 +71,46 @@ class CSR{
         // The CSR is constructed based on the simple graph
         explicit CSR(const Graph &g);
 
-        void setBfsParam(float _alpha, float _beta, int _hub_vertex_threshold, int _cache_threshold, int _bucket_num);
+        void setBfsParam(
+                float _alpha, 
+                float _beta, 
+                int _hubVertexThreshold, 
+                int _cacheThreshold, 
+                int _bucketNum);
 
         // hybrid read based bfs with hub vertex cache
-        bool cacheHybridBfs(const int &start_idx, std::ofstream &fhandle); 
+        bool cacheHybridBfs(const int &startIdx, std::ofstream &fhandle); 
 
         // hybrid read based bfs
-        bool hybridBfs(const int &start_idx, std::ofstream &fhandle); 
+        bool hybridBfs(const int &startIdx, std::ofstream &fhandle); 
 
         // frontier-based top-down bfs
-        bool basicBfs(const int &start_idx, std::ofstream &fhandle); 
+        bool basicBfs(const int &startIdx, std::ofstream &fhandle); 
 
         // read based top-down bfs
-        bool tdBfs(const int &start_idx, std::ofstream &fhandle); 
+        bool tdBfs(const int &startIdx, std::ofstream &fhandle); 
 
         // read based bottom-up bfs
-        bool buBfs(const int &start_idx, std::ofstream &fhandle); 
+        bool buBfs(const int &startIdx, std::ofstream &fhandle); 
 
+        int getPotentialCacheSaving();
         void degreeAnalysis();
         ~CSR();
 
     private:
-        const int v_num;
-        const int e_num;
+        const int vNum;
+        const int eNum;
         float alpha;
         float beta;
-        int hub_vertex_threshold;
-        int cache_threshold;
-        int bucket_num;
+        int hubVertexThreshold;
+        int cacheThreshold;
+        int bucketNum;
 
         bool isInBuffer(
                 const std::vector<int> &buffer, 
                 const int &idx);
         int getHubVertexNum();
+        int getBurstNum(int num, int size);
 };
 
 

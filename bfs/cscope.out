@@ -1,4 +1,4 @@
-cscope 15 $HOME/gitrepo/graph_accelerator/bfs               0000021810
+cscope 15 $HOME/gitrepo/graph_accelerator/bfs               0000023212
 	@bfs.cpp
 
 1 
@@ -18,16 +18,16 @@ cscope 15 $HOME/gitrepo/graph_accelerator/bfs               0000021810
 ){
 
 6 
-»³©_num
- = 10;
+»³©Num
+ = 1;
 
 7 
 ¡d
 ::
 veùÜ
 <> 
-¡¬t_šdiûs
-{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+¡¬tIndiûs
+{1429};
 
 8 
 ¡d
@@ -44,7 +44,7 @@ veùÜ
 ::
 ¡ršg
  
-bfs_ty³
+bfsTy³
  = 
 ¬gv
 [2];
@@ -54,7 +54,7 @@ bfs_ty³
 ::
 ¡ršg
  
-g¿ph_ty³
+g¿phTy³
  = 
 ¬gv
 [3];
@@ -66,7 +66,7 @@ g±r
 ;
 
 13 if(
-g¿ph_ty³
+g¿phTy³
  == "dblp"){
 
 14 
@@ -78,7 +78,7 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/dblp.ungraph.txt");
 
 16 if(
-g¿ph_ty³
+g¿phTy³
  == "youtube"){
 
 17 
@@ -90,7 +90,7 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/youtube.ungraph.txt");
 
 19 if(
-g¿ph_ty³
+g¿phTy³
  == "lj"){
 
 20 
@@ -102,7 +102,7 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/lj.ungraph.txt");
 
 22 if(
-g¿ph_ty³
+g¿phTy³
  == "pokec"){
 
 23 
@@ -114,7 +114,7 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/pokec-relationships.txt");
 
 25 if(
-g¿ph_ty³
+g¿phTy³
  == "wiki-talk"){
 
 26 
@@ -126,7 +126,7 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/wiki-Talk.txt");
 
 28 if(
-g¿ph_ty³
+g¿phTy³
  == "lj1"){
 
 29 
@@ -138,7 +138,7 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/LiveJournal1.txt");
 
 31 if(
-g¿ph_ty³
+g¿phTy³
  == "orkut"){
 
 32 
@@ -150,7 +150,7 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/orkut.ungraph.txt");
 
 34 if(
-g¿ph_ty³
+g¿phTy³
  == "rmat"){
 
 35 
@@ -162,8 +162,8 @@ g±r
 ("/home/liucheng/gitrepo/graph-data/rmat-2m-256m.txt");
 
 37 if(
-g¿ph_ty³
- == "twitter"){
+g¿phTy³
+ == "rmat1k10k"){
 
 38 
 g±r
@@ -171,11 +171,11 @@ g±r
 Ãw
  
 	`G¿ph
-("/home/liucheng/gitrepo/graph-data/twitter_rv.txt");
+("/home/liucheng/gitrepo/graph-data/rmat1k10k.txt");
 
 40 if(
-g¿ph_ty³
- == "friendster"){
+g¿phTy³
+ == "rmat10k100k"){
 
 41 
 g±r
@@ -183,11 +183,11 @@ g±r
 Ãw
  
 	`G¿ph
-("/home/liucheng/gitrepo/graph-data/friendster.ungraph.txt");
+("/home/liucheng/gitrepo/graph-data/rmat10k100k.txt");
 
 43 if(
-g¿ph_ty³
- == "example"){
+g¿phTy³
+ == "twitter"){
 
 44 
 g±r
@@ -195,7 +195,11 @@ g±r
 Ãw
  
 	`G¿ph
-("/home/liucheng/gitrepo/graph-data/rmat-1k-10k.txt");
+("/home/liucheng/gitrepo/graph-data/twitter_rv.txt");
+
+46 if(
+g¿phTy³
+ == "friendster"){
 
 47 
 g±r
@@ -203,26 +207,40 @@ g±r
 Ãw
  
 	`G¿ph
-("./data/mydata.txt");
+("/home/liucheng/gitrepo/graph-data/friendster.ungraph.txt");
+
+49 if(
+g¿phTy³
+ == "example"){
 
 50 
+g±r
+ = 
+Ãw
+ 
+	`G¿ph
+("/home/liucheng/gitrepo/graph-data/rmat-1k-10k.txt");
+
+53 
+g±r
+ = 
+Ãw
+ 
+	`G¿ph
+("./data/mydata.txt");
+
+56 
 g±r
 ->
 	`g‘RªdomS¹Indiûs
 (
-¡¬t_šdiûs
+¡¬tIndiûs
 );
 
-51 
-g±r
-->
-	`g‘St
-();
-
-52 
+58 
 CSR
 * 
-c¤_±r
+c¤PŒ
  = 
 Ãw
  
@@ -231,19 +249,57 @@ c¤_±r
 g±r
 );
 
-53 
-c¤_±r
-->
-	`deg»eAÇlysis
-();
+60 if(
+g¿phTy³
+ == "dblp"){
 
-54 
-c¤_±r
+61 
+c¤PŒ
+->
+	`£tBfsP¬am
+(0.2, 5000, 128, 64, 1024);
+
+63 if(
+g¿phTy³
+ == "youtube"){
+
+64 
+c¤PŒ
 ->
 	`£tBfsP¬am
 (0.2, 5000, 1024, 256, 1024);
 
-57 
+66 if(
+g¿phTy³
+ == "pokec"){
+
+67 
+c¤PŒ
+->
+	`£tBfsP¬am
+(0.2, 5000, 4096, 256, 1024);
+
+69 if(
+g¿phTy³
+ == "lj"){
+
+70 
+c¤PŒ
+->
+	`£tBfsP¬am
+(0.2, 5000, 1024, 256, 1024);
+
+72 if(
+g¿phTy³
+ == "wiki-talk"){
+
+73 
+c¤PŒ
+->
+	`£tBfsP¬am
+(0.2, 5000, 1024, 256, 1024);
+
+77 
 ¡d
 ::
 of¡»am
@@ -255,17 +311,17 @@ of¡»am
 	`c_¡r
 ());
 
-58 if(!
+78 if(!
 fhªdË
 .
 	`is_İ’
 ()){
 
-59 
+79 
 HERE
 ;
 
-60 
+80 
 ¡d
 ::
 cout
@@ -275,23 +331,33 @@ cout
 ’dl
 ;
 
-61 
+81 
 	`ex™
 (
 EXIT_FAILURE
 );
 
-64 
-tÙ®_time
+84 
+tÙ®Time
  = 0;
 
-65 autØ
+85 autØ
 idx
  : 
-¡¬t_šdiûs
+¡¬tIndiûs
 ){
 
-66 
+86 
+¡d
+::
+cout
+ << "¡¬tIdx = " << 
+idx
+ << std::
+’dl
+;
+
+87 
 ¡d
 ::
 şock_t
@@ -301,12 +367,12 @@ begš
 	`şock
 ();
 
-67 if(
-bfs_ty³
+88 if(
+bfsTy³
  == "basic"){
 
-68 
-c¤_±r
+89 
+c¤PŒ
 ->
 	`basicBfs
 (
@@ -315,12 +381,12 @@ idx
 fhªdË
 );
 
-70 if(
-bfs_ty³
+91 if(
+bfsTy³
  == "td"){
 
-71 
-c¤_±r
+92 
+c¤PŒ
 ->
 	`tdBfs
 (
@@ -329,12 +395,12 @@ idx
 fhªdË
 );
 
-73 if(
-bfs_ty³
+94 if(
+bfsTy³
  == "bu"){
 
-74 
-c¤_±r
+95 
+c¤PŒ
 ->
 	`buBfs
 (
@@ -343,12 +409,12 @@ idx
 fhªdË
 );
 
-76 if(
-bfs_ty³
+97 if(
+bfsTy³
  == "hybrid"){
 
-77 
-c¤_±r
+98 
+c¤PŒ
 ->
 	`hybridBfs
 (
@@ -357,12 +423,12 @@ idx
 fhªdË
 );
 
-79 if(
-bfs_ty³
+100 if(
+bfsTy³
  == "cache"){
 
-80 
-c¤_±r
+101 
+c¤PŒ
 ->
 	`ÿcheHybridBfs
 (
@@ -371,11 +437,11 @@ idx
 fhªdË
 );
 
-83 
+104 
 HERE
 ;
 
-84 
+105 
 ¡d
 ::
 cout
@@ -383,13 +449,13 @@ cout
 ’dl
 ;
 
-85 
+106 
 	`ex™
 (
 EXIT_FAILURE
 );
 
-88 
+109 
 ¡d
 ::
 şock_t
@@ -399,8 +465,8 @@ EXIT_FAILURE
 	`şock
 ();
 
-89 
-–­£d_£c
+110 
+–­£dTime
  = (
 ’d
  - 
@@ -409,37 +475,37 @@ begš
 CLOCKS_PER_SEC
 ;
 
-90 
-tÙ®_time
+111 
+tÙ®Time
  +ğ
-–­£d_£c
+–­£dTime
 ;
 
-92 
+113 
 fhªdË
 .
 	`şo£
 ();
 
-94 
-avg_time
+115 
+avgTime
  = 
-tÙ®_time
+tÙ®Time
  / 
-»³©_num
+»³©Num
 ;
 
-95 
+116 
 ¡d
 ::
 cout
  << "BFS„umime: " << 
-avg_time
+avgTime
  << " secÚds." << std::
 ’dl
 ;
 
-99 
+120 
 	}
 }
 
@@ -449,13 +515,19 @@ avg_time
 	~"g¿ph.h
 "
 
-3 
+3 
+	gGL
+::
+bur¡Ën
+ = 64;
+
+5 
 	gG¿ph
 ::
 lßdFe
 (
 
-4 cÚ¡ 
+6 cÚ¡ 
 ¡d
 ::
 ¡ršg
@@ -463,7 +535,7 @@ lßdFe
 âame
 ,
 
-5 
+7 
 ¡d
 ::
 veùÜ
@@ -471,7 +543,7 @@ veùÜ
 d©a
 
 
-8 
+10 
 ¡d
 ::
 if¡»am
@@ -483,17 +555,17 @@ fhªdË
 c_¡r
 ());
 
-9 if(!
+11 if(!
 	gfhªdË
 .
 is_İ’
 ()){
 
-10 
+12 
 	gHERE
 ;
 
-11 
+13 
 	g¡d
 ::
 cout
@@ -505,13 +577,13 @@ cout
 ’dl
 ;
 
-12 
+14 
 ex™
 (
 EXIT_FAILURE
 );
 
-15 
+17 
 	g¡d
 ::
 ¡ršg
@@ -519,7 +591,7 @@ EXIT_FAILURE
 lše
 ;
 
-16 
+18 
 	g¡d
 ::
 g‘lše
@@ -529,7 +601,7 @@ fhªdË
 lše
 )){
 
-17 
+19 
 	g¡d
 ::
 i¡ršg¡»am
@@ -539,13 +611,13 @@ iss
 lše
 );
 
-18 
+20 
 	gd©a
 .
 push_back
 (
 
-19 
+21 
 ¡d
 ::
 veùÜ
@@ -555,13 +627,13 @@ i¡»am_™”©Ü
 iss
 ),
 
-20 
+22 
 ¡d
 ::
 i¡»am_™”©Ü
 <>())
 
-23 
+25 
 	gfhªdË
 .
 şo£
@@ -574,7 +646,7 @@ i¡»am_™”©Ü
 (){
 
 29 
-z”o_outgošg_v”‹x_num
+z”oOutV”‹xNum
  = 0;
 
 30 autØ
@@ -590,32 +662,38 @@ v”tiûs
 31 if((*
 ™
 )->
-out_vids
+outVid
 .
 	`em±y
 ()){
 
 32 
-z”o_outgošg_v”‹x_num
+z”oOutV”‹xNum
 ++;
 
 35 
 ¡d
 ::
 cout
- << "Z”Øoutgošg v”‹x…”ûÁagi " << 
-z”o_outgošg_v”‹x_num
+ << "Zero outgoing vertex…ercentage is ";
+
+36 
+¡d
+::
+cout
+ << 
+z”oOutV”‹xNum
  * 1.0 / 
-v”‹x_num
+v”‹xNum
  << std::
 ’dl
 ;
 
-36 
+37 
 	}
 }
 
-38 
+39 
 	gG¿ph
 ::
 g‘MaxIdx
@@ -627,13 +705,13 @@ veùÜ
 d©a
 ){
 
-39 
-max_idx
+40 
+maxIdx
  = 
 d©a
 [0][0];
 
-40 autØ
+41 autØ
 	g™1
  = 
 d©a
@@ -643,7 +721,7 @@ begš
 ’d
 (); it1++){
 
-41 autØ
+42 autØ
 	g™2
  = 
 ™1
@@ -653,23 +731,23 @@ begš
 ’d
 (); it2++){
 
-42 if(
-	gmax_idx
+43 if(
+	gmaxIdx
  <ğ(*
 ™2
 )){
 
-43 
-max_idx
+44 
+maxIdx
  = *
 ™2
 ;
 
-47  
-	gmax_idx
+48  
+	gmaxIdx
 ;
 
-50 
+51 
 	gG¿ph
 ::
 g‘MšIdx
@@ -681,13 +759,13 @@ veùÜ
 d©a
 ){
 
-51 
-mš_idx
+52 
+mšIdx
  = 
 d©a
 [0][0];
 
-52 autØ
+53 autØ
 	g™1
  = 
 d©a
@@ -697,7 +775,7 @@ begš
 ’d
 (); it1++){
 
-53 autØ
+54 autØ
 	g™2
  = 
 ™1
@@ -707,23 +785,23 @@ begš
 ’d
 (); it2++){
 
-54 if(
-	gmš_idx
+55 if(
+	gmšIdx
  >ğ(*
 ™2
 )){
 
-55 
-mš_idx
+56 
+mšIdx
  = *
 ™2
 ;
 
-59  
-	gmš_idx
+60  
+	gmšIdx
 ;
 
-62 
+63 
 	gG¿ph
 ::
 g‘RªdomS¹Indiûs
@@ -732,84 +810,92 @@ g‘RªdomS¹Indiûs
 ::
 veùÜ
 <> &
-¡¬t_šdiûs
+¡¬tIndiûs
 ){
 
-63 
+64 
 size_t
  
 num
  = 
-¡¬t_šdiûs
+¡¬tIndiûs
 .
 size
 ();
 
-64 
-	g¡¬t_šdiûs
+65 
+	g¡¬tIndiûs
 .
 ş—r
 ();
 
-65 
+66 
 size_t
  
 	gn
  = 0;
 
-66 
+67 
 	gn
  < 
 	gnum
 ){
 
-67 
-	gmax_idx
+68 
+	gmaxIdx
  = 
-v”‹x_num
+v”‹xNum
  - 1;
 
-68 
+69 
 	gidx
  = 
 ¿nd
 ()%
-max_idx
+maxIdx
 ;
 
-69 if(
+70 if(
 	gv”tiûs
 [
 idx
 ]->
-	gout_vids
+	goutVid
 .
 em±y
-(è|| 
+() ||
+
+71 
 	g¡d
 ::
 fšd
 (
-¡¬t_šdiûs
+¡¬tIndiûs
 .
 begš
-(), s¹_šdiûs.
-’d
-(), idx) != start_indices.end()){
+(),
 
 72 
-	g¡¬t_šdiûs
+¡¬tIndiûs
+.
+’d
+(), 
+idx
+) != startIndices.end()
+
+76 
+	g¡¬tIndiûs
 .
 push_back
 (
 idx
 );
 
-73 
+77 
 	gn
 ++;
 
-77 
+81 
 	gG¿ph
 ::
 	$G¿ph
@@ -821,7 +907,7 @@ idx
 âame
 ){
 
-80 autØ
+84 autØ
 found
  = 
 âame
@@ -829,7 +915,7 @@ found
 	`fšd
 ("ungraph", 0);
 
-81 if(
+85 if(
 found
  !ğ
 ¡d
@@ -839,19 +925,19 @@ found
 Åos
 )
 
-82 
+86 
 isUg¿ph
  = 
 Œue
 ;
 
-84 
+88 
 isUg¿ph
  = 
 çl£
 ;
 
-86 
+90 
 ¡d
 ::
 veùÜ
@@ -859,7 +945,7 @@ veùÜ
 d©a
 ;
 
-87 
+91 
 	`lßdFe
 (
 âame
@@ -867,49 +953,49 @@ d©a
 d©a
 );
 
-88 
-v”‹x_num
+92 
+v”‹xNum
  = 
 	`g‘MaxIdx
 (
 d©a
 ) + 1;
 
-89 
-edge_num
+93 
+edgeNum
  = ()
 d©a
 .
 	`size
 ();
 
-90 
+94 
 ¡d
 ::
 cout
  << "v”‹x‚um: " << 
-v”‹x_num
+v”‹xNum
  << std::
 ’dl
 ;
 
-91 
+95 
 ¡d
 ::
 cout
  << "edgnum: " << 
-edge_num
+edgeNum
  << std::
 ’dl
 ;
 
-93 
+97 
 i
  = 0; i < 
-v”‹x_num
+v”‹xNum
 ; i++){
 
-94 
+98 
 V”‹x
 * 
 v
@@ -921,7 +1007,7 @@ v
 i
 );
 
-95 
+99 
 v”tiûs
 .
 	`push_back
@@ -929,7 +1015,7 @@ v”tiûs
 v
 );
 
-98 autØ
+102 autØ
 ™
  = 
 d©a
@@ -939,75 +1025,75 @@ d©a
 	`’d
 (); it++){
 
-99 
-¤c_idx
+103 
+¤cIdx
  = (*
 ™
 )[0];
 
-100 
-d¡_idx
+104 
+d¡Idx
  = (*
 ™
 )[1];
 
-101 
-v”tiûs
-[
-¤c_idx
-]->
-out_vids
-.
-	`push_back
-(
-d¡_idx
-);
-
-102 
-v”tiûs
-[
-d¡_idx
-]->
-š_vids
-.
-	`push_back
-(
-¤c_idx
-);
-
-103 if(
-isUg¿ph
- && 
-¤c_idx
- !ğ
-d¡_idx
-){
-
-104 
-v”tiûs
-[
-d¡_idx
-]->
-out_vids
-.
-	`push_back
-(
-¤c_idx
-);
-
 105 
 v”tiûs
 [
-¤c_idx
+¤cIdx
 ]->
-š_vids
+outVid
 .
 	`push_back
 (
-d¡_idx
+d¡Idx
 );
 
-109 autØ
+106 
+v”tiûs
+[
+d¡Idx
+]->
+šVid
+.
+	`push_back
+(
+¤cIdx
+);
+
+107 if(
+isUg¿ph
+ && 
+¤cIdx
+ !ğ
+d¡Idx
+){
+
+108 
+v”tiûs
+[
+d¡Idx
+]->
+outVid
+.
+	`push_back
+(
+¤cIdx
+);
+
+109 
+v”tiûs
+[
+¤cIdx
+]->
+šVid
+.
+	`push_back
+(
+d¡Idx
+);
+
+113 autØ
 ™
  = 
 v”tiûs
@@ -1017,81 +1103,91 @@ v”tiûs
 	`’d
 (); it++){
 
-110 (*
+114 (*
 ™
 )->
-š_deg
+šDeg
  = ()(*™)->
-š_vids
+šVid
 .
 	`size
 ();
 
-111 (*
+115 (*
 ™
 )->
-out_deg
+outDeg
  = ()(*™)->
-out_vids
+outVid
 .
 	`size
 ();
 
-113 
+117 
 	}
 }
 
-115 
+119 
 	gCSR
 ::
 	$£tBfsP¬am
-(
-_®pha
-, 
-_b‘a
-, 
-_hub_v”‹x_th»shŞd
-, 
-_ÿche_th»shŞd
-, 
-_buck‘_num
-){
+(
 
-116 
+120 
+_®pha
+,
+
+121 
+_b‘a
+,
+
+122 
+_hubV”‹xTh»shŞd
+,
+
+123 
+_ÿcheTh»shŞd
+,
+
+124 
+_buck‘Num
+)
+
+126 
 ®pha
  = 
 _®pha
 ;
 
-117 
+127 
 b‘a
  = 
 _b‘a
 ;
 
-118 
-hub_v”‹x_th»shŞd
+128 
+hubV”‹xTh»shŞd
  = 
-_hub_v”‹x_th»shŞd
+_hubV”‹xTh»shŞd
 ;
 
-119 
-ÿche_th»shŞd
+129 
+ÿcheTh»shŞd
  = 
-_ÿche_th»shŞd
+_ÿcheTh»shŞd
 ;
 
-120 
-buck‘_num
+130 
+buck‘Num
  = 
-_buck‘_num
+_buck‘Num
 ;
 
-121 
+131 
 	}
 }
 
-123 
+133 
 	gCSR
 ::
 	$CSR
@@ -1100,88 +1196,88 @@ G¿ph
  &
 g
 è: 
-	`v_num
+	`vNum
 (g.
-v”‹x_num
+v”‹xNum
 ), 
-	$e_num
+	$eNum
 (
 g
 .
-edge_num
+edgeNum
 ){
 
-126 
+136 
 ®pha
  = 0.2;
 
-127 
+137 
 b‘a
  = 0.1;
 
-128 
-hub_v”‹x_th»shŞd
+138 
+hubV”‹xTh»shŞd
  = 1024;
 
-129 
-ÿche_th»shŞd
+139 
+ÿcheTh»shŞd
  = 256;
 
-130 
-buck‘_num
+140 
+buck‘Num
  = 1024;
 
-133 
+143 
 weight
 .
 	`»size
 (
-e_num
+eNum
 );
 
-134 autØ&
+144 autØ&
 w
  : 
 weight
 ){
 
-135 
+145 
 w
  = (
 	`¿nd
 ()%100)/10.0;
 
-138 
+148 
 ½ao
 .
 	`»size
 (
-v_num
+vNum
 +1);
 
-139 
+149 
 ½ai
 .
 	`»size
 (
-v_num
+vNum
 +1);
 
-140 
+150 
 ½ao
 [0] = 0;
 
-141 
+151 
 ½ai
 [0] = 0;
 
-142 
+152 
 i
  = 0; i < 
-v_num
+vNum
 ; i++){
 
-143 
+153 
 ½ao
 [
 i
@@ -1190,10 +1286,10 @@ g
 .
 v”tiûs
 [i]->
-out_deg
+outDeg
 ;
 
-144 
+154 
 ½ai
 [
 i
@@ -1202,16 +1298,16 @@ g
 .
 v”tiûs
 [i]->
-š_deg
+šDeg
 ;
 
-147 
+157 
 i
  = 0; i < 
-v_num
+vNum
 ; i++){
 
-148 autØ
+158 autØ
 id
  : 
 g
@@ -1220,10 +1316,10 @@ v”tiûs
 [
 i
 ]->
-out_vids
+outVid
 ){
 
-149 
+159 
 cŸo
 .
 	`push_back
@@ -1231,7 +1327,7 @@ cŸo
 id
 );
 
-151 autØ
+161 autØ
 id
  : 
 g
@@ -1240,10 +1336,10 @@ v”tiûs
 [
 i
 ]->
-š_vids
+šVid
 ){
 
-152 
+162 
 cŸi
 .
 	`push_back
@@ -1251,18 +1347,18 @@ cŸi
 id
 );
 
-156 
+166 
 	}
 }
 
-162 
+168 
 boŞ
  
 	gCSR
 ::
 	$basicBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -1271,19 +1367,27 @@ of¡»am
 fhªdË
 ){
 
-164 
-»ad_by‹s
+170 
+»adBy‹s
  = 0;
 
-165 
-wr™e_by‹s
+171 
+wr™eBy‹s
  = 0;
 
-167 
+172 
+»adBur¡s
+ = 0;
+
+173 
+wr™eBur¡s
+ = 0;
+
+175 
 Ëv–
  = 0;
 
-168 
+176 
 ¡d
 ::
 veùÜ
@@ -1291,15 +1395,15 @@ veùÜ
 d•th
 ;
 
-169 
+177 
 d•th
 .
 	`»size
 (
-v_num
+vNum
 );
 
-170 
+178 
 ¡d
 ::
 	`fl
@@ -1311,13 +1415,13 @@ d•th
 	`’d
 (), -1);
 
-172 
+180 
 d•th
 [
-¡¬t_idx
+¡¬tIdx
 ] = 0;
 
-173 
+181 
 ¡d
 ::
 veùÜ
@@ -1325,53 +1429,77 @@ veùÜ
 äÚt›r
 ;
 
-174 
+182 
 äÚt›r
 .
 	`push_back
 (
-¡¬t_idx
+¡¬tIdx
 );
 
-175 
+183 
 ¡d
 ::
 veùÜ
 <
 size_t
 > 
-äÚt›r_di¡ributiÚ
+äÚt›rDi¡
 ;
 
-177 !
+185 !
 äÚt›r
 .
 	`em±y
 ()){
 
-178 
+186 
 ¡d
 ::
 veùÜ
 <> 
-Ãxt_äÚt›r
+ÃxtFrÚt›r
 ;
 
-181 autØ
+189 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(()
+äÚt›r
+.
+	`size
+(), 4);
+
+192 autØ
 vidx
  : 
 äÚt›r
 ){
 
-182 
-»ad_by‹s
+193 
+»adBy‹s
  += 4;
 
-184 
-»ad_by‹s
- += 4;
+194 
+»adBy‹s
+ += 4 * 2;
 
-185 
+195 
+»adBur¡s
+++;
+
+196 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+½ao
+[
+vidx
++1] -„pao[vidx], 4);
+
+197 
 cidx
  = 
 ½ao
@@ -1379,54 +1507,72 @@ cidx
 vidx
 ]; cidx <„pao[vidx+1]; cidx++){
 
-187 
-»ad_by‹s
+198 
+»adBy‹s
  += 4;
 
-188 
-out_ngb
+199 
+outNgb
  = 
 cŸo
 [
 cidx
 ];
 
-190 
-»ad_by‹s
+201 
+»adBy‹s
  += 1;
 
-191 if(
+202 
+»adBur¡s
+ += 1;
+
+203 if(
 d•th
 [
-out_ngb
+outNgb
 ] == -1){
 
-193 
-wr™e_by‹s
+205 
+wr™eBy‹s
  += 1;
 
-194 
+206 
+wr™eBur¡s
+ += 1;
+
+207 
 d•th
 [
-out_ngb
+outNgb
 ] = 
 Ëv–
  + 1;
 
-197 
-wr™e_by‹s
+210 
+wr™eBy‹s
  += 4;
 
-198 
-Ãxt_äÚt›r
+211 
+ÃxtFrÚt›r
 .
 	`push_back
 (
-out_ngb
+outNgb
 );
 
-204 
-äÚt›r_di¡ributiÚ
+215 
+wr™eBur¡s
+ +ğ
+	`g‘Bur¡Num
+(()
+ÃxtFrÚt›r
+.
+	`size
+(), 4);
+
+218 
+äÚt›rDi¡
 .
 	`push_back
 (
@@ -1435,29 +1581,33 @@ out_ngb
 	`size
 ());
 
-205 
+219 
 äÚt›r
  = 
-Ãxt_äÚt›r
+ÃxtFrÚt›r
 ;
 
-206 
+220 
 Ëv–
 ++;
 
-209 autØ
+223 autØ
 d
  : 
 d•th
 ){
 
-210 
+224 
 fhªdË
  << 
 d
- << " ";
+ << 
+¡d
+::
+’dl
+;
 
-212 
+226 
 fhªdË
  << 
 ¡d
@@ -1465,64 +1615,80 @@ fhªdË
 ’dl
 ;
 
-214 
+228 
 ¡d
 ::
 cout
  << "»ad/wr™by‹ " << 
-»ad_by‹s
+»adBy‹s
  << " " << 
-wr™e_by‹s
+wr™eBy‹s
  << std::
 ’dl
 ;
 
-216 
+229 
 ¡d
 ::
 cout
- << "äÚt›¸di¡ributiÚ: " << std::
+ << "»ad/wr™bur¡ " << 
+»adBur¡s
+ << " " << 
+wr™eBur¡s
+ << std::
 ’dl
 ;
 
-217 autØ
-num
- : 
-äÚt›r_di¡ributiÚ
-){
-
-218 
+231 
+fhªdË
+ << "äÚt›¸di¡ributiÚ: " << 
 ¡d
 ::
-cout
+’dl
+;
+
+232 autØ
+num
+ : 
+äÚt›rDi¡
+){
+
+233 
+fhªdË
  << 
 num
  << " ";
 
-220 
+235 
+fhªdË
+ << 
 ¡d
 ::
-cout
- << std::
 ’dl
 ;
 
-222  
+236 
+fhªdË
+.
+	`şo£
+();
+
+238  
 Œue
 ;
 
-223 
+239 
 	}
 }
 
-226 
+242 
 boŞ
  
 	gCSR
 ::
 	$tdBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -1531,19 +1697,27 @@ of¡»am
 fhªdË
 ){
 
-228 
-»ad_by‹s
+244 
+»adBy‹s
  = 0;
 
-229 
-wr™e_by‹s
+245 
+wr™eBy‹s
  = 0;
 
-231 
+246 
+»adBur¡s
+ = 0;
+
+247 
+wr™eBur¡s
+ = 0;
+
+249 
 Ëv–
  = 0;
 
-232 
+250 
 ¡d
 ::
 veùÜ
@@ -1551,15 +1725,15 @@ veùÜ
 d•th
 ;
 
-233 
+251 
 d•th
 .
 	`»size
 (
-v_num
+vNum
 );
 
-234 
+252 
 ¡d
 ::
 	`fl
@@ -1571,13 +1745,13 @@ d•th
 	`’d
 (), -1);
 
-235 
+253 
 d•th
 [
-¡¬t_idx
+¡¬tIdx
 ] = 0;
 
-237 
+255 
 ¡d
 ::
 veùÜ
@@ -1585,39 +1759,57 @@ veùÜ
 äÚt›r
 ;
 
-238 
+256 
 ¡d
 ::
 veùÜ
 <
 size_t
 > 
-äÚt›r_di¡ributiÚ
+äÚt›rDi¡
 ;
 
-239 
+257 
 boŞ
  
-’d_of_bfs
+eofBfs
 ;
 
-242 
+260 
+fhªdË
+ << "Lev– = " << 
+Ëv–
+ << 
+¡d
+::
+’dl
+;
+
+261 
 äÚt›r
 .
 	`ş—r
 ();
 
-245 
+262 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+vNum
+, 1);
+
+263 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-246 
-»ad_by‹s
+264 
+»adBy‹s
  += 1;
 
-247 if(
+265 if(
 d•th
 [
 idx
@@ -1625,11 +1817,7 @@ idx
 Ëv–
 ){
 
-248 
-wr™e_by‹s
- += 4;
-
-249 
+266 
 äÚt›r
 .
 	`push_back
@@ -1637,41 +1825,45 @@ wr™e_by‹s
 idx
 );
 
-255 autØ
-Œav”£
- = [&
-d•th
-, 
-Ëv–
-, &
-»ad_by‹s
-, &
-wr™e_by‹s
-, 
-this
-](cÚ¡ 
+267 
+fhªdË
+ << 
+idx
+ << " ";
+
+270 
+fhªdË
+ << 
 ¡d
 ::
-veùÜ
-<> &
-äÚt›r
-){
+’dl
+ << std::endl;
 
-256 autØ
+271 autØ
 vidx
  : 
 äÚt›r
 ){
 
-257 
-»ad_by‹s
- += 4;
+272 
+»adBy‹s
+ += 4 * 2;
 
-258 
-»ad_by‹s
- += 4;
+273 
+»adBur¡s
+ += 1;
 
-259 
+274 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+½ao
+[
+vidx
++1] -„pao[vidx], 4);
+
+275 
 cidx
  = 
 ½ao
@@ -1679,48 +1871,50 @@ cidx
 vidx
 ]; cidx <„pao[vidx+1]; cidx++){
 
-261 
-»ad_by‹s
+277 
+»adBy‹s
  += 4;
 
-262 
-out_ngb
+278 
+outNgb
  = 
 cŸo
 [
 cidx
 ];
 
-264 
-»ad_by‹s
+280 
+»adBy‹s
  += 1;
 
-265 if(
+281 
+»adBur¡s
+ += 1;
+
+282 if(
 d•th
 [
-out_ngb
+outNgb
 ] == -1){
 
-267 
-wr™e_by‹s
+284 
+wr™eBy‹s
  += 1;
 
-268 
+285 
+wr™eBur¡s
+ += 1;
+
+286 
 d•th
 [
-out_ngb
+outNgb
 ] = 
 Ëv–
  + 1;
 
-273 
-	`Œav”£
-(
-äÚt›r
-);
-
-274 
-äÚt›r_di¡ributiÚ
+290 
+äÚt›rDi¡
 .
 	`push_back
 (
@@ -1729,35 +1923,47 @@ out_ngb
 	`size
 ());
 
-277 
+293 
 Ëv–
 ++;
 
-278 
-’d_of_bfs
+294 
+eofBfs
  = 
 äÚt›r
 .
 	`em±y
 ();
 
-280 } !
-’d_of_bfs
+296 } !
+eofBfs
 );
 
-283 autØ
+299 
+fhªdË
+ << "d•th: " << 
+¡d
+::
+’dl
+;
+
+300 autØ
 d
  : 
 d•th
 ){
 
-284 
+301 
 fhªdË
  << 
 d
- << " ";
+ << 
+¡d
+::
+’dl
+;
 
-286 
+303 
 fhªdË
  << 
 ¡d
@@ -1765,64 +1971,74 @@ fhªdË
 ’dl
 ;
 
-288 
+305 
 ¡d
 ::
 cout
  << "»ad/wr™by‹s: " << 
-»ad_by‹s
+»adBy‹s
  << " " << 
-wr™e_by‹s
+wr™eBy‹s
  << std::
 ’dl
 ;
 
-289 
+306 
 ¡d
 ::
 cout
- << "äÚt›¸di¡ributiÚ: " << std::
+ << "»ad/wr™bur¡s: " << 
+»adBur¡s
+ << " " << 
+wr™eBur¡s
+ << std::
 ’dl
 ;
 
-290 autØ
-num
- : 
-äÚt›r_di¡ributiÚ
-){
-
-291 
+308 
+fhªdË
+ << "äÚt›¸di¡ributiÚ: " << 
 ¡d
 ::
-cout
+’dl
+;
+
+309 autØ
+num
+ : 
+äÚt›rDi¡
+){
+
+310 
+fhªdË
  << 
 num
  << " ";
 
-293 
+312 
+fhªdË
+ << 
 ¡d
 ::
-cout
- << std::
 ’dl
 ;
 
-296  
+314  
 Œue
 ;
 
-297 
+315 
 	}
 }
 
-300 
+318 
 boŞ
  
 	gCSR
 ::
 	$buBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -1831,19 +2047,27 @@ of¡»am
 fhªdË
 ){
 
-302 
-»ad_by‹s
+320 
+»adBy‹s
  = 0;
 
-303 
-wr™e_by‹s
+321 
+wr™eBy‹s
  = 0;
 
-305 
+322 
+»adBur¡s
+ = 0;
+
+323 
+wr™eBur¡s
+ = 0;
+
+325 
 Ëv–
  = 0;
 
-306 
+326 
 ¡d
 ::
 veùÜ
@@ -1851,15 +2075,15 @@ veùÜ
 d•th
 ;
 
-307 
+327 
 d•th
 .
 	`»size
 (
-v_num
+vNum
 );
 
-308 
+328 
 ¡d
 ::
 	`fl
@@ -1871,13 +2095,13 @@ d•th
 	`’d
 (), -1);
 
-309 
+329 
 d•th
 [
-¡¬t_idx
+¡¬tIdx
 ] = 0;
 
-311 
+331 
 ¡d
 ::
 veùÜ
@@ -1885,47 +2109,51 @@ veùÜ
 äÚt›r
 ;
 
-312 
+332 
 ¡d
 ::
 veùÜ
 <
 size_t
 > 
-äÚt›r_di¡ributiÚ
+äÚt›rDi¡
 ;
 
-314 
-vis™ed_ngb_num
+334 
+vis™edNgbNum
 ;
 
-315 
+335 
 boŞ
  
-’d_of_bfs
+eofBfs
 ;
 
-318 
+338 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+vNum
+, 1);
+
+339 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-319 
-»ad_by‹s
+340 
+»adBy‹s
  += 1;
 
-320 if(
+341 if(
 d•th
 [
 idx
 ] == -1){
 
-321 
-wr™e_by‹s
- += 4;
-
-322 
+342 
 äÚt›r
 .
 	`push_back
@@ -1933,47 +2161,35 @@ wr™e_by‹s
 idx
 );
 
-329 
-vis™ed_ngb_num
+349 
+vis™edNgbNum
  = 0;
 
-330 autØ
-Œav”£
- = [&
-d•th
-, &
-vis™ed_ngb_num
-, &
-»ad_by‹s
-, &
-wr™e_by‹s
-, 
-Ëv–
-, 
-this
-](cÚ¡ 
-¡d
-::
-veùÜ
-<> &
-äÚt›r
-){
-
-331 autØ
+350 autØ
 vidx
  : 
 äÚt›r
 ){
 
-332 
-»ad_by‹s
- += 4;
+351 
+»adBy‹s
+ += 4 * 2;
 
-333 
-»ad_by‹s
- += 4;
+352 
+»adBur¡s
+ += 1;
 
-334 
+354 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+½ai
+[
+vidx
++1] -„pai[vidx], 4);
+
+355 
 cidx
  = 
 ½ai
@@ -1981,35 +2197,39 @@ cidx
 vidx
 ]; cidx <„pai[vidx+1]; cidx++){
 
-336 
-»ad_by‹s
+357 
+»adBy‹s
  += 4;
 
-337 
-š_ngb
+358 
+šNgb
  = 
 cŸi
 [
 cidx
 ];
 
-339 
-»ad_by‹s
+360 
+»adBy‹s
  += 1;
 
-340 if(
+361 
+»adBur¡s
+ += 1;
+
+362 if(
 d•th
 [
-š_ngb
+šNgb
 ] =ğ
 Ëv–
 ){
 
-342 
-wr™e_by‹s
+364 
+wr™eBy‹s
  += 1;
 
-343 
+365 
 d•th
 [
 vidx
@@ -2017,18 +2237,16 @@ vidx
 Ëv–
  + 1;
 
-344 
-vis™ed_ngb_num
+366 
+wr™eBur¡s
+ += 1;
+
+367 
+vis™edNgbNum
 ++;
 
-350 
-	`Œav”£
-(
-äÚt›r
-);
-
-351 
-äÚt›r_di¡ributiÚ
+372 
+äÚt›rDi¡
 .
 	`push_back
 (
@@ -2037,43 +2255,47 @@ vis™ed_ngb_num
 	`size
 ());
 
-354 
+375 
 Ëv–
 ++;
 
-355 
-’d_of_bfs
+376 
+eofBfs
  = 
 äÚt›r
 .
 	`em±y
 (è|| (
-vis™ed_ngb_num
+vis™edNgbNum
  == 0);
 
-356 
+377 
 äÚt›r
 .
 	`ş—r
 ();
 
-358 } !
-’d_of_bfs
+379 } !
+eofBfs
 );
 
-360 autØ
+381 autØ
 d
  : 
 d•th
 ){
 
-361 
+382 
 fhªdË
  << 
 d
- << " ";
+ << 
+¡d
+::
+’dl
+;
 
-363 
+384 
 fhªdË
  << 
 ¡d
@@ -2081,64 +2303,74 @@ fhªdË
 ’dl
 ;
 
-365 
+386 
 ¡d
 ::
 cout
  << "»ad/wr™by‹s: " << 
-»ad_by‹s
+»adBy‹s
  << " " << 
-wr™e_by‹s
+wr™eBy‹s
  << std::
 ’dl
 ;
 
-366 
+387 
 ¡d
 ::
 cout
- << "äÚt›¸di¡ributiÚ: " << std::
+ << "»ad/wr™bur¡s: " << 
+»adBur¡s
+ << " " << 
+wr™eBur¡s
+ << std::
 ’dl
 ;
 
-367 autØ
-num
- : 
-äÚt›r_di¡ributiÚ
-){
-
-368 
+389 
+fhªdË
+ << "äÚt›¸di¡ributiÚ: " << 
 ¡d
 ::
-cout
+’dl
+;
+
+390 autØ
+num
+ : 
+äÚt›rDi¡
+){
+
+391 
+fhªdË
  << 
 num
  << " ";
 
-370 
+393 
+fhªdË
+ << 
 ¡d
 ::
-cout
- << std::
 ’dl
 ;
 
-373  
+395  
 Œue
 ;
 
-375 
+397 
 	}
 }
 
-477 
+399 
 boŞ
  
 	gCSR
 ::
 	$hybridBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -2147,19 +2379,27 @@ of¡»am
 fhªdË
 ){
 
-478 
-»ad_by‹s
+400 
+»adBy‹s
  = 0;
 
-479 
-wr™e_by‹s
+401 
+wr™eBy‹s
  = 0;
 
-481 
+402 
+»adBur¡s
+ = 0;
+
+403 
+wr™eBur¡s
+ = 0;
+
+405 
 Ëv–
  = 0;
 
-482 
+406 
 ¡d
 ::
 veùÜ
@@ -2167,15 +2407,15 @@ veùÜ
 d•th
 ;
 
-483 
+407 
 d•th
 .
 	`»size
 (
-v_num
+vNum
 );
 
-484 
+408 
 ¡d
 ::
 	`fl
@@ -2187,13 +2427,13 @@ d•th
 	`’d
 (), -1);
 
-485 
+409 
 d•th
 [
-¡¬t_idx
+¡¬tIdx
 ] = 0;
 
-487 
+411 
 ¡d
 ::
 veùÜ
@@ -2201,91 +2441,99 @@ veùÜ
 äÚt›r
 ;
 
-488 
+412 
 ¡d
 ::
 veùÜ
 <
 size_t
 > 
-äÚt›r_di¡ributiÚ
+äÚt›rDi¡
 ;
 
-489 
+413 
 ¡d
 ::
 veùÜ
 <> 
-äÚt›r_hub_v”‹x
+äÚt›rHubV”‹x
 ;
 
-490 
+414 
 ¡d
 ::
 veùÜ
 <
 boŞ
 > 
-bfs_ty³
+bfsTy³
 ;
 
-491 
-tÙ®_hub_v”‹x_num
+415 
+tÙ®HubV”‹xNum
  = 
 	`g‘HubV”‹xNum
 ();
 
-492 
-vis™ed_ngb_num
+416 
+vis™edNgbNum
  = 0;
 
-493 
+417 
 boŞ
  
-tİ_down
+tİDown
  = 
 Œue
 ;
 
-494 
+418 
 boŞ
  
-’d_of_bfs
+eofBfs
 ;
 
-498 
+422 
 äÚt›r
 .
 	`ş—r
 ();
 
-499 
-bfs_ty³
+423 
+bfsTy³
 .
 	`push_back
 (
-tİ_down
+tİDown
 );
 
-502 
-äÚt›r_hub_v”‹x_num
+426 
+äÚt›rHubV”‹xNum
  = 0;
 
-503 if(
-tİ_down
+427 if(
+tİDown
 ){
 
-504 
+428 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+vNum
+, 1);
+
+429 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-505 
-»ad_by‹s
+430 
+»adBy‹s
  += 1;
 
-506 if(
+431 if(
 d•th
 [
 idx
@@ -2293,11 +2541,7 @@ idx
 Ëv–
 ){
 
-507 
-wr™e_by‹s
- += 4;
-
-508 
+432 
 äÚt›r
 .
 	`push_back
@@ -2305,27 +2549,31 @@ wr™e_by‹s
 idx
 );
 
-514 
+437 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+vNum
+, 1);
+
+438 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-515 
-»ad_by‹s
+439 
+»adBy‹s
  += 1;
 
-516 if(
+440 if(
 d•th
 [
 idx
 ] == -1){
 
-517 
-wr™e_by‹s
- += 4;
-
-518 
+441 
 äÚt›r
 .
 	`push_back
@@ -2333,47 +2581,25 @@ wr™e_by‹s
 idx
 );
 
-524 if(
-tİ_down
+446 if(
+tİDown
 ){
 
-526 autØ
-Œav”£
- = [&
-äÚt›r_hub_v”‹x_num
-, &
-d•th
-, 
-Ëv–
-, &
-»ad_by‹s
-, &
-wr™e_by‹s
-, 
-this
-](cÚ¡ 
-¡d
-::
-veùÜ
-<> &
-äÚt›r
-){
-
-527 autØ
+447 autØ
 vidx
  : 
 äÚt›r
 ){
 
-528 
-»ad_by‹s
- += 4;
+448 
+»adBy‹s
+ += 4 * 2;
 
-530 
-»ad_by‹s
- += 4;
+449 
+»adBur¡s
+ += 1;
 
-531 
+450 
 deg»e
  = 
 ½ao
@@ -2381,17 +2607,27 @@ deg»e
 vidx
 +1] -„pao[vidx];
 
-533 if(
+452 if(
 deg»e
  >ğ
-hub_v”‹x_th»shŞd
+hubV”‹xTh»shŞd
 ){
 
-534 
-äÚt›r_hub_v”‹x_num
+453 
+äÚt›rHubV”‹xNum
 ++;
 
-537 
+456 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+½ao
+[
+vidx
++1] -„pao[vidx], 4);
+
+457 
 cidx
  = 
 ½ao
@@ -2399,89 +2635,67 @@ cidx
 vidx
 ]; cidx <„pao[vidx+1]; cidx++){
 
-539 
-»ad_by‹s
+458 
+»adBy‹s
  += 4;
 
-540 
-out_ngb
+459 
+outNgb
  = 
 cŸo
 [
 cidx
 ];
 
-542 
-»ad_by‹s
+461 
+»adBy‹s
  += 1;
 
-543 if(
+462 
+»adBur¡s
+ += 1;
+
+463 if(
 d•th
 [
-out_ngb
+outNgb
 ] == -1){
 
-545 
-wr™e_by‹s
+464 
+wr™eBy‹s
  += 1;
 
-546 
+465 
+wr™eBur¡s
+ += 1;
+
+466 
 d•th
 [
-out_ngb
+outNgb
 ] = 
 Ëv–
  + 1;
 
-551 
-	`Œav”£
-(
-äÚt›r
-);
-
-557 
-vis™ed_ngb_num
+475 
+vis™edNgbNum
  = 0;
 
-558 autØ
-Œav”£
- = [&
-äÚt›r_hub_v”‹x_num
-, &
-d•th
-, &
-vis™ed_ngb_num
-, &
-»ad_by‹s
-, &
-wr™e_by‹s
-, 
-Ëv–
-, 
-this
-](cÚ¡ 
-¡d
-::
-veùÜ
-<> &
-äÚt›r
-){
-
-559 autØ
+476 autØ
 vidx
  : 
 äÚt›r
 ){
 
-560 
-»ad_by‹s
- += 4;
+477 
+»adBy‹s
+ += 4 * 2;
 
-561 
-»ad_by‹s
- += 4;
+478 
+»adBur¡s
+ += 1;
 
-562 
+479 
 deg»e
  = 
 ½ai
@@ -2489,7 +2703,17 @@ deg»e
 vidx
 +1] -„pai[vidx];
 
-564 
+481 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+½ai
+[
+vidx
++1] -„pai[vidx], 4);
+
+482 
 cidx
  = 
 ½ai
@@ -2497,45 +2721,53 @@ cidx
 vidx
 ]; cidx <„pai[vidx+1]; cidx++){
 
-565 
-»ad_by‹s
+483 
+»adBy‹s
  += 4;
 
-566 
-š_ngb
+484 
+šNgb
  = 
 cŸi
 [
 cidx
 ];
 
-568 
-»ad_by‹s
+486 
+»adBy‹s
  += 1;
 
-569 if(
+487 
+»adBur¡s
+ += 1;
+
+488 if(
 d•th
 [
-š_ngb
+šNgb
 ] =ğ
 Ëv–
 ){
 
-571 if(
+489 if(
 deg»e
  >ğ
-hub_v”‹x_th»shŞd
+hubV”‹xTh»shŞd
 ){
 
-572 
-äÚt›r_hub_v”‹x_num
+490 
+äÚt›rHubV”‹xNum
 ++;
 
-575 
-wr™e_by‹s
+492 
+wr™eBy‹s
  += 1;
 
-576 
+493 
+wr™eBur¡s
+ += 1;
+
+494 
 d•th
 [
 vidx
@@ -2543,18 +2775,12 @@ vidx
 Ëv–
  + 1;
 
-577 
-vis™ed_ngb_num
+495 
+vis™edNgbNum
 ++;
 
-584 
-	`Œav”£
-(
-äÚt›r
-);
-
-588 
-äÚt›r_di¡ributiÚ
+504 
+äÚt›rDi¡
 .
 	`push_back
 (
@@ -2563,87 +2789,87 @@ vis™ed_ngb_num
 	`size
 ());
 
-589 
-äÚt›r_hub_v”‹x
+505 
+äÚt›rHubV”‹x
 .
 	`push_back
 (
-äÚt›r_hub_v”‹x_num
+äÚt›rHubV”‹xNum
 );
 
-592 
+508 
 Ëv–
 ++;
 
-593 
-’d_of_bfs
+509 
+eofBfs
  = 
 äÚt›r
 .
 	`em±y
 (è|| (
-tİ_down
+tİDown
  =ğ
 çl£
  && 
-vis™ed_ngb_num
+vis™edNgbNum
  == 0);
 
-594 
-hub_³rûÁage
+510 
+hubP”ûÁage
  = 
-äÚt›r_hub_v”‹x_num
+äÚt›rHubV”‹xNum
  * 1.0 / 
-tÙ®_hub_v”‹x_num
+tÙ®HubV”‹xNum
 ;
 
-595 if(
-tİ_down
+511 if(
+tİDown
  && 
-hub_³rûÁage
+hubP”ûÁage
  >ğ
 ®pha
 ){
 
-596 
-tİ_down
+512 
+tİDown
  = 
 çl£
 ;
 
-598 if(
-tİ_down
+514 if(
+tİDown
  =ğ
 çl£
  && 
-vis™ed_ngb_num
+vis™edNgbNum
  <ğ
 b‘a
 ){
 
-599 
-tİ_down
+515 
+tİDown
  = 
 Œue
 ;
 
-602 } !
-’d_of_bfs
+518 } !
+eofBfs
 );
 
-605 autØ
+521 autØ
 d
  : 
 d•th
 ){
 
-606 
+522 
 fhªdË
  << 
 d
  << " ";
 
-608 
+524 
 fhªdË
  << 
 ¡d
@@ -2651,89 +2877,97 @@ fhªdË
 ’dl
 ;
 
-610 
+526 
 ¡d
 ::
 cout
  << "»ad/wr™by‹s: " << 
-»ad_by‹s
+»adBy‹s
  << " " << 
-wr™e_by‹s
+wr™eBy‹s
  << std::
 ’dl
 ;
 
-612 
+527 
 ¡d
 ::
 cout
- << "bf ty³: " << std::
+ << "»ad/wr™bur¡s: " << 
+»adBur¡s
+ << " " << 
+wr™eBur¡s
+ << std::
 ’dl
 ;
 
-613 autØ
-s
- : 
-bfs_ty³
-){
-
-614 
+529 
+fhªdË
+ << "bf ty³: " << 
 ¡d
 ::
-cout
+’dl
+;
+
+530 autØ
+s
+ : 
+bfsTy³
+){
+
+531 
+fhªdË
  << 
 s
  << " ";
 
-616 
+533 
+fhªdË
+ << 
 ¡d
 ::
-cout
- << std::
 ’dl
 ;
 
-618 
+535 
+fhªdË
+ << "äÚt›¸di¡ributiÚ: " << 
 ¡d
 ::
-cout
- << "äÚt›¸di¡ributiÚ: " << std::
 ’dl
 ;
 
-619 autØ
+536 autØ
 num
  : 
-äÚt›r_di¡ributiÚ
+äÚt›rDi¡
 ){
 
-620 
-¡d
-::
-cout
+537 
+fhªdË
  << 
 num
  << " ";
 
-622 
+539 
+fhªdË
+ << 
 ¡d
 ::
-cout
- << std::
 ’dl
 ;
 
-624 
+541 
 ¡d
 ::
 cout
  << "tÙ® hub v”‹x‡mouÁ: " << 
-tÙ®_hub_v”‹x_num
+tÙ®HubV”‹xNum
  << std::
 ’dl
 ;
 
-625 
+542 
 ¡d
 ::
 cout
@@ -2741,13 +2975,13 @@ cout
 ’dl
 ;
 
-626 autØ
+543 autØ
 num
  : 
-äÚt›r_hub_v”‹x
+äÚt›rHubV”‹x
 ){
 
-627 
+544 
 ¡d
 ::
 cout
@@ -2755,7 +2989,7 @@ cout
 num
  << " ";
 
-629 
+546 
 ¡d
 ::
 cout
@@ -2763,22 +2997,22 @@ cout
 ’dl
 ;
 
-632  
+548  
 Œue
 ;
 
-633 
+549 
 	}
 }
 
-637 
+553 
 boŞ
  
 	gCSR
 ::
 	$ÿcheHybridBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -2787,19 +3021,27 @@ of¡»am
 fhªdË
 ){
 
-638 
-»ad_by‹s
+554 
+»adBy‹s
  = 0;
 
-639 
-wr™e_by‹s
+555 
+wr™eBy‹s
  = 0;
 
-641 
+556 
+»adBur¡s
+ = 0;
+
+557 
+wr™eBur¡s
+ = 0;
+
+559 
 Ëv–
  = 0;
 
-642 
+560 
 ¡d
 ::
 veùÜ
@@ -2807,15 +3049,15 @@ veùÜ
 d•th
 ;
 
-643 
+561 
 d•th
 .
 	`»size
 (
-v_num
+vNum
 );
 
-644 
+562 
 ¡d
 ::
 	`fl
@@ -2827,13 +3069,13 @@ d•th
 	`’d
 (), -1);
 
-645 
+563 
 d•th
 [
-¡¬t_idx
+¡¬tIdx
 ] = 0;
 
-647 
+565 
 ¡d
 ::
 veùÜ
@@ -2841,81 +3083,89 @@ veùÜ
 äÚt›r
 ;
 
-648 
+566 
 ¡d
 ::
 veùÜ
 <
 size_t
 > 
-äÚt›r_di¡ributiÚ
+äÚt›rDi¡
 ;
 
-649 
-tÙ®_hub_v”‹x_num
+567 
+tÙ®HubV”‹xNum
  = 
 	`g‘HubV”‹xNum
 ();
 
-650 
-vis™ed_ngb_num
+568 
+vis™edNgbNum
  = 0;
 
-651 
+569 
 boŞ
  
-tİ_down
+tİDown
  = 
 Œue
 ;
 
-652 
+570 
 boŞ
  
-’d_of_bfs
+eofBfs
 ;
 
-654 
+572 
 ¡d
 ::
 veùÜ
 <> 
-pšg_bufãr
+pšgBufãr
 ;
 
-655 
+573 
 ¡d
 ::
 veùÜ
 <> 
-pÚg_bufãr
+pÚgBufãr
 ;
 
-659 
+577 
 äÚt›r
 .
 	`ş—r
 ();
 
-662 
-äÚt›r_hub_v”‹x_num
+580 
+äÚt›rHubV”‹xNum
  = 0;
 
-663 if(
-tİ_down
+581 if(
+tİDown
 ){
 
-664 
+582 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+vNum
+, 1);
+
+583 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-665 
-»ad_by‹s
+584 
+»adBy‹s
  += 1;
 
-666 if(
+585 if(
 d•th
 [
 idx
@@ -2923,11 +3173,7 @@ idx
 Ëv–
 ){
 
-667 
-wr™e_by‹s
- += 4;
-
-668 
+586 
 äÚt›r
 .
 	`push_back
@@ -2935,27 +3181,31 @@ wr™e_by‹s
 idx
 );
 
-673 
+591 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+vNum
+, 1);
+
+592 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-674 
-»ad_by‹s
+593 
+»adBy‹s
  += 1;
 
-675 if(
+594 if(
 d•th
 [
 idx
 ] == -1){
 
-676 
-wr™e_by‹s
- += 4;
-
-677 
+595 
 äÚt›r
 .
 	`push_back
@@ -2963,49 +3213,55 @@ wr™e_by‹s
 idx
 );
 
-683 if(
-tİ_down
-){
-
-685 autØ
-Œav”£
- = [&
-pšg_bufãr
-, &
-äÚt›r_hub_v”‹x_num
-, &
+597 if(
 d•th
-, 
+[
+idx
+] =ğ
 Ëv–
-, &
-»ad_by‹s
-, &
-wr™e_by‹s
-, 
-this
-](cÚ¡ 
-¡d
-::
-veùÜ
-<> &
-äÚt›r
 ){
 
-686 autØ
+598 
+deg»e
+ = 
+½ao
+[
+idx
++1] -„pao[idx];
+
+599 if(
+deg»e
+ >ğ
+ÿcheTh»shŞd
+){
+
+600 
+pšgBufãr
+.
+	`push_back
+(
+idx
+);
+
+607 if(
+tİDown
+){
+
+608 autØ
 vidx
  : 
 äÚt›r
 ){
 
-687 
-»ad_by‹s
- += 4;
+609 
+»adBy‹s
+ += 4 * 2;
 
-688 
-»ad_by‹s
- += 4;
+610 
+»adBur¡s
+ += 1;
 
-689 
+611 
 deg»e
  = 
 ½ao
@@ -3013,31 +3269,41 @@ deg»e
 vidx
 +1] -„pao[vidx];
 
-691 if(
+612 if(
 deg»e
  >ğ
-hub_v”‹x_th»shŞd
+hubV”‹xTh»shŞd
 ){
 
-692 
-äÚt›r_hub_v”‹x_num
+613 
+äÚt›rHubV”‹xNum
 ++;
 
-694 if(
+615 if(
 deg»e
  >ğ
-ÿche_th»shŞd
+ÿcheTh»shŞd
 ){
 
-695 
-pšg_bufãr
+616 
+pšgBufãr
 .
 	`push_back
 (
 vidx
 );
 
-698 
+619 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+½ao
+[
+vidx
++1] -„pao[vidx], 4);
+
+620 
 cidx
  = 
 ½ao
@@ -3045,105 +3311,83 @@ cidx
 vidx
 ]; cidx <„pao[vidx+1]; cidx++){
 
-700 
-»ad_by‹s
+622 
+»adBy‹s
  += 4;
 
-701 
-out_ngb
+623 
+outNgb
  = 
 cŸo
 [
 cidx
 ];
 
-703 if(
+625 if(
 	`isInBufãr
 (
-pšg_bufãr
+pšgBufãr
 , 
-out_ngb
+outNgb
 )){
 
-706 if(
+628 if(
 d•th
 [
-out_ngb
+outNgb
 ] == -1){
 
-707 
-»ad_by‹s
+629 
+»adBy‹s
  += 1;
 
-708 
-wr™e_by‹s
+630 
+wr™eBy‹s
  += 1;
 
-709 
+631 
+»adBur¡s
+ += 1;
+
+632 
+wr™eBur¡s
+ += 1;
+
+633 
 d•th
 [
-out_ngb
+outNgb
 ] = 
 Ëv–
  + 1;
 
-712 
-»ad_by‹s
+636 
+»adBy‹s
  += 1;
 
-717 
-	`Œav”£
-(
-äÚt›r
-);
+637 
+»adBur¡s
+ += 1;
 
-723 
-vis™ed_ngb_num
+644 
+vis™edNgbNum
  = 0;
 
-724 autØ
-Œav”£
- = [&
-pšg_bufãr
-, &
-pÚg_bufãr
-, &
-äÚt›r_hub_v”‹x_num
-, &
-d•th
-, &
-vis™ed_ngb_num
-, &
-»ad_by‹s
-, &
-wr™e_by‹s
-, 
-Ëv–
-, 
-this
-](cÚ¡ 
-¡d
-::
-veùÜ
-<> &
-äÚt›r
-){
-
-725 autØ
+645 autØ
 vidx
  : 
 äÚt›r
 ){
 
-726 
-»ad_by‹s
- += 4;
+646 
+»adBy‹s
+ += 4 * 2;
 
-727 
-»ad_by‹s
- += 4;
+647 
+»adBur¡s
+ += 1;
 
-728 
+648 
 deg»e
  = 
 ½ai
@@ -3151,7 +3395,17 @@ deg»e
 vidx
 +1] -„pai[vidx];
 
-730 
+650 
+»adBur¡s
+ +ğ
+	`g‘Bur¡Num
+(
+½ai
+[
+vidx
++1] -„pai[vidx], 4);
+
+651 
 cidx
  = 
 ½ai
@@ -3159,31 +3413,35 @@ cidx
 vidx
 ]; cidx <„pai[vidx+1]; cidx++){
 
-731 
-»ad_by‹s
+652 
+»adBy‹s
  += 4;
 
-732 
-š_ngb
+653 
+šNgb
  = 
 cŸi
 [
 cidx
 ];
 
-734 if(
+655 if(
 	`isInBufãr
 (
-pšg_bufãr
+pšgBufãr
 , 
-š_ngb
+šNgb
 )){
 
-735 
-wr™e_by‹s
+656 
+wr™eBy‹s
  += 1;
 
-736 
+657 
+wr™eBur¡s
+ += 1;
+
+658 
 d•th
 [
 vidx
@@ -3191,51 +3449,59 @@ vidx
 Ëv–
  + 1;
 
-737 if(
+659 if(
 deg»e
  >ğ
-hub_v”‹x_th»shŞd
+hubV”‹xTh»shŞd
 ){
 
-738 
-äÚt›r_hub_v”‹x_num
+660 
+äÚt›rHubV”‹xNum
 ++;
 
-740 if(
+662 if(
 deg»e
  >ğ
-ÿche_th»shŞd
+ÿcheTh»shŞd
 ){
 
-741 
-pÚg_bufãr
+663 
+pÚgBufãr
 .
 	`push_back
 (
 vidx
 );
 
-743 
-vis™ed_ngb_num
+665 
+vis™edNgbNum
 ++;
 
-746 if(
+668 if(
 d•th
 [
-š_ngb
+šNgb
 ] =ğ
 Ëv–
 ){
 
-747 
-»ad_by‹s
+669 
+»adBy‹s
  += 1;
 
-748 
-wr™e_by‹s
+670 
+wr™eBy‹s
  += 1;
 
-749 
+671 
+wr™eBur¡s
+ += 1;
+
+672 
+»adBur¡s
+ += 1;
+
+673 
 d•th
 [
 vidx
@@ -3243,46 +3509,44 @@ vidx
 Ëv–
  + 1;
 
-750 if(
+674 if(
 deg»e
  >ğ
-hub_v”‹x_th»shŞd
+hubV”‹xTh»shŞd
 ){
 
-751 
-äÚt›r_hub_v”‹x_num
+675 
+äÚt›rHubV”‹xNum
 ++;
 
-753 if(
+677 if(
 deg»e
  >ğ
-ÿche_th»shŞd
+ÿcheTh»shŞd
 ){
 
-754 
-pÚg_bufãr
+678 
+pÚgBufãr
 .
 	`push_back
 (
 vidx
 );
 
-756 
-vis™ed_ngb_num
+680 
+vis™edNgbNum
 ++;
 
-760 
-»ad_by‹s
+684 
+»adBy‹s
  += 1;
 
-766 
-	`Œav”£
-(
-äÚt›r
-);
+685 
+»adBur¡s
+ += 1;
 
-770 
-äÚt›r_di¡ributiÚ
+691 
+äÚt›rDi¡
 .
 	`push_back
 (
@@ -3291,109 +3555,109 @@ vis™ed_ngb_num
 	`size
 ());
 
-773 
+694 
 Ëv–
 ++;
 
-774 
-’d_of_bfs
+695 
+eofBfs
  = 
 äÚt›r
 .
 	`em±y
 (è|| (
-tİ_down
+tİDown
  =ğ
 çl£
  && 
-vis™ed_ngb_num
+vis™edNgbNum
  == 0);
 
-775 
-hub_³rûÁage
+696 
+hubP”ûÁage
  = 
-äÚt›r_hub_v”‹x_num
+äÚt›rHubV”‹xNum
  * 1.0 / 
-tÙ®_hub_v”‹x_num
+tÙ®HubV”‹xNum
 ;
 
-776 if(
-tİ_down
+697 if(
+tİDown
  && 
-hub_³rûÁage
+hubP”ûÁage
  >ğ
 ®pha
 ){
 
-777 
-tİ_down
+698 
+tİDown
  = 
 çl£
 ;
 
-779 if(
-tİ_down
+700 if(
+tİDown
  =ğ
 çl£
  && 
-vis™ed_ngb_num
+vis™edNgbNum
  <ğ
 b‘a
 ){
 
-780 
-tİ_down
+701 
+tİDown
  = 
 Œue
 ;
 
-781 
-pšg_bufãr
+702 
+pšgBufãr
  = 
-pÚg_bufãr
+pÚgBufãr
 ;
 
-782 
-pÚg_bufãr
+703 
+pÚgBufãr
 .
 	`ş—r
 ();
 
-784 if(
-tİ_down
+705 if(
+tİDown
  =ğ
 çl£
 ){
 
-785 
-pšg_bufãr
+706 
+pšgBufãr
  = 
-pÚg_bufãr
+pÚgBufãr
 ;
 
-786 
-pÚg_bufãr
+707 
+pÚgBufãr
 .
 	`ş—r
 ();
 
-790 } !
-’d_of_bfs
+711 } !
+eofBfs
 );
 
-793 autØ
+714 autØ
 d
  : 
 d•th
 ){
 
-794 
+715 
 fhªdË
  << 
 d
  << " ";
 
-796 
+717 
 fhªdË
  << 
 ¡d
@@ -3401,141 +3665,151 @@ fhªdË
 ’dl
 ;
 
-798 
+719 
 ¡d
 ::
 cout
  << "»ad/wr™by‹s: " << 
-»ad_by‹s
+»adBy‹s
  << " " << 
-wr™e_by‹s
+wr™eBy‹s
  << std::
 ’dl
 ;
 
-799 
+720 
 ¡d
 ::
 cout
- << "äÚt›¸di¡ributiÚ: " << std::
+ << "»ad/wr™bur¡s: " << 
+»adBur¡s
+ << " " << 
+wr™eBur¡s
+ << std::
 ’dl
 ;
 
-800 autØ
-num
- : 
-äÚt›r_di¡ributiÚ
-){
-
-801 
+722 
+fhªdË
+ << "äÚt›¸di¡ributiÚ: " << 
 ¡d
 ::
-cout
+’dl
+;
+
+723 autØ
+num
+ : 
+äÚt›rDi¡
+){
+
+724 
+fhªdË
  << 
 num
  << " ";
 
-803 
+726 
+fhªdË
+ << 
 ¡d
 ::
-cout
- << std::
 ’dl
 ;
 
-805 
+728 
 	}
 }
 
-808 
+731 
 	gCSR
 ::
 	$deg»eAÇlysis
 (){
 
-810 
+733 
 ¡d
 ::
 m­
 <, > 
-š_deg»e_di¡ributiÚ
+šDegDi¡
 ;
 
-811 
+734 
 ¡d
 ::
 m­
 <, > 
-out_deg»e_di¡ributiÚ
+outDegDi¡
 ;
 
-812 
+735 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-813 
-out_deg»e
+736 
+outDeg»e
  = 
 ½ao
 [
 idx
 +1] -„pao[idx];
 
-814 
-š_deg»e
+737 
+šDeg»e
  = 
 ½ai
 [
 idx
 +1] -„pai[idx];
 
-816 if(
-š_deg»e_di¡ributiÚ
+739 if(
+šDegDi¡
 .
 	`fšd
 (
-š_deg»e
-è=ğš_deg»e_di¡ributiÚ.
+šDeg»e
+è=ğšDegDi¡.
 	`’d
 ()){
 
-817 
-š_deg»e_di¡ributiÚ
+740 
+šDegDi¡
 [
-š_deg»e
+šDeg»e
 ] = 1;
 
-820 
-š_deg»e_di¡ributiÚ
+743 
+šDegDi¡
 [
-š_deg»e
+šDeg»e
 ]++;
 
-823 if(
-out_deg»e_di¡ributiÚ
+746 if(
+outDegDi¡
 .
 	`fšd
 (
-out_deg»e
-è=ğout_deg»e_di¡ributiÚ.
+outDeg»e
+è=ğoutDegDi¡.
 	`’d
 ()){
 
-824 
-out_deg»e_di¡ributiÚ
+747 
+outDegDi¡
 [
-out_deg»e
+outDeg»e
 ] = 1;
 
-827 
-out_deg»e_di¡ributiÚ
+750 
+outDegDi¡
 [
-out_deg»e
+outDeg»e
 ]++;
 
-831 
+754 
 ¡d
 ::
 cout
@@ -3543,17 +3817,17 @@ cout
 ’dl
 ;
 
-832 autØ
+755 autØ
 ™
  = 
-š_deg»e_di¡ributiÚ
+šDegDi¡
 .
 	`begš
-(); iˆ!ğš_deg»e_di¡ributiÚ.
+(); iˆ!ğšDegDi¡.
 	`’d
 (); it++){
 
-833 
+756 
 ¡d
 ::
 cout
@@ -3567,7 +3841,7 @@ fœ¡
 ’dl
 ;
 
-836 
+759 
 ¡d
 ::
 cout
@@ -3575,17 +3849,17 @@ cout
 ’dl
 ;
 
-837 autØ
+760 autØ
 ™
  = 
-out_deg»e_di¡ributiÚ
+outDegDi¡
 .
 	`begš
-(); iˆ!ğout_deg»e_di¡ributiÚ.
+(); iˆ!ğoutDegDi¡.
 	`’d
 (); it++){
 
-838 
+761 
 ¡d
 ::
 cout
@@ -3599,31 +3873,31 @@ fœ¡
 ’dl
 ;
 
-841 
+764 
 	}
 }
 
-843 
+766 
 	gCSR
 ::
 	$g‘HubV”‹xNum
 (){
 
-844 
-max_deg»e
+767 
+maxDeg
  = 0;
 
-845 
-hub_v”‹x_num
+768 
+hubV”‹xNum
  = 0;
 
-846 
+769 
 idx
  = 0; idx < 
-v_num
+vNum
 ; idx++){
 
-847 
+770 
 deg»e
  = 
 ½ao
@@ -3631,39 +3905,39 @@ deg»e
 idx
 +1] -„pao[idx];
 
-848 if(
+771 if(
 deg»e
  >ğ
-hub_v”‹x_th»shŞd
+hubV”‹xTh»shŞd
 ){
 
-849 
-hub_v”‹x_num
+772 
+hubV”‹xNum
 ++;
 
-851 if(
+774 if(
 deg»e
  > 
-max_deg»e
-) max_degree = degree;
+maxDeg
+) maxDeg = degree;
 
-855 if(
-hub_v”‹x_num
+778 if(
+hubV”‹xNum
  == 0)
 
-856 
-hub_v”‹x_num
+779 
+hubV”‹xNum
  = 1;
 
-858  
-hub_v”‹x_num
+781  
+hubV”‹xNum
 ;
 
-859 
+782 
 	}
 }
 
-861 
+784 
 boŞ
  
 	gCSR
@@ -3671,7 +3945,7 @@ boŞ
 isInBufãr
 (
 
-862 cÚ¡ 
+785 cÚ¡ 
 ¡d
 ::
 veùÜ
@@ -3679,11 +3953,11 @@ veùÜ
 bufãr
 ,
 
-863 cÚ¡ &
+786 cÚ¡ &
 idx
 )
 
-865 if(
+788 if(
 	g¡d
 ::
 fšd
@@ -3697,13 +3971,59 @@ begš
 idx
 ) != buffer.end()){
 
-866  
+789  
 Œue
 ;
 
-869  
+792  
 	gçl£
 ;
+
+796 
+	gCSR
+::
+	$g‘Bur¡Num
+(
+num
+, 
+size
+){
+
+797 
+Ëngth
+ = 
+num
+ * 
+size
+;
+
+798 if(
+Ëngth
+ % 
+GL
+::
+bur¡Ën
+ == 0){
+
+799  
+Ëngth
+/
+GL
+::
+bur¡Ën
+;
+
+802  (
+Ëngth
+/
+GL
+::
+bur¡Ën
+ + 1);
+
+804 
+	}
+}
 
 	@graph.h
 
@@ -3770,42 +4090,54 @@ __LINE__
 	)
 
 16 şas 
-	cV”‹x
- {
+	cGL
+{
 
 17 
 	mpublic
 :
 
-18 
+18 
+bur¡Ën
+;
+
+21 şas 
+	cV”‹x
+ {
+
+22 
+	mpublic
+:
+
+23 
 idx
 ;
 
-19 
-	mš_deg
+24 
+	mšDeg
 ;
 
-20 
-	mout_deg
+25 
+	moutDeg
 ;
 
-22 
+27 
 	m¡d
 ::
 veùÜ
 <> 
-š_vids
+šVid
 ;
 
-23 
+28 
 	m¡d
 ::
 veùÜ
 <> 
-out_vids
+outVid
 ;
 
-25 
+30 
 ex¶ic™
  
 	$V”‹x
@@ -3813,37 +4145,37 @@ ex¶ic™
 _idx
 ) {
 
-26 
+31 
 idx
  = 
 _idx
 ;
 
-29 ~
+34 ~
 	$V”‹x
 (){
 
-31 
+36 
 	}
 }
 
-35 şas 
+40 şas 
 	cG¿ph
 {
 
-36 
+41 
 	mpublic
 :
 
-37 
-v”‹x_num
+42 
+v”‹xNum
 ;
 
-38 
-	medge_num
+43 
+	medgeNum
 ;
 
-39 
+44 
 	m¡d
 ::
 veùÜ
@@ -3853,7 +4185,7 @@ V”‹x
 v”tiûs
 ;
 
-41 
+46 
 G¿ph
 (cÚ¡ 
 ¡d
@@ -3863,35 +4195,35 @@ G¿ph
 âame
 );
 
-42 ~
+47 ~
 G¿ph
 ();
 
-43 
+48 
 g‘RªdomS¹Indiûs
 (
 ¡d
 ::
 veùÜ
 <> &
-¡¬t_šdiûs
+¡¬tIndiûs
 );
 
-44 
+49 
 g‘St
 ();
 
-46 
+51 
 	m´iv©e
 :
 
-47 
+52 
 boŞ
  
 isUg¿ph
 ;
 
-48 
+53 
 g‘MaxIdx
 (cÚ¡ 
 ¡d
@@ -3901,7 +4233,7 @@ veùÜ
 d©a
 );
 
-49 
+54 
 g‘MšIdx
 (cÚ¡ 
 ¡d
@@ -3911,11 +4243,11 @@ veùÜ
 d©a
 );
 
-50 
+55 
 lßdFe
 (
 
-51 cÚ¡ 
+56 cÚ¡ 
 ¡d
 ::
 ¡ršg
@@ -3923,7 +4255,7 @@ lßdFe
 âame
 ,
 
-52 
+57 
 ¡d
 ::
 veùÜ
@@ -3931,15 +4263,15 @@ veùÜ
 d©a
 
 
-58 şas 
+63 şas 
 	cCSR
 {
 
-59 
+64 
 	mpublic
 :
 
-60 
+65 
 ¡d
 ::
 veùÜ
@@ -3947,7 +4279,7 @@ veùÜ
 weight
 ;
 
-61 
+66 
 	m¡d
 ::
 veùÜ
@@ -3955,7 +4287,7 @@ veùÜ
 ½ao
 ;
 
-62 
+67 
 	m¡d
 ::
 veùÜ
@@ -3963,7 +4295,7 @@ veùÜ
 cŸo
 ;
 
-63 
+68 
 	m¡d
 ::
 veùÜ
@@ -3971,7 +4303,7 @@ veùÜ
 ½ai
 ;
 
-64 
+69 
 	m¡d
 ::
 veùÜ
@@ -3979,7 +4311,7 @@ veùÜ
 cŸi
 ;
 
-67 
+72 
 ex¶ic™
  
 CSR
@@ -3989,26 +4321,36 @@ G¿ph
 g
 );
 
-69 
+74 
 £tBfsP¬am
-(
+(
+
+75 
 _®pha
-, 
+,
+
+76 
 _b‘a
-, 
-_hub_v”‹x_th»shŞd
-, 
-_ÿche_th»shŞd
-, 
-_buck‘_num
+,
+
+77 
+_hubV”‹xTh»shŞd
+,
+
+78 
+_ÿcheTh»shŞd
+,
+
+79 
+_buck‘Num
 );
 
-72 
+82 
 boŞ
  
 ÿcheHybridBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -4017,12 +4359,12 @@ of¡»am
 fhªdË
 );
 
-75 
+85 
 boŞ
  
 hybridBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -4031,12 +4373,12 @@ of¡»am
 fhªdË
 );
 
-78 
+88 
 boŞ
  
 basicBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -4045,12 +4387,12 @@ of¡»am
 fhªdË
 );
 
-81 
+91 
 boŞ
  
 tdBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -4059,12 +4401,12 @@ of¡»am
 fhªdË
 );
 
-84 
+94 
 boŞ
  
 buBfs
 (cÚ¡ &
-¡¬t_idx
+¡¬tIdx
 , 
 ¡d
 ::
@@ -4073,53 +4415,53 @@ of¡»am
 fhªdË
 );
 
-86 
+96 
 deg»eAÇlysis
 ();
 
-87 ~
+97 ~
 CSR
 ();
 
-89 
+99 
 	m´iv©e
 :
 
-90 cÚ¡ 
-v_num
+100 cÚ¡ 
+vNum
 ;
 
-91 cÚ¡ 
-	me_num
+101 cÚ¡ 
+	meNum
 ;
 
-92 
+102 
 	m®pha
 ;
 
-93 
+103 
 	mb‘a
 ;
 
-94 
-	mhub_v”‹x_th»shŞd
+104 
+	mhubV”‹xTh»shŞd
 ;
 
-95 
-	mÿche_th»shŞd
+105 
+	mÿcheTh»shŞd
 ;
 
-96 
-	mbuck‘_num
+106 
+	mbuck‘Num
 ;
 
-98 
+108 
 boŞ
  
 isInBufãr
 (
 
-99 cÚ¡ 
+109 cÚ¡ 
 ¡d
 ::
 veùÜ
@@ -4127,13 +4469,21 @@ veùÜ
 bufãr
 ,
 
-100 cÚ¡ &
+110 cÚ¡ &
 idx
 );
 
-101 
+111 
 g‘HubV”‹xNum
 ();
+
+112 
+g‘Bur¡Num
+(
+num
+, 
+size
+);
 
 	@
 1

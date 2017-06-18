@@ -14,7 +14,7 @@ OBJS := $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRCS))
 #CXX := clang++
 CXX := g++
  
-CFLAGS = -O3 -std=c++11 -pg -Wall -pedantic -Wno-long-long \
+CFLAGS = -O3 -std=c++11 -Wall -pedantic -Wno-long-long \
 		 -DSC_INCLUDE_DYNAMIC_PROCESSES -fpermissive \
 		 -I$(SYSTEMC_INC_DIR) 
 

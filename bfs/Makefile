@@ -2,7 +2,7 @@ CC = g++
 #CFLAGS= -DDEBUG -g -std=c++11 -Wall -gdwarf-2 
 CFLAGS= -g -std=c++11 -O3
 #CFLAGS= -g -pg -O3
-TARGET = bfs 
+TARGET = bfs
 SRCS = bfs.cpp graph.cpp
 
 OBJS = $(SRCS:.cpp=.o)
@@ -18,8 +18,15 @@ $(TARGET): $(OBJS)
 clean:
 	rm -f $(OBJS) $(TARGET) core.* gmon.out
 
+APP = dblp 
+
 exe:
-	./$(TARGET)
+	./$(TARGET) depth.txt hybrid $(APP)
+	./$(TARGET) depth.txt cache $(APP)
+	./$(TARGET) depth.txt basic $(APP)
+	./$(TARGET) depth.txt td $(APP)
+	./$(TARGET) depth.txt bu $(APP)
+	
 
 analysis: exe 
 	gprof ./$(TARGET) | gprof2dot -s | dot -Tpdf -o analysis.pdf
