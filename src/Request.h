@@ -4,7 +4,6 @@
 #include <vector>
 #include <functional>
 #include <iostream>
-#include "User.h"
 
 using namespace std;
 
@@ -18,6 +17,7 @@ namespace ramulator
         long burstIdx;
         long reqIdx; 
         int peIdx;
+        int portIdx;
 
         long arriveMemTime;
         long departMemTime;

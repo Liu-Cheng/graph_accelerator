@@ -14,8 +14,8 @@ class pe : public sc_module{
     SC_HAS_PROCESS(pe);
 
     public:
-        sc_out<long> burstReq;
-        sc_in<long> burstResp;
+        sc_out<long> burstReq[PNUM];
+        sc_in<long> burstResp[PNUM];
         sc_in<bool> peClk;
         sc_out<bool> bfsDone;
 
@@ -32,14 +32,14 @@ class pe : public sc_module{
         template<typename T>
         long createWriteBurstReq(
                 ramulator::Request::Type type, 
-                PortType ptype,
+                int portIdx,
                 long addr, 
                 int length, 
                 std::list<T> &buffer
                 )
         {
             long burstIdx = GL::getBurstIdx();
-            BurstOp* ptr = new BurstOp(type, ptype, burstIdx, peIdx, addr, length);
+            BurstOp* ptr = new BurstOp(type, portIdx, burstIdx, peIdx, addr, length);
             ptr->updateReqVec();
             ptr->updateAddrVec();
             GL::bursts.push_back(ptr);
@@ -49,15 +49,14 @@ class pe : public sc_module{
             // we rely the ramulator to contrain the memory write access.
             wait(peClkCycle * ptr->length / (int)sizeof(T), SC_NS);
             ptr->bufferToBurstReq<T>(buffer);
-            burstReqQueue[ptype].push_back(burstIdx);
-
+            burstReqQueue[portIdx].push_back(burstIdx);
 
             return burstIdx;
         }
 
         long createReadBurstReq(
                 ramulator::Request::Type type, 
-                PortType ptype,
+                int portIdx,
                 long addr, 
                 int length 
                 );
@@ -71,28 +70,26 @@ class pe : public sc_module{
         bool bfsIterationStart;
         int localCounter;
 
-        std::list<char> inspectDepthReadBuffer; 
-        std::list<int> inspectFrontierBuffer;
-        std::list<int> expandRpaoReadBuffer;
-        std::list<int> expandCiaoReadBuffer;
-        std::list<int> exapndRpaiReadBuffer; 
-        std::list<int> expandCiaiReadBuffer;  
-        std::list<int> expandVidxForDepthWriteBuffer;
-        std::list<char> expandDepthWriteBuffer;
-        std::list<char> expandDepthReadBuffer;
+        std::vector<std::list<char>> depthBuffer0; //inspectDepthReadBuffer; 
+        std::list<char> depthBuffer1;   //expandDepthWriteBuffer;
+        std::list<char> depthBuffer2;   //expandDepthReadBuffer;
+
+        std::list<int> frontierBuffer;  //inspectFrontierBuffer;
+        std::list<int> rpaoBuffer;      //expandRpaoReadBuffer;
+        std::list<int> ciaoBuffer;      //expandCiaoReadBuffer;
+        std::list<int> rpaiBuffer;      //exapndRpaiReadBuffer; 
+        std::list<int> ciaiBuffer;      //expandCiaiReadBuffer;  
+        std::list<int> vidxBuffer;      //expandVidxForDepthWriteBuffer;
+
+
         std::vector<std::list<long>> burstReqQueue;
         std::vector<std::list<long>> burstRespQueue;
 
-        // It keeps the status of the burst requests. If a burst with burstIdx is not found 
-        // in the mapper, it doesn't exist. If it is found to be false, the request is generated 
-        // but is not responsed yet. If it is set true, the request is responsed.
-        // These data structure will remain valid until the end of the object life.
         std::map<long, bool> burstOpStatus;
 
         bool isBurstReqQueueEmpty();
         bool isBurstRespQueueEmpty();
         void init();
-        PortType burstReqArbiter(PortType winner);
         bool isEndOfBfsIteration();
         //bool isAllReqProcessed();
         long getReadyOp();
@@ -102,8 +99,14 @@ class pe : public sc_module{
         void getMemResp();
         void bfsController();
 
-        void issueInspectDepthReadReq();
-        void processInspectDepthReadResp();
+        void issueInspectDepthReadReq0();
+        void issueInspectDepthReadReq1();
+        void issueInspectDepthReadReq2();
+        void issueInspectDepthReadReq3();
+        void processInspectDepthReadResp0();
+        void processInspectDepthReadResp1();
+        void processInspectDepthReadResp2();
+        void processInspectDepthReadResp3();
         void inspectDepthAnalysis();
         void frontierAnalysis();
         void processExpandRpaoReadResp();
@@ -113,6 +116,19 @@ class pe : public sc_module{
         void processExpandDepthReadResp();
         void expandDepthAnalysis();
         void processExpandDepthWriteResp();
+
+        void inspectDepthReqThread(
+                long baseDepthMemAddr,
+                int prIdx,
+                int portIdx,
+                int maxLen
+                );
+
+        void inspectDepthRespThread(
+                int expectedLen,
+                int portIdx,
+                int prIdx
+                );
 };
 
 #endif

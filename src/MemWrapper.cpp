@@ -10,6 +10,8 @@ MemWrapper::MemWrapper(sc_module_name _name,
     : sc_module(_name), configs(argv[1]){
 
     loadConfig(argc, argv);
+    burstReqQueue.resize(PNUM);
+    burstRespQueue.resize(PNUM);
     memClkCycle = _memClkCycle; 
     peClkCycle = _peClkCycle; 
     GL::burstLen = calBurstLen();
@@ -103,7 +105,9 @@ Graph* MemWrapper::loadGraph(const std::string &cfgFileName){
 }
 
 void MemWrapper::sigInit(){
-    burstResp.write(-1);
+    for(int i = 0; i < PNUM; i++){
+        burstResp[i].write(-1);
+    }
 }
 
 // To prepare for new bfs traverse, we need to clean 
@@ -130,13 +134,15 @@ void MemWrapper::setNewStartVertex(int idx){
 // It reads request from pe and thus is synchronized to the pe's clock
 void MemWrapper::getBurstReq(){
     while(true){
-        long burstIdx = burstReq.read();
-        if(burstIdx != -1){
-            BurstOp* ptr = GL::bursts[burstIdx];
-            burstReqQueue.push_back(burstIdx);
-            totalReqNum[burstIdx] = ptr->getReqNum(); 
-            processedReqNum[burstIdx] = 0;
-            ptr->convertToReq(reqQueue);
+        for(int i = 0; i < PNUM; i++){
+            long burstIdx = burstReq[i].read();
+            if(burstIdx != -1){
+                BurstOp* ptr = GL::bursts[burstIdx];
+                burstReqQueue[i].push_back(burstIdx);
+                totalReqNum[burstIdx] = ptr->getReqNum(); 
+                processedReqNum[burstIdx] = 0;
+                ptr->convertToReq(reqQueue);
+            }
         }
         wait(peClkCycle, SC_NS);
     }
@@ -147,47 +153,35 @@ void MemWrapper::getBurstReq(){
 // sent at the right timestamp.
 void MemWrapper::sendBurstResp(){
     while(true){
-        if(burstReqQueue.empty()){
-            //std::cout << "burstReqQueue is empty." << std::endl;
-            burstResp.write(-1);
-            wait(peClkCycle, SC_NS);
-            continue;
-        }
+        for(int i = 0; i < PNUM; i++){
+            if(burstReqQueue[i].empty()){
+                burstResp[i].write(-1);
+                continue;
+            }
 
-        int idx = burstReqQueue.front();
-        auto simpleFind = [this](long idx)->std::list<long>::iterator{
-            for(auto it = burstRespQueue.begin(); it != burstRespQueue.end(); it++){
-                if((*it) == idx){
-                    return it;
+            int idx = burstReqQueue[i].front();
+            auto it = std::find(burstRespQueue[i].begin(), burstRespQueue[i].end(), idx);
+            if(it == burstRespQueue[i].end()){
+                burstResp[i].write(-1);
+            }
+            else{
+                BurstOp* ptr = GL::bursts[idx];
+                long respReadyTime = ptr->departMemTime; 
+                long currentTimeStamp = (long)(sc_time_stamp()/sc_time(1, SC_NS));
+                if(respReadyTime <= currentTimeStamp){
+                    burstResp[i].write(idx);
+                    if(ptr->type == ramulator::Request::Type::WRITE){
+                        ptr->reqToRam(ramData);
+                    }
+                    else{
+                        ptr->ramToReq(ramData);
+                    }
+
+                    burstReqQueue[i].pop_front();
+                    burstRespQueue[i].erase(it);
                 }
             }
-            return burstRespQueue.end();
-        };
-        //auto it = std::find(burstRespQueue.begin(), burstRespQueue.end(), idx);
-        auto it = simpleFind(idx);
-        if(it == burstRespQueue.end()){
-            burstResp.write(-1);
         }
-        else{
-            BurstOp* ptr = GL::bursts[idx];
-            long respReadyTime = ptr->departMemTime; 
-            long currentTimeStamp = (long)(sc_time_stamp()/sc_time(1, SC_NS));
-            if(respReadyTime <= currentTimeStamp){
-                burstResp.write(idx);
-                if(ptr->type == ramulator::Request::Type::WRITE){
-                    ptr->reqToRam(ramData);
-                }
-                else{
-                    ptr->ramToReq(ramData);
-                }
-
-                //burstReqQueue.remove(idx);
-                burstReqQueue.pop_front();
-                //burstRespQueue.remove(idx);
-                burstRespQueue.erase(it);
-            }
-        }
-
         wait(peClkCycle, SC_NS);
     }
 }
@@ -401,7 +395,7 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
         }
         if(processedReqNum[burstIdx] == totalReqNum[burstIdx]){
             GL::bursts[burstIdx]->departMemTime = r.udf.departMemTime;
-            burstRespQueue.push_back(burstIdx);
+            burstRespQueue[r.udf.portIdx].push_back(burstIdx);
         }
     };
 
@@ -432,7 +426,7 @@ void MemWrapper::run_acc(const Config& configs, Memory<T, Controller>& memory) {
                     }
                     if(processedReqNum[burstIdx] == totalReqNum[burstIdx]){
                         GL::bursts[burstIdx]->departMemTime = req.udf.departMemTime;
-                        burstRespQueue.push_back(burstIdx);
+                        burstRespQueue[req.udf.portIdx].push_back(burstIdx);
                     }
                 }
             }
@@ -454,11 +448,7 @@ void MemWrapper::shallowReqCopy(const Request &simpleReq, Request &req){
     req.type = simpleReq.type;
     req.coreid = simpleReq.coreid;
     req.addr = simpleReq.addr;
-    req.udf.burstIdx = simpleReq.udf.burstIdx;
-    req.udf.reqIdx = simpleReq.udf.reqIdx;
-    req.udf.peIdx = simpleReq.udf.peIdx;
-    req.udf.arriveMemTime = simpleReq.udf.arriveMemTime;
-    req.udf.departMemTime = simpleReq.udf.departMemTime;
+    req.udf = simpleReq.udf;
 }
 
 // Global variables are reset here while this part should be 

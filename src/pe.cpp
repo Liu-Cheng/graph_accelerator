@@ -39,8 +39,14 @@ pe::pe(
     // ================================================================
 
     // pipelined inspection threads
-    SC_THREAD(issueInspectDepthReadReq); 
-    SC_THREAD(processInspectDepthReadResp);
+    SC_THREAD(issueInspectDepthReadReq0); 
+    SC_THREAD(issueInspectDepthReadReq1); 
+    SC_THREAD(issueInspectDepthReadReq2); 
+    SC_THREAD(issueInspectDepthReadReq3); 
+    SC_THREAD(processInspectDepthReadResp0);
+    SC_THREAD(processInspectDepthReadResp1);
+    SC_THREAD(processInspectDepthReadResp2);
+    SC_THREAD(processInspectDepthReadResp3);
     SC_THREAD(inspectDepthAnalysis);
 
     // pipelined expansion threads
@@ -59,37 +65,35 @@ pe::pe(
 }
 
 void pe::sigInit(){
-    burstReq.write(-1);
+    for(int i = 0; i < PNUM; i++){
+        burstReq[i].write(-1);
+    }
 }
 
 void pe::init(){
-
     level = 0;
     bfsIterationStart = false;
-    for(int i = INSPECT_DEPTH_READ; i <= EXPAND_DEPTH_WRITE; i++){
-        std::list<long> buffer;
-        burstReqQueue.push_back(buffer);
-        burstRespQueue.push_back(buffer);
-    }
-
+    burstReqQueue.resize(PNUM);
+    burstRespQueue.resize(PNUM);
+    depthBuffer0.resize(PRNUM);
 }
 
-void pe::issueInspectDepthReadReq(){
-    // constant configurations
-    ramulator::Request::Type type = ramulator::Request::Type::READ;
-    int maxLen = GL::vertexNum * (int)(sizeof(char));
+void pe::inspectDepthReqThread(
+        long baseDepthMemAddr,
+        int prIdx,
+        int portIdx,
+        int maxLen
+        ){
 
-    // configurations that must be reset before bfs starts. 
-    long depthMemAddr = 0; 
-    int currentLen = maxLen; 
+    long depthMemAddr = 0;
     bool validFlag1 = false; 
     bool validFlag2 = false;
+    int currentLen = maxLen;
+    ramulator::Request::Type type = ramulator::Request::Type::READ;
 
     while(true){
-        // Reset the configurations when the bfs iteration starts.
-        // Note that it lasts for only a single cycle.
         if(bfsIterationStart){
-            depthMemAddr = GL::depthMemAddr;
+            depthMemAddr = baseDepthMemAddr;
             currentLen = 0;
             validFlag1 = true;
             validFlag2 = true;
@@ -99,7 +103,8 @@ void pe::issueInspectDepthReadReq(){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
-                    std::cout << "issue inspect depth read request at ";
+                    std::cout << "issue inspect depth partition ";
+                    std::cout << prIdx << " read request at ";
                     std::cout << sc_time_stamp() << std::endl;
                 }
                 validFlag1 = false;
@@ -110,8 +115,7 @@ void pe::issueInspectDepthReadReq(){
                 actualLen = maxLen - currentLen;
             }
 
-            // check if read buffer size available
-            int bufferSize = (int)(inspectDepthReadBuffer.size());
+            int bufferSize = (int)(depthBuffer0[prIdx].size());
             int toBeSentSize = actualLen/sizeof(char);
             if(bufferSize + toBeSentSize > GL::depthBufferDepth){
                 wait(peClkCycle, SC_NS);
@@ -120,7 +124,7 @@ void pe::issueInspectDepthReadReq(){
 
             long burstIdx = createReadBurstReq(
                     type, 
-                    INSPECT_DEPTH_READ, 
+                    portIdx, 
                     depthMemAddr, 
                     actualLen);
 
@@ -132,64 +136,166 @@ void pe::issueInspectDepthReadReq(){
         if(validFlag2){
             if(GL::logon != 0){
                 std::cout << "Level = " << (int)level << " ";
-                std::cout << "all depth read requests are sent at ";
+                std::cout << "all depth partition " << prIdx;
+                std::cout << " read requests are sent at ";
                 std::cout << sc_time_stamp() << std::endl;
             }
             validFlag2 = false;
         }
 
-        // Keep the loop running 
         wait(peClkCycle, SC_NS);
     }
 }
 
-void pe::processInspectDepthReadResp(){
+void pe::issueInspectDepthReadReq0(){
+    int portIdx = 0; // portIdx = 0;
+    int maxLen = (GL::vertexNum/PRNUM) * (int)(sizeof(char));
+    long baseDepthMemAddr = GL::depthMemAddr; 
+    int prIdx = 0;
+    inspectDepthReqThread(
+            baseDepthMemAddr,
+            prIdx,
+            portIdx,
+            maxLen
+            );
+}
+
+void pe::issueInspectDepthReadReq1(){
+    int portIdx = 1;
+    int maxLen = GL::vertexNum/PRNUM * (int)(sizeof(char));
+    long baseDepthMemAddr = portIdx * (GL::vertexNum/PRNUM) * (int)(sizeof(char)); 
+    int prIdx = 1;
+    inspectDepthReqThread(
+            baseDepthMemAddr,
+            prIdx,
+            portIdx,
+            maxLen
+            );
+}
+
+void pe::issueInspectDepthReadReq2(){
+    int portIdx = 2;
+    int maxLen = GL::vertexNum/PRNUM * (int)(sizeof(char));
+    long baseDepthMemAddr = portIdx * (GL::vertexNum/PRNUM) * (int)(sizeof(char)); 
+    int prIdx = 2;
+    inspectDepthReqThread(
+            baseDepthMemAddr,
+            prIdx,
+            portIdx,
+            maxLen
+            );
+}
+
+void pe::issueInspectDepthReadReq3(){
+    int portIdx = 3;
+    int maxLen = (GL::vertexNum - portIdx * (GL::vertexNum/PRNUM)) * (int)(sizeof(char));
+    long baseDepthMemAddr = portIdx * (GL::vertexNum/PRNUM) * (int)(sizeof(char)); 
+    int prIdx = 3;
+    inspectDepthReqThread(
+            baseDepthMemAddr,
+            prIdx,
+            portIdx,
+            maxLen
+            );
+}
+
+void pe::inspectDepthRespThread(
+        int expectedLen,
+        int portIdx,
+        int prIdx
+        ){
     bool validFlag1 = false; 
     bool validFlag2 = false;
-
     int totalLen = 0;
     while(true){
-        // reset configurations when new bfs iterations start
         if(bfsIterationStart){
             validFlag1 = true;
             validFlag2 = true;
             totalLen = 0;
         }
 
-        if(burstRespQueue[INSPECT_DEPTH_READ].empty() == false){
+        if(burstRespQueue[portIdx].empty() == false){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
-                    std::cout << "process inspect depth read response at ";
+                    std::cout << "process inspect depth " << prIdx;
+                    std::cout << " read response at ";
                     std::cout << sc_time_stamp() << std::endl;
                 }
                 validFlag1 = false;
             }
 
-            // latency caused by copying burst response to buffer
-            long burstIdx = burstRespQueue[INSPECT_DEPTH_READ].front();
+            long burstIdx = burstRespQueue[portIdx].front();
             BurstOp* ptr = GL::bursts[burstIdx];
             int num = ptr->length/((int)sizeof(char));
             wait(num * peClkCycle, SC_NS);
-            //burstOpStatus[burstIdx] = true;
             burstOpStatus.erase(burstIdx);
-            ptr->burstReqToBuffer<char>(inspectDepthReadBuffer);
-            burstRespQueue[INSPECT_DEPTH_READ].pop_front();
+            ptr->burstReqToBuffer<char>(depthBuffer0[prIdx]);
+            burstRespQueue[portIdx].pop_front();
             totalLen += ptr->length;
         }
         else{
             wait(peClkCycle, SC_NS);
         }
 
-        if(validFlag2 && totalLen == GL::vertexNum * (int)sizeof(char)){
+        if(validFlag2 && totalLen == expectedLen){
             if(GL::logon != 0){
                 std::cout << "Level = " << (int)level << " ";
-                std::cout << "all depth read responses are processed at ";
+                std::cout << "all depth of part " << prIdx;
+                std::cout << " read responses are processed at ";
                 std::cout << sc_time_stamp() << std::endl;
             }
             validFlag2 = false;
         }
     }
+}
+
+void pe::processInspectDepthReadResp0(){
+    int portIdx = 0;
+    int expectedLen = (GL::vertexNum/PRNUM) * (int)(sizeof(char));
+    int prIdx = 0;
+
+    inspectDepthRespThread(
+            expectedLen,
+            portIdx,
+            prIdx
+            );
+}
+
+void pe::processInspectDepthReadResp1(){
+    int portIdx = 1;
+    int expectedLen = (GL::vertexNum/PRNUM) * (int)(sizeof(char));
+    int prIdx = 1;
+
+    inspectDepthRespThread(
+            expectedLen,
+            portIdx,
+            prIdx
+            );
+}
+
+void pe::processInspectDepthReadResp2(){
+    int portIdx = 2;
+    int expectedLen = (GL::vertexNum/PRNUM) * (int)(sizeof(char));
+    int prIdx = 2;
+
+    inspectDepthRespThread(
+            expectedLen,
+            portIdx,
+            prIdx
+            );
+}
+
+void pe::processInspectDepthReadResp3(){
+    int portIdx = 3;
+    int expectedLen = (GL::vertexNum - portIdx * (GL::vertexNum/PRNUM)) * (int)(sizeof(char));
+    int prIdx = 3;
+
+    inspectDepthRespThread(
+            expectedLen,
+            portIdx,
+            prIdx
+            );
 }
 
 // Analyze depth for frontier and send frontier read requests.
@@ -198,18 +304,31 @@ void pe::inspectDepthAnalysis(){
     bool validFlag2 = false;
     bfsDone.write(false);
 
-    int idx = 0;
+    int idx[PRNUM];
+    auto resetIdx = [](int idx[PRNUM]){
+        for(int i = 0; i < PRNUM; i++){
+            idx[i] = i * (GL::vertexNum/PRNUM);
+        }
+    };
+    resetIdx(idx);
+
     while(true){
         if(bfsIterationStart){
-            idx = 0;
+            resetIdx(idx);
             validFlag1 = true;
             validFlag2 = true;
             frontierSize = 0;
         }
 
-        if(inspectDepthReadBuffer.empty() == false && 
-           (int)(inspectFrontierBuffer.size()) < GL::frontierBufferDepth)
-        {
+        bool notEmpty = false;
+        for(int i = 0; i < PRNUM; i++){
+            if(depthBuffer0[i].empty() == false){
+                notEmpty = true;
+                break;
+            }
+        }
+
+        if(notEmpty && (int)(frontierBuffer.size()) < GL::frontierBufferDepth){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
@@ -219,16 +338,30 @@ void pe::inspectDepthAnalysis(){
                 validFlag1 = false;
             }
 
-            char d = inspectDepthReadBuffer.front();
-            inspectDepthReadBuffer.pop_front();
-            if(d == level){
-                inspectFrontierBuffer.push_back(idx);
-                frontierSize++;
+            for(int i = 0; i < PRNUM; i++){
+                if(depthBuffer0[i].empty() == false){
+                    char d = depthBuffer0[i].front();
+                    depthBuffer0[i].pop_front();
+                    if(d == level){
+                        frontierBuffer.push_back(idx[i]);
+                        frontierSize++;
+                    }
+                    idx[i]++;
+                }
             }
-            idx++;
         }
 
-        if(idx == GL::vertexNum && validFlag2){
+        bool allAnalyzed = true;
+        for(int i = 0; i < PRNUM; i++){
+            if(i < PRNUM - 1){
+                allAnalyzed &= (idx[i] == (i+1) * (GL::vertexNum/PRNUM));
+            }
+            else{
+                allAnalyzed &= (idx[i] == GL::vertexNum);
+            }
+        }
+
+        if(allAnalyzed && validFlag2){
             if(GL::logon != 0){
                 std::cout << "Level = " << (int)level << " ";
                 std::cout << "all the inspect depth are analyzed at ";
@@ -256,14 +389,15 @@ void pe::inspectDepthAnalysis(){
 void pe::frontierAnalysis(){
     ramulator::Request::Type type = ramulator::Request::Type::READ;
     bool validFlag1 = false;
+    int portIdx = 4;
 
     while(true){
         if(bfsIterationStart){
             validFlag1 = true;
         }
 
-        if(inspectFrontierBuffer.empty() == false && 
-           ((int)expandRpaoReadBuffer.size() + 2 < GL::rpaoBufferDepth))
+        if(frontierBuffer.empty() == false && 
+           ((int)rpaoBuffer.size() + 2 < GL::rpaoBufferDepth))
         {
             if(validFlag1){
                 if(GL::logon != 0){
@@ -274,11 +408,11 @@ void pe::frontierAnalysis(){
                 validFlag1 = false;
             }
 
-            int vidx = inspectFrontierBuffer.front();
-            inspectFrontierBuffer.pop_front();
+            int vidx = frontierBuffer.front();
+            frontierBuffer.pop_front();
             long rpaoMemAddr = GL::rpaoMemAddr + vidx * sizeof(int);
             int len = sizeof(int) * 2;
-            long burstIdx = createReadBurstReq(type, EXPAND_RPAO_READ, rpaoMemAddr, len);
+            long burstIdx = createReadBurstReq(type, portIdx, rpaoMemAddr, len);
             burstOpStatus[burstIdx] = false;
         }
         else{
@@ -289,13 +423,14 @@ void pe::frontierAnalysis(){
 
 void pe::processExpandRpaoReadResp(){
     bool validFlag1 = false;
+    int portIdx = 4;
 
     while(true){
         if(bfsIterationStart){
             validFlag1 = true;
         }
 
-        if(burstRespQueue[EXPAND_RPAO_READ].empty()  == false){
+        if(burstRespQueue[portIdx].empty()  == false){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
@@ -305,15 +440,15 @@ void pe::processExpandRpaoReadResp(){
                 validFlag1 = false;
             }
 
-            long burstIdx = burstRespQueue[EXPAND_RPAO_READ].front();
+            long burstIdx = burstRespQueue[portIdx].front();
             BurstOp* ptr = GL::bursts[burstIdx];
             int num = ptr->length/sizeof(int);
             wait(num * peClkCycle, SC_NS);
 
             //burstOpStatus[burstIdx] = true;
             burstOpStatus.erase(burstIdx);
-            ptr->burstReqToBuffer<int>(expandRpaoReadBuffer);
-            burstRespQueue[EXPAND_RPAO_READ].pop_front();
+            ptr->burstReqToBuffer<int>(rpaoBuffer);
+            burstRespQueue[portIdx].pop_front();
         }
         else{
             wait(peClkCycle, SC_NS);
@@ -324,6 +459,7 @@ void pe::processExpandRpaoReadResp(){
 // Read ciao
 void pe::issueExpandCiaoReadReq(){
     ramulator::Request::Type type = ramulator::Request::Type::READ;
+    int portIdx = 5;
 
     bool validFlag1 = false;
     while(true){
@@ -331,7 +467,7 @@ void pe::issueExpandCiaoReadReq(){
             validFlag1 = true;
         }
 
-        if((int)expandRpaoReadBuffer.size() >= 2){
+        if((int)rpaoBuffer.size() >= 2){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
@@ -341,10 +477,10 @@ void pe::issueExpandCiaoReadReq(){
                 validFlag1 = false;
             }
 
-            int srcIdx = expandRpaoReadBuffer.front();
-            expandRpaoReadBuffer.pop_front();
-            int dstIdx = expandRpaoReadBuffer.front();
-            expandRpaoReadBuffer.pop_front();
+            int srcIdx = rpaoBuffer.front();
+            rpaoBuffer.pop_front();
+            int dstIdx = rpaoBuffer.front();
+            rpaoBuffer.pop_front();
             long ciaoMemAddr = GL::ciaoMemAddr + srcIdx * sizeof(int);
             int maxLen = sizeof(int) * (dstIdx - srcIdx);
 
@@ -355,10 +491,10 @@ void pe::issueExpandCiaoReadReq(){
                     actualLen = maxLen - len;
                 }
 
-                int bufferSize = (int)expandCiaoReadBuffer.size();
+                int bufferSize = (int)ciaoBuffer.size();
                 int toBeSentSize = actualLen / (int)sizeof(int);
                 if(bufferSize + toBeSentSize < GL::ciaoBufferDepth){
-                    long burstIdx = createReadBurstReq(type, EXPAND_CIAO_READ, ciaoMemAddr, actualLen);
+                    long burstIdx = createReadBurstReq(type, portIdx, ciaoMemAddr, actualLen);
                     burstOpStatus[burstIdx] = false;
                     ciaoMemAddr += actualLen;
                     len += actualLen;
@@ -376,12 +512,13 @@ void pe::issueExpandCiaoReadReq(){
 
 void pe::processExpandCiaoReadResp(){
     bool validFlag1 = false;
+    int portIdx = 5;
     while(true){
         if(bfsIterationStart){
             validFlag1 = true;
         }
 
-        if(burstRespQueue[EXPAND_CIAO_READ].empty() == false){
+        if(burstRespQueue[portIdx].empty() == false){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
@@ -391,14 +528,14 @@ void pe::processExpandCiaoReadResp(){
                 validFlag1 = false;
             }
 
-            long burstIdx = burstRespQueue[EXPAND_CIAO_READ].front();
+            long burstIdx = burstRespQueue[portIdx].front();
             BurstOp* ptr = GL::bursts[burstIdx];
             int num = ptr->length/(int)sizeof(int);
             wait(num * peClkCycle, SC_NS);
             //burstOpStatus[burstIdx] = true;
             burstOpStatus.erase(burstIdx);
-            ptr->burstReqToBuffer<int>(expandCiaoReadBuffer);
-            burstRespQueue[EXPAND_CIAO_READ].pop_front();
+            ptr->burstReqToBuffer<int>(ciaoBuffer);
+            burstRespQueue[portIdx].pop_front();
         }
         else{
             wait(peClkCycle, SC_NS);
@@ -409,6 +546,7 @@ void pe::processExpandCiaoReadResp(){
 // Read depth
 void pe::issueExpandDepthReadReq(){
     ramulator::Request::Type type = ramulator::Request::Type::READ;
+    int portIdx = 6;
 
     bool validFlag1 = false;
     while(true){
@@ -416,8 +554,8 @@ void pe::issueExpandDepthReadReq(){
             validFlag1 = true;
         }
 
-        if(expandCiaoReadBuffer.empty() == false && 
-           ((int)(expandDepthReadBuffer.size())) < GL::depthBufferDepth)
+        if(ciaoBuffer.empty() == false && 
+           ((int)(ciaoBuffer.size())) < GL::depthBufferDepth)
         {
             if(validFlag1){
                 if(GL::logon != 0){
@@ -428,11 +566,11 @@ void pe::issueExpandDepthReadReq(){
                 validFlag1 = false;
             }
 
-            int vidx = expandCiaoReadBuffer.front();
-            expandVidxForDepthWriteBuffer.push_back(vidx);
-            expandCiaoReadBuffer.pop_front();
+            int vidx = ciaoBuffer.front();
+            vidxBuffer.push_back(vidx);
+            ciaoBuffer.pop_front();
             long depthMemAddr = GL::depthMemAddr + vidx * sizeof(char);
-            long burstIdx = createReadBurstReq(type, EXPAND_DEPTH_READ, depthMemAddr, 1);
+            long burstIdx = createReadBurstReq(type, portIdx, depthMemAddr, 1);
             burstOpStatus[burstIdx] = false;
         }
         else{
@@ -443,13 +581,14 @@ void pe::issueExpandDepthReadReq(){
 
 void pe::processExpandDepthReadResp(){
     bool validFlag1 = false;
+    int portIdx = 6;
 
     while(true){
         if(bfsIterationStart){
             validFlag1 = true;
         }
 
-        if(burstRespQueue[EXPAND_DEPTH_READ].empty() == false){
+        if(burstRespQueue[portIdx].empty() == false){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
@@ -459,14 +598,14 @@ void pe::processExpandDepthReadResp(){
                 validFlag1 = false;
             }
 
-            long burstIdx = burstRespQueue[EXPAND_DEPTH_READ].front();
+            long burstIdx = burstRespQueue[portIdx].front();
             BurstOp* ptr = GL::bursts[burstIdx];
             int num = ptr->length/(int)sizeof(char);
             wait(num * peClkCycle, SC_NS);
             //burstOpStatus[ptr->burstIdx] = true;
             burstOpStatus.erase(ptr->burstIdx);
-            ptr->burstReqToBuffer<char>(expandDepthReadBuffer);
-            burstRespQueue[EXPAND_DEPTH_READ].pop_front();
+            ptr->burstReqToBuffer<char>(depthBuffer1);
+            burstRespQueue[portIdx].pop_front();
         }
         else{
             wait(peClkCycle, SC_NS);
@@ -477,14 +616,15 @@ void pe::processExpandDepthReadResp(){
 void pe::expandDepthAnalysis(){
     ramulator::Request::Type type = ramulator::Request::Type::WRITE;
     bool validFlag1 = false;
+    int portIdx = 7;
 
     while(true){
         if(bfsIterationStart){
             validFlag1 = true;
         }
 
-        if(expandDepthReadBuffer.empty() == false &&
-           (int)expandDepthWriteBuffer.size() <= GL::depthBufferDepth)
+        if(depthBuffer1.empty() == false &&
+           (int)depthBuffer2.size() <= GL::depthBufferDepth)
         {
             if(validFlag1){
                 if(GL::logon != 0){
@@ -495,20 +635,20 @@ void pe::expandDepthAnalysis(){
                 validFlag1 = false;
             }
 
-            int d = expandDepthReadBuffer.front();
-            int vidx = expandVidxForDepthWriteBuffer.front();
-            expandDepthReadBuffer.pop_front();
-            expandVidxForDepthWriteBuffer.pop_front();
+            int d = depthBuffer1.front();
+            int vidx = vidxBuffer.front();
+            depthBuffer1.pop_front();
+            vidxBuffer.pop_front();
             if(d == -1){
                 d = level + 1;
-                expandDepthWriteBuffer.push_back(d);
+                depthBuffer2.push_back(d);
                 long depthMemAddr = GL::depthMemAddr + vidx * sizeof(char);
                 int burstIdx = createWriteBurstReq<char>(
                     type, 
-                    EXPAND_DEPTH_WRITE, 
+                    portIdx, 
                     depthMemAddr, 
                     1, 
-                    expandDepthWriteBuffer);
+                    depthBuffer2);
 
                 burstOpStatus[burstIdx] = false;
             }
@@ -521,12 +661,13 @@ void pe::expandDepthAnalysis(){
 
 void pe::processExpandDepthWriteResp(){
     bool validFlag1 = false;
+    int portIdx = 7;
     while(true){
         if(bfsIterationStart){
             validFlag1 = true;
         }
 
-        if(burstRespQueue[EXPAND_DEPTH_WRITE].empty() == false){
+        if(burstRespQueue[portIdx].empty() == false){
             if(validFlag1){
                 if(GL::logon != 0){
                     std::cout << "Level = " << (int)level << " ";
@@ -536,11 +677,11 @@ void pe::processExpandDepthWriteResp(){
                 validFlag1 = false;
             }
 
-            long burstIdx = burstRespQueue[EXPAND_DEPTH_WRITE].front();
+            long burstIdx = burstRespQueue[portIdx].front();
             BurstOp* ptr = GL::bursts[burstIdx];
             //burstOpStatus[ptr->burstIdx] = true;
             burstOpStatus.erase(ptr->burstIdx);
-            burstRespQueue[EXPAND_DEPTH_WRITE].pop_front();
+            burstRespQueue[portIdx].pop_front();
         }
         else{
             wait(peClkCycle, SC_NS);
@@ -576,73 +717,50 @@ bool pe::isEndOfBfsIteration(){
     isIterationEnd &= isBurstReqQueueEmpty();
     isIterationEnd &= isBurstRespQueueEmpty();
     isIterationEnd &= burstOpStatus.empty();
-    isIterationEnd &= inspectDepthReadBuffer.empty();
-    isIterationEnd &= inspectFrontierBuffer.empty();
-    isIterationEnd &= expandRpaoReadBuffer.empty();
-    isIterationEnd &= expandCiaoReadBuffer.empty();
-    isIterationEnd &= expandDepthReadBuffer.empty();
-    isIterationEnd &= expandDepthWriteBuffer.empty();
+    for(int i = 0; i < PRNUM; i++){
+        isIterationEnd &= depthBuffer0[i].empty();
+    }
+    isIterationEnd &= frontierBuffer.empty();
+    isIterationEnd &= rpaoBuffer.empty();
+    isIterationEnd &= ciaoBuffer.empty();
+    isIterationEnd &= depthBuffer1.empty();
+    isIterationEnd &= depthBuffer2.empty();
 
     return isIterationEnd;
 }
 
 long pe::createReadBurstReq(
         ramulator::Request::Type type, 
-        PortType ptype,
+        int portIdx,
         long addr, 
         int length)
 {
     long burstIdx = GL::getBurstIdx();
-    BurstOp* ptr = new BurstOp(type, ptype, burstIdx, peIdx, addr, length);
+    BurstOp* ptr = new BurstOp(type, portIdx, burstIdx, peIdx, addr, length);
     ptr->updateReqVec();
     ptr->updateAddrVec();
     GL::bursts.push_back(ptr);
 
     wait(peClkCycle, SC_NS);
-    burstReqQueue[ptype].push_back(burstIdx);
+    burstReqQueue[portIdx].push_back(burstIdx);
     
     return burstIdx;
 }
 
-
-// It decides which of the requests will win for sending the request to memory.
-// Round robin strategy is used here. Note that the arbiter will only be invoked 
-// when there is unempty queue available.
-PortType pe::burstReqArbiter(PortType winner){
-
-    int num = (int)burstReqQueue.size();
-    for(int i = 0; i < num; i++){
-        int nextIdx = ((int)winner + 1 + i)%num;
-        if(burstReqQueue[nextIdx].empty() == false){
-            return (PortType)nextIdx; 
-        }
-    }
-
-    return winner;
-}
-
-/*=-----------------------------------------------------------
- * The MemWrapper will have an infinite request queue 
- * that can always accomodate all the requests from 
- * PEs. Then the queue will gradually send the requests to the
- * ramulator which has the admission control.
- *=---------------------------------------------------------*/
 void pe::sendMemReq(){ 
-    PortType winner = INSPECT_DEPTH_READ;
-    burstReq.write(-1); //default signal value
     while(true){
-        if(isBurstReqQueueEmpty() == false){
-            PortType ptype = burstReqArbiter(winner);
-            winner = ptype;
-            long burstIdx = burstReqQueue[ptype].front(); 
-            BurstOp* ptr = GL::bursts[burstIdx];
-            long departTime = (long)(sc_time_stamp()/sc_time(1, SC_NS));
-            ptr->departPeTime = departTime;
-            burstReq.write(burstIdx);
-            burstReqQueue[ptype].pop_front();
-        }
-        else{
-            burstReq.write(-1);
+        for(int i = 0; i < PNUM; i++){
+            if(burstReqQueue[i].empty() == false){
+                long burstIdx = burstReqQueue[i].front(); 
+                BurstOp* ptr = GL::bursts[burstIdx];
+                long departTime = (long)(sc_time_stamp()/sc_time(1, SC_NS));
+                ptr->departPeTime = departTime;
+                burstReq[i].write(burstIdx);
+                burstReqQueue[i].pop_front();
+            }
+            else{
+                burstReq[i].write(-1);
+            }
         }
 
         wait(peClkCycle, SC_NS);
@@ -657,17 +775,6 @@ bool pe::isBurstReqQueueEmpty(){
     return empty;
 }
 
-/*
-bool pe::isAllReqProcessed(){
-    for(auto it = burstOpStatus.begin(); it != burstOpStatus.end(); it++){
-        if(it->second == false){
-            return false;
-        }
-    }
-    return true;
-}
-*/
-
 bool pe::isBurstRespQueueEmpty(){
     bool empty = true;
     for(const auto &v : burstRespQueue){
@@ -678,13 +785,14 @@ bool pe::isBurstRespQueueEmpty(){
 
 void pe::getMemResp(){
     while(true){
-        long burstIdx = burstResp.read();
-        if(burstIdx != -1){
-            long arriveTime = (long)(sc_time_stamp()/sc_time(1, SC_NS));
-            GL::bursts[burstIdx]->arrivePeTime = arriveTime;
-            BurstOp* ptr = GL::bursts[burstIdx];
-            burstRespQueue[ptr->ptype].push_back(burstIdx);
-        } 
+        for(int i = 0; i < PNUM; i++){
+            long burstIdx = burstResp[i].read();
+            if(burstIdx != -1){
+                long arriveTime = (long)(sc_time_stamp()/sc_time(1, SC_NS));
+                GL::bursts[burstIdx]->arrivePeTime = arriveTime;
+                burstRespQueue[i].push_back(burstIdx);
+            } 
+        }
         wait(peClkCycle, SC_NS);
     }
 }

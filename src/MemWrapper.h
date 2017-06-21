@@ -50,17 +50,17 @@ class MemWrapper : public sc_module{
         std::vector<const char*> files;
 
         // Signals from/to pes. They will be processed following the peClk.
-        sc_in <long> burstReq;
-        sc_out <long> burstResp;
+        sc_in <long> burstReq[PNUM];
+        sc_out <long> burstResp[PNUM];
         sc_in <bool> bfsDone;
 
         // In addition, as the requests are stored in order, 
         // it is also the basis of the data memory content management.  
-        std::list<long> burstReqQueue;
+        std::vector<std::list<long>> burstReqQueue;
 
         // It stores the response obtained from the ramulator and it will 
         // be gradually removed when the response is sent out.
-        std::list<long> burstRespQueue;
+        std::vector<std::list<long>> burstRespQueue;
 
         // It stores all the requests to be sent to the ramulator
         // It will gradually be removed when it is processed.

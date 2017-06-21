@@ -6,8 +6,8 @@ int sc_main(int argc, char *argv[]){
     sc_set_time_resolution(1, SC_NS);
 
     // Only burstIdx is transferred.
-    sc_signal<long> burstReq;
-    sc_signal<long> burstResp;
+    sc_signal<long> burstReq[PNUM];
+    sc_signal<long> burstResp[PNUM];
     sc_signal<bool> bfsDone;
 
     double peClkCycle = 2500;
@@ -18,14 +18,18 @@ int sc_main(int argc, char *argv[]){
     MemWrapper memWrapper("memWrapper", memClkCycle, peClkCycle, argc, argv);
     memWrapper.setNewStartVertex(GL::startingVertices[0]);
     std::cout << "start vertex: " << GL::startingVertices[0] << std::endl;
-    memWrapper.burstReq(burstReq);
-    memWrapper.burstResp(burstResp);
+    for(int i = 0; i < PNUM; i++){
+        memWrapper.burstReq[i](burstReq[i]);
+        memWrapper.burstResp[i](burstResp[i]);
+    }
     memWrapper.bfsDone(bfsDone);
     memWrapper.sigInit();
 
     pe peInst("peInst", 0, peClkCycle);
-    peInst.burstReq(burstReq);
-    peInst.burstResp(burstResp);
+    for(int i = 0; i < PNUM; i++){
+        peInst.burstReq[i](burstReq[i]);
+        peInst.burstResp[i](burstResp[i]);
+    }
     peInst.bfsDone(bfsDone);
     peInst.peClk(peClk);
     peInst.sigInit();

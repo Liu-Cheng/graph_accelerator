@@ -7,7 +7,9 @@
 #include "systemc.h"
 
 std::ostream& operator<<(std::ostream &os, const ramulator::Request::Type &type);
-std::ostream& operator<<(std::ostream &os, const PortType &type);
+
+#define PNUM 8
+#define PRNUM 4
 
 // This macro is used to locate the code position.
 #define HERE do {std::cout <<"File: " << __FILE__ << " Line: " << __LINE__ << std::endl;} while(0)
@@ -30,7 +32,7 @@ struct BurstOp{
     public:
         bool valid;
         ramulator::Request::Type type;
-        PortType ptype;
+        int portIdx;
         long burstIdx;
         int peIdx;
         long addr;
@@ -93,13 +95,12 @@ struct BurstOp{
         int getReqNum() const;
         void updateReqVec();
         void updateAddrVec();
-
         void ramToReq(const std::vector<char> &ramData);
         void reqToRam(std::vector<char> &ramData);
 
         // Constructors
         BurstOp(ramulator::Request::Type _type, 
-                PortType _ptype,
+                int _portIdx,
                 long _burstIdx, 
                 int _peIdx, 
                 long _addr, 
@@ -108,9 +109,7 @@ struct BurstOp{
         BurstOp(bool _valid = false);
 
     private:
-        // Attached data. 
         std::vector<char> data;
-
         long getAlignedAddr() const;
         int getOffset() const;
 };
@@ -149,7 +148,6 @@ class GL{
         // It will be reset based on memory configuration
         static int burstLen; 
         static int burstAddrWidth;
-
         static int logon;
 
         // Gloabl container that stores all the bursts created in the bfs.
@@ -164,13 +162,14 @@ class GL{
         static int baseLen;
         static long getReqIdx();
         static long getBurstIdx();
+        static int getPortIdx();
         static void cfgBfsParam(const std::string &cfgFileName);
 
     private:
+        static int portIdx;
         static long reqIdx;
         static long burstIdx;
         static int getBurstAddrWidth();
 };
-
 
 #endif

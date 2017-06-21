@@ -31,6 +31,7 @@ long GL::frontierMemAddr = 0;
 
 long GL::reqIdx = -1;
 long GL::burstIdx = -1;
+int GL::portIdx = -1;
 int GL::burstLen = 64;
 int GL::baseLen = 1024; // 1024 bytes
 int GL::burstAddrWidth = GL::getBurstAddrWidth();
@@ -73,6 +74,11 @@ void GL::cfgBfsParam(const std::string &cfgFileName){
 
     fhandle.close();
 
+}
+
+int GL::getPortIdx(){
+    portIdx++;
+    return portIdx;
 }
 
 long GL::getBurstIdx(){
@@ -140,39 +146,11 @@ std::ostream& operator<< (std::ostream &os, const ramulator::Request::Type &type
     return os;
 }
 
-std::ostream& operator<< (std::ostream &os, const PortType &ptype){
-    switch (ptype){
-        case INSPECT_DEPTH_READ:
-            os << "INSPECT_DEPTH_READ";
-            break;
-        case EXPAND_RPAO_READ:
-            os << "EXPAND_CIAO_READ";
-            break;
-        case EXPAND_CIAO_READ:
-            os << "EXPAND_CIAO_READ";
-            break;
-        case EXPAND_RPAI_READ:
-            os << "EXPAND_RPAI_READ";
-            break;
-        case EXPAND_CIAI_READ:
-            os << "EXPAND_CIAI_READ";
-            break;
-        case EXPAND_DEPTH_READ:
-            os << "EXPAND_DEPTH_READ";
-            break;
-        case EXPAND_DEPTH_WRITE:
-            os << "EXPAND_DEPTH_WRITE";
-            break;
-    }
-
-    return os;
-}
-
 std::ostream& operator<<(std::ostream &os, const BurstOp &op){
 
     os << "valid: " << op.valid << " ";
     os << "type: " << op.type << " ";
-    os << "ptype: " << op.ptype << " ";
+    os << "portIdx: " << op.portIdx << " ";
     os << "burstIdx: " << op.burstIdx << " ";
     os << "peIdx: " << op.peIdx << " ";
     os << "addr: " << op.addr << " ";
@@ -188,7 +166,7 @@ std::ostream& operator<<(std::ostream &os, const BurstOp &op){
 
 BurstOp::BurstOp(
         ramulator::Request::Type _type, 
-        PortType _ptype,
+        int _portIdx,
         long _burstIdx, 
         int _peIdx, 
         long _addr, 
@@ -196,7 +174,7 @@ BurstOp::BurstOp(
 {
     valid = true;
     type = _type;
-    ptype = _ptype;
+    portIdx = _portIdx;
     burstIdx = _burstIdx;
     peIdx = _peIdx;
     addr = _addr;
@@ -210,7 +188,7 @@ BurstOp::BurstOp(
 BurstOp::BurstOp(bool _valid){
     valid = _valid;
     type = ramulator::Request::Type::READ;
-    ptype = INSPECT_DEPTH_READ;
+    portIdx = 0;
     peIdx = 0;
     addr = 0;
     burstIdx = 0;
@@ -225,7 +203,7 @@ void BurstOp::operator=(const BurstOp &op){
 
     valid = op.valid;
     type = op.type;
-    ptype = op.ptype;
+    portIdx = op.portIdx;
     burstIdx = op.burstIdx;
     peIdx = op.peIdx;
     addr = op.addr;
@@ -247,7 +225,7 @@ bool BurstOp::operator==(const BurstOp &op) const{
     bool equal = true;;
     equal &= (valid == op.valid);
     equal &= (type == op.type);
-    equal &= (ptype == op.ptype);
+    equal &= (portIdx == op.portIdx);
     equal &= (burstIdx == op.burstIdx);
     equal &= (peIdx == op.peIdx);
     equal &= (addr == op.addr);
@@ -268,9 +246,7 @@ void sc_trace(sc_trace_file *tf, const BurstOp &op, const std::string &name){
     oss << op.type;
     sc_trace(tf, op.valid, name+".valid");
     sc_trace(tf, oss.str().c_str(), name+".type");
-    oss.str(std::string());
-    oss << op.ptype;
-    sc_trace(tf, oss.str().c_str(), name+".ptype");
+    sc_trace(tf, op.portIdx, name+".portIdx");
     sc_trace(tf, op.burstIdx, name+".burstIdx");
     sc_trace(tf, op.peIdx, name+".peIdx");
     sc_trace(tf, op.addr, name+".addr");
@@ -293,6 +269,7 @@ void BurstOp::convertToReq(std::list<ramulator::Request> &reqQueue){
         req.udf.burstIdx = burstIdx;
         req.udf.reqIdx = reqVec[i];
         req.udf.peIdx = peIdx;
+        req.udf.portIdx = portIdx;
         req.udf.arriveMemTime = arriveMemTime;
         req.udf.departMemTime = departMemTime;
         reqQueue.push_back(req);
