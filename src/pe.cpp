@@ -72,6 +72,7 @@ void pe::sigInit(){
 
 void pe::init(){
     level = 0;
+    topdown = true;
     bfsIterationStart = false;
     burstReqQueue.resize(PNUM);
     burstRespQueue.resize(PNUM);

@@ -494,8 +494,6 @@ bool CSR::hybridBfs(const int &startIdx, std::ofstream &fhandle){
                     }
                 }
             }
-
-
         }
 
         frontierDist.push_back(frontier.size());

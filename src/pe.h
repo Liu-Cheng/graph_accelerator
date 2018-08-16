@@ -69,6 +69,7 @@ class pe : public sc_module{
         int frontierSize;
         bool bfsIterationStart;
         int localCounter;
+        bool topdown;
 
         std::vector<std::list<char>> depthBuffer0; //inspectDepthReadBuffer; 
         std::list<char> depthBuffer1;   //expandDepthWriteBuffer;
